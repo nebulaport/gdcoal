@@ -1,4 +1,5 @@
-##国电煤炭交易平台
+## 国电煤炭交易平台
+
 基于SSM框架
 
 IDE：IntelliJ IDEA 
