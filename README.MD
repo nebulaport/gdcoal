@@ -3,6 +3,6 @@
 
 IDE：IntelliJ IDEA 
 
-JDK:1.8
+JDK：1.8
 
 开发中...
