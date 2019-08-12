@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtRoleResDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtRoleResEntity" >
+    <id column="ROLE_UUID" property="roleUuid" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    ROLE_UUID, ID
+  </sql>
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_role_res
+    where ROLE_UUID = #{roleUuid }
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_role_res
+    where ROLE_UUID = #{roleUuid}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtRoleResEntity" >
+    insert into pt_role_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleUuid != null" >
+        ROLE_UUID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleUuid != null" >
+        #{roleUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+</mapper>

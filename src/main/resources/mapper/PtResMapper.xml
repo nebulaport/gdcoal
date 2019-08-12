@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtResDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtResEntity" >
+    <id column="RES_UUID" property="resUuid" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="RES_ID" property="resId" jdbcType="VARCHAR" />
+    <result column="RES_NAME" property="resName" jdbcType="VARCHAR" />
+    <result column="RES_URL" property="resUrl" jdbcType="VARCHAR" />
+    <result column="RES_TYPE" property="resType" jdbcType="VARCHAR" />
+    <result column="PARENT_UUID" property="parentUuid" jdbcType="VARCHAR" />
+    <result column="RES_ORDER" property="resOrder" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    RES_UUID, ID, RES_ID, RES_NAME, RES_URL, RES_TYPE, PARENT_UUID, RES_ORDER
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="string" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_res where 1=1
+    <if test="_parameter != null" >
+      ${_parameter}
+    </if>
+
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_res
+    where RES_UUID = #{resUuid}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_res
+    where RES_UUID = #{resUuid}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtResEntity" >
+    insert into pt_res
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="resUuid != null" >
+        RES_UUID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="resId != null" >
+        RES_ID,
+      </if>
+      <if test="resName != null" >
+        RES_NAME,
+      </if>
+      <if test="resUrl != null" >
+        RES_URL,
+      </if>
+      <if test="resType != null" >
+        RES_TYPE,
+      </if>
+      <if test="parentUuid != null" >
+        PARENT_UUID,
+      </if>
+      <if test="resOrder != null" >
+        RES_ORDER,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="resUuid != null" >
+        #{resUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null" >
+        #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null" >
+        #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null" >
+        #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null" >
+        #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null" >
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="resOrder != null" >
+        #{resOrder,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtResEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_res where 1=1
+    <if test="whereSql != null" >
+      ${whereSql}
+    </if>
+  </select>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtResEntity" >
+    update pt_res
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resId != null" >
+        RES_ID = #{resId,jdbcType=VARCHAR},
+      </if>
+      <if test="resName != null" >
+        RES_NAME = #{resName,jdbcType=VARCHAR},
+      </if>
+      <if test="resUrl != null" >
+        RES_URL = #{resUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="resType != null" >
+        RES_TYPE = #{resType,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null" >
+        PARENT_UUID = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="resOrder != null" >
+        RES_ORDER = #{resOrder,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where RES_UUID = #{resUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtResEntity" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_res where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

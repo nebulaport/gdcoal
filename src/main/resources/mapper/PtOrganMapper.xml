@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtOrganDao" >
+
+
+  <sql id="Base_Column_List" >
+    ORGAN_UUID ORGANUUID, ORGAN_CODE ORGANCODE, ORGAN_NAME ORGANNAME,
+     ORGAN_TYPE ORGANTYPE, IN_USE INUSE, PARENT_UUID PARENTUUID, STATUS, MODIFIERID,
+    MODTIME, DESCRIPTION, account_code accountcode
+  </sql>
+
+
+
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" >
+    insert into pt_organ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="organUuid != null" >
+        ORGAN_UUID,
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE,
+      </if>
+      <if test="organName != null" >
+        ORGAN_NAME,
+      </if>
+      <if test="organType != null" >
+        ORGAN_TYPE,
+      </if>
+      <if test="inUse != null" >
+        IN_USE,
+      </if>
+      <if test="parentUuid != null" >
+        PARENT_UUID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="modifierid != null" >
+        MODIFIERID,
+      </if>
+      <if test="modtime != null" >
+        MODTIME,
+      </if>
+      <if test="description != null" >
+        DESCRIPTION,
+      </if>
+      <if test="accountCode != null" >
+        account_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="organUuid != null" >
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null" >
+        #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null" >
+        #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="inUse != null" >
+        #{inUse,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null" >
+        #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="modifierid != null" >
+        #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="modtime != null" >
+        #{modtime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null" >
+        #{accountCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" >
+    update pt_organ
+    <set >
+      <if test="organCode != null" >
+        ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null" >
+        ORGAN_NAME = #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organType != null" >
+        ORGAN_TYPE = #{organType,jdbcType=VARCHAR},
+      </if>
+      <if test="inUse != null" >
+        IN_USE = #{inUse,jdbcType=VARCHAR},
+      </if>
+      <if test="parentUuid != null" >
+        PARENT_UUID = #{parentUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="modifierid != null" >
+        MODIFIERID = #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="modtime != null" >
+        MODTIME = #{modtime,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null" >
+        account_code = #{accountCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ORGAN_UUID = #{organUuid,jdbcType=VARCHAR}
+  </update>
+  <delete id="deleteEntity" parameterType="string">
+    delete from pt_organ where  ORGAN_UUID=#{ab}
+  </delete>
+
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.PtOrganEntity">
+    select    <include refid="Base_Column_List" /> from pt_organ
+    where      ORGAN_UUID=#{ab}
+  </select>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.PtOrganEntity">
+
+    select <include refid="Base_Column_List" /> from pt_organ where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+
+
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" resultType="int">
+    select count(*) from pt_organ where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" resultType="com.isoftstone.gdcoal.entity.PtOrganEntity">
+    select ORGAN_UUID ORGANUUID, ORGAN_CODE ORGANCODE, ORGAN_NAME ORGANNAME,
+    ORGAN_TYPE ORGANTYPE, case when IN_USE is null then null when IN_USE='N' then '禁用'
+    when IN_USE='Y' then '启用' end INUSE, PARENT_UUID PARENTUUID, STATUS, MODIFIERID,
+    MODTIME, DESCRIPTION, account_code accountcode  from pt_organ where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

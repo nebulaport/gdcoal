@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtBondcontracttabDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" >
+    <id column="Contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="Sign_date" property="signDate" jdbcType="VARCHAR" />
+    <result column="Pt_userNo" property="ptUserno" jdbcType="VARCHAR" />
+    <result column="SUPPLIERID" property="supplierid" jdbcType="VARCHAR" />
+    <result column="TranSportType" property="transporttype" jdbcType="VARCHAR" />
+    <result column="checkType" property="checktype" jdbcType="VARCHAR" />
+    <result column="DeliverStart_date" property="deliverstartDate" jdbcType="VARCHAR" />
+    <result column="DeliverEnd_date" property="deliverendDate" jdbcType="VARCHAR" />
+    <result column="CreateUser" property="createuser" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="VARCHAR" />
+    <result column="modUser" property="moduser" jdbcType="VARCHAR" />
+    <result column="modDate" property="moddate" jdbcType="VARCHAR" />
+    <result column="contractFilename" property="contractfilename" jdbcType="VARCHAR" />
+    <result column="contractURL" property="contracturl" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" extends="BaseResultMap" >
+    <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    Contract_no, Sign_date, Pt_userNo, SUPPLIERID, TranSportType, checkType, DeliverStart_date, 
+    DeliverEnd_date, CreateUser, createDate, modUser, modDate, contractFilename, contractURL, 
+    status
+  </sql>
+  <sql id="Blob_Column_List" >
+    Remark
+  </sql>
+
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_bondcontracttab where 1=1
+    <if test="_parameter != null" >
+      ${_parameter}
+    </if>
+
+  </select>
+  <select id="selectById" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pt_bondcontracttab
+    where Contract_no = #{contractNo}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_bondcontracttab
+    where Contract_no = #{contractNo,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" >
+    insert into pt_bondcontracttab
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="contractNo != null" >
+        Contract_no,
+      </if>
+      <if test="signDate != null" >
+        Sign_date,
+      </if>
+      <if test="ptUserno != null" >
+        Pt_userNo,
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="transporttype != null" >
+        TranSportType,
+      </if>
+      <if test="checktype != null" >
+        checkType,
+      </if>
+      <if test="deliverstartDate != null" >
+        DeliverStart_date,
+      </if>
+      <if test="deliverendDate != null" >
+        DeliverEnd_date,
+      </if>
+      <if test="createuser != null" >
+        CreateUser,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="moduser != null" >
+        modUser,
+      </if>
+      <if test="moddate != null" >
+        modDate,
+      </if>
+      <if test="contractfilename != null" >
+        contractFilename,
+      </if>
+      <if test="contracturl != null" >
+        contractURL,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="remark != null" >
+        Remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+      <if test="signDate != null" >
+        #{signDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ptUserno != null" >
+        #{ptUserno,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="transporttype != null" >
+        #{transporttype,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverstartDate != null" >
+        #{deliverstartDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverendDate != null" >
+        #{deliverendDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="moduser != null" >
+        #{moduser,jdbcType=VARCHAR},
+      </if>
+      <if test="moddate != null" >
+        #{moddate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractfilename != null" >
+        #{contractfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="contracturl != null" >
+        #{contracturl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_bondcontracttab where 1=1
+    <if test="whereSql != null" >
+      ${whereSql}
+    </if>
+  </select>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" >
+    update pt_bondcontracttab
+    <set >
+      <if test="signDate != null" >
+        Sign_date = #{signDate,jdbcType=VARCHAR},
+      </if>
+      <if test="ptUserno != null" >
+        Pt_userNo = #{ptUserno,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID = #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="transporttype != null" >
+        TranSportType = #{transporttype,jdbcType=VARCHAR},
+      </if>
+      <if test="checktype != null" >
+        checkType = #{checktype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverstartDate != null" >
+        DeliverStart_date = #{deliverstartDate,jdbcType=VARCHAR},
+      </if>
+      <if test="deliverendDate != null" >
+        DeliverEnd_date = #{deliverendDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CreateUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="moduser != null" >
+        modUser = #{moduser,jdbcType=VARCHAR},
+      </if>
+      <if test="moddate != null" >
+        modDate = #{moddate,jdbcType=VARCHAR},
+      </if>
+      <if test="contractfilename != null" >
+        contractFilename = #{contractfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="contracturl != null" >
+        contractURL = #{contracturl,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        Remark = #{remark,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where Contract_no = #{contractNo,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity"  resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_bondcontracttab where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+
+  </select>
+</mapper>

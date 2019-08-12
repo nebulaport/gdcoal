@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtMenuDirectoryDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtMenuDirectoryEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <id column="LOCALE" property="locale" jdbcType="VARCHAR" />
+    <result column="DIR_CODE" property="dirCode" jdbcType="VARCHAR" />
+    <result column="DIR_NAME" property="dirName" jdbcType="VARCHAR" />
+    <result column="DIR_LEVEL_NUMBER" property="dirLevelNumber" jdbcType="DECIMAL" />
+    <result column="DIR_TYPE" property="dirType" jdbcType="CHAR" />
+    <result column="RESOURCE_ID" property="resourceId" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="ISITEM" property="isitem" jdbcType="CHAR" />
+    <result column="DIR_ORDER" property="dirOrder" jdbcType="DECIMAL" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="FLAG" property="flag" jdbcType="CHAR" />
+    <result column="MENU_GROUP_ID" property="menuGroupId" jdbcType="VARCHAR" />
+    <result column="RES_UUID" property="resUuid" jdbcType="VARCHAR" />
+    <result column="REALID" property="realid" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    ID, LOCALE, DIR_CODE, DIR_NAME, DIR_LEVEL_NUMBER, DIR_TYPE, RESOURCE_ID, PARENT_ID, 
+    ISITEM, DIR_ORDER, STATUS, FLAG, MENU_GROUP_ID, RES_UUID, REALID
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_menu_directory where 1=1
+    <if test="_parameter != null" >
+      ${_parameter}
+    </if>
+
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="string" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_menu_directory
+    where ID = #{id}
+
+  </select>
+  <delete id="deleteEntity" parameterType="string" >
+    delete from pt_menu_directory
+    where ID = #{id}
+
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtMenuDirectoryEntity" >
+    insert into pt_menu_directory
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="locale != null" >
+        LOCALE,
+      </if>
+      <if test="dirCode != null" >
+        DIR_CODE,
+      </if>
+      <if test="dirName != null" >
+        DIR_NAME,
+      </if>
+      <if test="dirLevelNumber != null" >
+        DIR_LEVEL_NUMBER,
+      </if>
+      <if test="dirType != null" >
+        DIR_TYPE,
+      </if>
+      <if test="resourceId != null" >
+        RESOURCE_ID,
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID,
+      </if>
+      <if test="isitem != null" >
+        ISITEM,
+      </if>
+      <if test="dirOrder != null" >
+        DIR_ORDER,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="flag != null" >
+        FLAG,
+      </if>
+      <if test="menuGroupId != null" >
+        MENU_GROUP_ID,
+      </if>
+      <if test="resUuid != null" >
+        RES_UUID,
+      </if>
+      <if test="realid != null" >
+        REALID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="locale != null" >
+        #{locale,jdbcType=VARCHAR},
+      </if>
+      <if test="dirCode != null" >
+        #{dirCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dirName != null" >
+        #{dirName,jdbcType=VARCHAR},
+      </if>
+      <if test="dirLevelNumber != null" >
+        #{dirLevelNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dirType != null" >
+        #{dirType,jdbcType=CHAR},
+      </if>
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isitem != null" >
+        #{isitem,jdbcType=CHAR},
+      </if>
+      <if test="dirOrder != null" >
+        #{dirOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="flag != null" >
+        #{flag,jdbcType=CHAR},
+      </if>
+      <if test="menuGroupId != null" >
+        #{menuGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="resUuid != null" >
+        #{resUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="realid != null" >
+        #{realid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtMenuDirectoryEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_menu_directory where 1=1
+    <if test="whereSql != null" >
+       ${whereSql}
+    </if>
+  </select>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtMenuDirectoryEntity" >
+    update pt_menu_directory
+    <set >
+      <if test="dirCode != null" >
+        DIR_CODE = #{dirCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dirName != null" >
+        DIR_NAME = #{dirName,jdbcType=VARCHAR},
+      </if>
+      <if test="dirLevelNumber != null" >
+        DIR_LEVEL_NUMBER = #{dirLevelNumber,jdbcType=DECIMAL},
+      </if>
+      <if test="dirType != null" >
+        DIR_TYPE = #{dirType,jdbcType=CHAR},
+      </if>
+      <if test="resourceId != null" >
+        RESOURCE_ID = #{resourceId,jdbcType=VARCHAR},
+      </if>
+      <if test="parentId != null" >
+        PARENT_ID = #{parentId,jdbcType=VARCHAR},
+      </if>
+      <if test="isitem != null" >
+        ISITEM = #{isitem,jdbcType=CHAR},
+      </if>
+      <if test="dirOrder != null" >
+        DIR_ORDER = #{dirOrder,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="flag != null" >
+        FLAG = #{flag,jdbcType=CHAR},
+      </if>
+      <if test="menuGroupId != null" >
+        MENU_GROUP_ID = #{menuGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="resUuid != null" >
+        RES_UUID = #{resUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="realid != null" >
+        REALID = #{realid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtDepartmentEntity" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_menu_directory where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtRUserDutyOrgDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtRUserDutyOrgEntity" >
+    <id column="USER_DUTYID" property="userDutyid" jdbcType="VARCHAR" />
+    <result column="USER_UUID" property="userUuid" jdbcType="VARCHAR" />
+    <result column="DUTYID" property="dutyid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    USER_DUTYID, USER_UUID, DUTYID
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_r_user_duty_org where 1=1
+    <if test="_parameter != null" >
+     ${_parameter}
+    </if>
+
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_r_user_duty_org
+    where USER_DUTYID = #{userDutyid }
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_r_user_duty_org
+    where USER_DUTYID = #{userDutyid}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtRUserDutyOrgEntity" >
+    insert into pt_r_user_duty_org
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userDutyid != null" >
+        USER_DUTYID,
+      </if>
+      <if test="userUuid != null" >
+        USER_UUID,
+      </if>
+      <if test="dutyid != null" >
+        DUTYID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userDutyid != null" >
+        #{userDutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyid != null" >
+        #{dutyid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtRUserDutyOrgEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_r_user_duty_org where 1=1
+    <if test="whereSql != null" >
+      ${whereSql}
+    </if>
+  </select>
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtRUserDutyOrgEntity" >
+    update pt_r_user_duty_org
+    <set >
+      <if test="userUuid != null" >
+        USER_UUID = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="dutyid != null" >
+        DUTYID = #{dutyid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_DUTYID = #{userDutyid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtRUserDutyOrgEntity" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_r_user_duty_org where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

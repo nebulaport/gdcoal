@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtBondcontractsupplementDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity" >
+    <id column="supplementID" property="supplementid" jdbcType="VARCHAR" />
+    <result column="SupplementDesc" property="supplementdesc" jdbcType="VARCHAR" />
+    <result column="uploadDate" property="uploaddate" jdbcType="VARCHAR" />
+    <result column="supplementFileName" property="supplementfilename" jdbcType="VARCHAR" />
+    <result column="supplementFileURL" property="supplementfileurl" jdbcType="VARCHAR" />
+    <result column="uploadUser" property="uploaduser" jdbcType="VARCHAR" />
+    <result column="Contract_no" property="contractNo" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    supplementID, SupplementDesc, uploadDate, supplementFileName, supplementFileURL, 
+    uploadUser, Contract_no
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_bondcontractsupplement
+    where 1=1
+    <if test="_parameter != null" >
+        ${_parameter}
+    </if>
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_bondcontractsupplement
+    where supplementID = #{supplementid}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_bondcontractsupplement
+    where supplementID = #{supplementid}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity" >
+    insert into pt_bondcontractsupplement
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplementid != null" >
+        supplementID,
+      </if>
+      <if test="supplementdesc != null" >
+        SupplementDesc,
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate,
+      </if>
+      <if test="supplementfilename != null" >
+        supplementFileName,
+      </if>
+      <if test="supplementfileurl != null" >
+        supplementFileURL,
+      </if>
+      <if test="uploaduser != null" >
+        uploadUser,
+      </if>
+      <if test="contractNo != null" >
+        Contract_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplementid != null" >
+        #{supplementid,jdbcType=VARCHAR},
+      </if>
+      <if test="supplementdesc != null" >
+        #{supplementdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=VARCHAR},
+      </if>
+      <if test="supplementfilename != null" >
+        #{supplementfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="supplementfileurl != null" >
+        #{supplementfileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaduser != null" >
+        #{uploaduser,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_bondcontractsupplement where 1=1
+    <if test="whereSql != null" >
+      ${whereSql}
+    </if>
+  </select>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity" >
+    update pt_bondcontractsupplement
+    <set >
+      <if test="supplementdesc != null" >
+        SupplementDesc = #{supplementdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaddate != null" >
+        uploadDate = #{uploaddate,jdbcType=VARCHAR},
+      </if>
+      <if test="supplementfilename != null" >
+        supplementFileName = #{supplementfilename,jdbcType=VARCHAR},
+      </if>
+      <if test="supplementfileurl != null" >
+        supplementFileURL = #{supplementfileurl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploaduser != null" >
+        uploadUser = #{uploaduser,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        Contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where supplementID = #{supplementid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractsupplementEntity"  resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_bondcontractsupplement where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+
+  </select>
+</mapper>

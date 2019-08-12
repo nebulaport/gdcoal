@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TAccountDao" >
+
+
+  <sql id="Base_Column_List" >
+    account_id accountId, account_code accountCode, Total_account totalAccount, Balance_Account balanceAccount,
+     Freeze_Account freezeAccount, ORGAN_CODE organCode,
+    Membership_fees membershipFees, bid_account bidAccount, performance_account performanceAccount
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_account
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TAccountEntity" >
+    insert into t_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="accountCode != null" >
+        account_code,
+      </if>
+      <if test="totalAccount != null" >
+        Total_account,
+      </if>
+      <if test="balanceAccount != null" >
+        Balance_Account,
+      </if>
+      <if test="freezeAccount != null" >
+        Freeze_Account,
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE,
+      </if>
+      <if test="membershipFees != null" >
+        Membership_fees,
+      </if>
+      <if test="bidAccount != null" >
+        bid_account,
+      </if>
+      <if test="performanceAccount != null" >
+        performance_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null" >
+        #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAccount != null" >
+        #{totalAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceAccount != null" >
+        #{balanceAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAccount != null" >
+        #{freezeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="organCode != null" >
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="membershipFees != null" >
+        #{membershipFees,jdbcType=DECIMAL},
+      </if>
+      <if test="bidAccount != null" >
+        #{bidAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="performanceAccount != null" >
+        #{performanceAccount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TAccountEntity" >
+    update t_account
+    <set >
+      <if test="accountCode != null" >
+        account_code = #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAccount != null" >
+        Total_account = #{totalAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="balanceAccount != null" >
+        Balance_Account = #{balanceAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="freezeAccount != null" >
+        Freeze_Account = #{freezeAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="membershipFees != null" >
+        Membership_fees = #{membershipFees,jdbcType=DECIMAL},
+      </if>
+      <if test="bidAccount != null" >
+        bid_account = #{bidAccount,jdbcType=DECIMAL},
+      </if>
+      <if test="performanceAccount != null" >
+        performance_account = #{performanceAccount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where account_id = #{accountId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TAccountEntity">
+
+    select <include refid="Base_Column_List"></include>  from t_account where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TAccountEntity">
+    select    <include refid="Base_Column_List" /> from t_account
+    where      account_id=#{ab}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TAccountEntity" resultType="int">
+    select count(*) from t_account where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TAccountEntity" resultType="com.isoftstone.gdcoal.entity.TAccountEntity">
+    select <include refid="Base_Column_List"></include> from t_account where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

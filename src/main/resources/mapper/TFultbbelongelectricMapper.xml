@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFultbbelongelectricDao" >
+
+
+
+  <sql id="Base_Column_List" >
+    ID, SUPPLIERID, ORGANIZATIONCODE, ORGAN_CODE, OPERDATE, OPERUSER, CREATEUSER, CREATEDATE, 
+    CREATEUSERID, CREATEUSERDEPTID, CREATEUSERDEPTCODE, DCORGAN_CODE DCORGANCODE, DCVERIFYMAN, DCVERIFYTIME,
+    DCVERIFYSTATE, GSORGAN_CODE gsorganCode, VERIFYMAN, VERIFYTIME, VERIFYSTATE, BLACKLISTSTATE,
+    BLACKREASON, REMARK, FLOWSTATE, SUPPLIERTYPE, COMPANYID, GSORGANID, GSVERIFYMAN, 
+    GSVERIFYTIME
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_fultbbelongelectric
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity" >
+    insert into t_fultbbelongelectric
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE,
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE,
+      </if>
+      <if test="operdate != null" >
+        OPERDATE,
+      </if>
+      <if test="operuser != null" >
+        OPERUSER,
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID,
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID,
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE,
+      </if>
+      <if test="dcorganCode != null" >
+        DCORGAN_CODE,
+      </if>
+      <if test="dcverifyman != null" >
+        DCVERIFYMAN,
+      </if>
+      <if test="dcverifytime != null" >
+        DCVERIFYTIME,
+      </if>
+      <if test="dcverifystate != null" >
+        DCVERIFYSTATE,
+      </if>
+      <if test="gsorganCode != null" >
+        GSORGAN_CODE,
+      </if>
+      <if test="verifyman != null" >
+        VERIFYMAN,
+      </if>
+      <if test="verifytime != null" >
+        VERIFYTIME,
+      </if>
+      <if test="verifystate != null" >
+        VERIFYSTATE,
+      </if>
+      <if test="blackliststate != null" >
+        BLACKLISTSTATE,
+      </if>
+      <if test="blackreason != null" >
+        BLACKREASON,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="flowstate != null" >
+        FLOWSTATE,
+      </if>
+      <if test="suppliertype != null" >
+        SUPPLIERTYPE,
+      </if>
+      <if test="companyid != null" >
+        COMPANYID,
+      </if>
+      <if test="gsorganid != null" >
+        GSORGANID,
+      </if>
+      <if test="gsverifyman != null" >
+        GSVERIFYMAN,
+      </if>
+      <if test="gsverifytime != null" >
+        GSVERIFYTIME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationcode != null" >
+        #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operuser != null" >
+        #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dcorganCode != null" >
+        #{dcorganCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifyman != null" >
+        #{dcverifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifytime != null" >
+        #{dcverifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifystate != null" >
+        #{dcverifystate,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganCode != null" >
+        #{gsorganCode,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyman != null" >
+        #{verifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="verifytime != null" >
+        #{verifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="verifystate != null" >
+        #{verifystate,jdbcType=VARCHAR},
+      </if>
+      <if test="blackliststate != null" >
+        #{blackliststate,jdbcType=DECIMAL},
+      </if>
+      <if test="blackreason != null" >
+        #{blackreason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstate != null" >
+        #{flowstate,jdbcType=DECIMAL},
+      </if>
+      <if test="suppliertype != null" >
+        #{suppliertype,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganid != null" >
+        #{gsorganid,jdbcType=VARCHAR},
+      </if>
+      <if test="gsverifyman != null" >
+        #{gsverifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="gsverifytime != null" >
+        #{gsverifytime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity" >
+    update t_fultbbelongelectric
+    <set >
+      <if test="supplierid != null" >
+        SUPPLIERID = #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE = #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        OPERDATE = #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operuser != null" >
+        OPERUSER = #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID = #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID = #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE = #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="dcorganCode != null" >
+        DCORGAN_CODE = #{dcorganCode,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifyman != null" >
+        DCVERIFYMAN = #{dcverifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifytime != null" >
+        DCVERIFYTIME = #{dcverifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="dcverifystate != null" >
+        DCVERIFYSTATE = #{dcverifystate,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganCode != null" >
+        GSORGAN_CODE = #{gsorganCode,jdbcType=VARCHAR},
+      </if>
+      <if test="verifyman != null" >
+        VERIFYMAN = #{verifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="verifytime != null" >
+        VERIFYTIME = #{verifytime,jdbcType=VARCHAR},
+      </if>
+      <if test="verifystate != null" >
+        VERIFYSTATE = #{verifystate,jdbcType=VARCHAR},
+      </if>
+      <if test="blackliststate != null" >
+        BLACKLISTSTATE = #{blackliststate,jdbcType=DECIMAL},
+      </if>
+      <if test="blackreason != null" >
+        BLACKREASON = #{blackreason,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstate != null" >
+        FLOWSTATE = #{flowstate,jdbcType=DECIMAL},
+      </if>
+      <if test="suppliertype != null" >
+        SUPPLIERTYPE = #{suppliertype,jdbcType=VARCHAR},
+      </if>
+      <if test="companyid != null" >
+        COMPANYID = #{companyid,jdbcType=VARCHAR},
+      </if>
+      <if test="gsorganid != null" >
+        GSORGANID = #{gsorganid,jdbcType=VARCHAR},
+      </if>
+      <if test="gsverifyman != null" >
+        GSVERIFYMAN = #{gsverifyman,jdbcType=VARCHAR},
+      </if>
+      <if test="gsverifytime != null" >
+        GSVERIFYTIME = #{gsverifytime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_fultbbelongelectric where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity">
+    select    <include refid="Base_Column_List" /> from t_fultbbelongelectric
+    where      ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity" resultType="int">
+    select count(*) from t_fultbbelongelectric where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity" resultType="com.isoftstone.gdcoal.entity.TFultbbelongelectricEntity">
+    select <include refid="Base_Column_List"></include> from t_fultbbelongelectric where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

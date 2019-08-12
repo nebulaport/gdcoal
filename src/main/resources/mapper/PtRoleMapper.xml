@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtRoleDao" >
+
+    <sql id="columns">
+        role_uuid roleUuid,role_id roleid,role_name roleName
+    </sql>
+
+   <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtRoleEntity">
+        insert into pt_role (role_uuid,role_id,role_name)
+        values(#{roleUuid,jdbcType=VARCHAR},#{roleId,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR})
+   </insert>
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtRoleEntity">
+    update pt_role
+    <set>
+        <if test="roleId!=null">
+          role_id=#{roleId,jdbcType=VARCHAR},
+        </if>
+      <if test="roleName!=null">
+        role_name=#{roleName,jdbcType=VARCHAR},
+      </if>
+
+
+    </set>
+    where role_uuid=#{roleUuid,jdbcType=VARCHAR}
+
+  </update>
+
+  <select id="selectById" parameterType="string" resultType="com.isoftstone.gdcoal.entity.PtRoleEntity">
+    select <include refid="columns"></include>
+     from pt_role where pt_role.role_uuid=#{id}
+  </select>
+
+  <select id="selectALL" parameterType="java.lang.StringBuffer" resultType="com.isoftstone.gdcoal.entity.PtRoleEntity">
+      select <include refid="columns"></include>
+      from pt_role where 1=1
+      <if test="_parameter!=null">
+          ${_parameter}
+      </if>
+
+
+
+  </select>
+
+    <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtRoleEntity" resultType="int">
+        select count(*)
+        from pt_role where 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+
+    </select>
+
+    <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtRoleEntity" resultType="com.isoftstone.gdcoal.entity.PtRoleEntity">
+        select <include refid="columns"></include>
+        from pt_role where 1=1
+        <if test="whereSql!=null">
+            ${whereSql}
+        </if>
+        limit #{offset},#{pageSize}
+
+    </select>
+
+</mapper>

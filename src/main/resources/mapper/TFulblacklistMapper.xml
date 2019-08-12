@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFulblacklistDao" >
+
+
+
+  <sql id="Base_Column_List" >
+    BLACKID, ID, ORGAN_CODE, SUPPLIERID, CREATEUSER, CREATEDATE, BLACKREASON, FLOWSTATE, 
+    REMARK
+  </sql>
+
+  <select id="selectById" resultType="com.isoftstone.gdcoal.entity.TFulblacklistEntity" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_fulblacklist
+    where BLACKID = #{blackid,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_fulblacklist
+    where BLACKID = #{blackid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistEntity" >
+    insert into t_fulblacklist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="blackid != null" >
+        BLACKID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE,
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="blackreason != null" >
+        BLACKREASON,
+      </if>
+      <if test="flowstate != null" >
+        FLOWSTATE,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="blackid != null" >
+        #{blackid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="blackreason != null" >
+        #{blackreason,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstate != null" >
+        #{flowstate,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistEntity" >
+    update t_fulblacklist
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        ORGAN_CODE = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID = #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="blackreason != null" >
+        BLACKREASON = #{blackreason,jdbcType=VARCHAR},
+      </if>
+      <if test="flowstate != null" >
+        FLOWSTATE = #{flowstate,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where BLACKID = #{blackid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFulblacklistEntity">
+
+    select  <include refid="Base_Column_List" /> from t_fulblacklist where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistEntity" resultType="int">
+    select count(*) from t_fulblacklist where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistEntity" resultType="com.isoftstone.gdcoal.entity.TFulblacklistEntity">
+    select  <include refid="Base_Column_List" /> from t_fulblacklist where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+
+  </select>
+</mapper>

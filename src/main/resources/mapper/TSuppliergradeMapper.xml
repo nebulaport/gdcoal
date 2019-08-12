@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TSuppliergradeDao" >
+
+  <sql id="Base_Column_List" >
+    GRADEID, GRADE_NAME GRADENAME, SORT, REMARK
+  </sql>
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_suppliergrade
+    where GRADEID = #{gradeid,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity" >
+    insert into t_suppliergrade
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="gradeid != null" >
+        GRADEID,
+      </if>
+      <if test="gradeName != null" >
+        GRADE_NAME,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="gradeid != null" >
+        #{gradeid,jdbcType=VARCHAR},
+      </if>
+      <if test="gradeName != null" >
+        #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity" >
+    update t_suppliergrade
+    <set >
+      <if test="gradeName != null" >
+        GRADE_NAME = #{gradeName,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=DECIMAL},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where GRADEID = #{gradeid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_suppliergrade where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity">
+    select    <include refid="Base_Column_List" /> from t_suppliergrade
+    where      GRADEID = #{gradeid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity" resultType="int">
+    select count(*) from t_suppliergrade where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity" resultType="com.isoftstone.gdcoal.entity.TSuppliergradeEntity">
+    select <include refid="Base_Column_List"></include> from t_suppliergrade where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

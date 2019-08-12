@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFultbpurchasingapplydetailDao" >
+
+
+  <sql id="Base_Column_List" >
+    APPLYDETAILID, PURCHAPPLYID, SUPPLIERID, USER_UUID USERUUID, OPERDATE, AUTOID, OPERUSER, CREATEUSER,
+    CREATEDATE, CREATEUSERID, CREATEUSERDEPTID, CREATEUSERDEPTCODE, PURCHASINGAPPLYID, 
+    QTY, QTY_END QTYEND, QCALMIN, FEEDBACK, REMARK, LINKTEL, PERMITSTATUS, BJTIME, IS_ZB ISZB, JB_NAME JBNAME,
+    JD_NAME JDNAME, SP_NAME SPNAME, LOCALPLACE, HASMODIFIED, IS_BJ ISBJ, ORGANIZATIONCODE, ISCHECKEDBYFGS,
+    ISCHECKEDBYDC, ZBQTY, ZBPRICE, LASTBJDATE, SENDPORT, LF, PRICEMIN, FARE, HFF, HFF_END HFFEND,
+    ASH, QSF
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_fultbpurchasingapplydetail
+    where APPLYDETAILID = #{applydetailid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity" >
+    insert into t_fultbpurchasingapplydetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="applydetailid != null" >
+        APPLYDETAILID,
+      </if>
+      <if test="purchapplyid != null" >
+        PURCHAPPLYID,
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="userUuid != null" >
+        USER_UUID,
+      </if>
+      <if test="operdate != null" >
+        OPERDATE,
+      </if>
+      <if test="autoid != null" >
+        AUTOID,
+      </if>
+      <if test="operuser != null" >
+        OPERUSER,
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID,
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID,
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE,
+      </if>
+      <if test="purchasingapplyid != null" >
+        PURCHASINGAPPLYID,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="qtyEnd != null" >
+        QTY_END,
+      </if>
+      <if test="qcalmin != null" >
+        QCALMIN,
+      </if>
+      <if test="feedback != null" >
+        FEEDBACK,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="linktel != null" >
+        LINKTEL,
+      </if>
+      <if test="permitstatus != null" >
+        PERMITSTATUS,
+      </if>
+      <if test="bjtime != null" >
+        BJTIME,
+      </if>
+      <if test="isZb != null" >
+        IS_ZB,
+      </if>
+      <if test="jbName != null" >
+        JB_NAME,
+      </if>
+      <if test="jdName != null" >
+        JD_NAME,
+      </if>
+      <if test="spName != null" >
+        SP_NAME,
+      </if>
+      <if test="localplace != null" >
+        LOCALPLACE,
+      </if>
+      <if test="hasmodified != null" >
+        HASMODIFIED,
+      </if>
+      <if test="isBj != null" >
+        IS_BJ,
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE,
+      </if>
+      <if test="ischeckedbyfgs != null" >
+        ISCHECKEDBYFGS,
+      </if>
+      <if test="ischeckedbydc != null" >
+        ISCHECKEDBYDC,
+      </if>
+      <if test="zbqty != null" >
+        ZBQTY,
+      </if>
+      <if test="zbprice != null" >
+        ZBPRICE,
+      </if>
+      <if test="lastbjdate != null" >
+        LASTBJDATE,
+      </if>
+      <if test="sendport != null" >
+        SENDPORT,
+      </if>
+      <if test="lf != null" >
+        LF,
+      </if>
+      <if test="pricemin != null" >
+        PRICEMIN,
+      </if>
+      <if test="fare != null" >
+        FARE,
+      </if>
+      <if test="hff != null" >
+        HFF,
+      </if>
+      <if test="hffEnd != null" >
+        HFF_END,
+      </if>
+      <if test="ash != null" >
+        ASH,
+      </if>
+      <if test="qsf != null" >
+        QSF,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="applydetailid != null" >
+        #{applydetailid,jdbcType=VARCHAR},
+      </if>
+      <if test="purchapplyid != null" >
+        #{purchapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="operuser != null" >
+        #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingapplyid != null" >
+        #{purchasingapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtyEnd != null" >
+        #{qtyEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="qcalmin != null" >
+        #{qcalmin,jdbcType=DECIMAL},
+      </if>
+      <if test="feedback != null" >
+        #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="permitstatus != null" >
+        #{permitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bjtime != null" >
+        #{bjtime,jdbcType=VARCHAR},
+      </if>
+      <if test="isZb != null" >
+        #{isZb,jdbcType=VARCHAR},
+      </if>
+      <if test="jbName != null" >
+        #{jbName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdName != null" >
+        #{jdName,jdbcType=VARCHAR},
+      </if>
+      <if test="spName != null" >
+        #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="localplace != null" >
+        #{localplace,jdbcType=VARCHAR},
+      </if>
+      <if test="hasmodified != null" >
+        #{hasmodified,jdbcType=DECIMAL},
+      </if>
+      <if test="isBj != null" >
+        #{isBj,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationcode != null" >
+        #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeckedbyfgs != null" >
+        #{ischeckedbyfgs,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeckedbydc != null" >
+        #{ischeckedbydc,jdbcType=VARCHAR},
+      </if>
+      <if test="zbqty != null" >
+        #{zbqty,jdbcType=VARCHAR},
+      </if>
+      <if test="zbprice != null" >
+        #{zbprice,jdbcType=VARCHAR},
+      </if>
+      <if test="lastbjdate != null" >
+        #{lastbjdate,jdbcType=VARCHAR},
+      </if>
+      <if test="sendport != null" >
+        #{sendport,jdbcType=VARCHAR},
+      </if>
+      <if test="lf != null" >
+        #{lf,jdbcType=DECIMAL},
+      </if>
+      <if test="pricemin != null" >
+        #{pricemin,jdbcType=VARCHAR},
+      </if>
+      <if test="fare != null" >
+        #{fare,jdbcType=VARCHAR},
+      </if>
+      <if test="hff != null" >
+        #{hff,jdbcType=REAL},
+      </if>
+      <if test="hffEnd != null" >
+        #{hffEnd,jdbcType=REAL},
+      </if>
+      <if test="ash != null" >
+        #{ash,jdbcType=REAL},
+      </if>
+      <if test="qsf != null" >
+        #{qsf,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity" >
+    update t_fultbpurchasingapplydetail
+    <set >
+      <if test="purchapplyid != null" >
+        PURCHAPPLYID = #{purchapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID = #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        USER_UUID = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        OPERDATE = #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        AUTOID = #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="operuser != null" >
+        OPERUSER = #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID = #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID = #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE = #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasingapplyid != null" >
+        PURCHASINGAPPLYID = #{purchasingapplyid,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtyEnd != null" >
+        QTY_END = #{qtyEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="qcalmin != null" >
+        QCALMIN = #{qcalmin,jdbcType=DECIMAL},
+      </if>
+      <if test="feedback != null" >
+        FEEDBACK = #{feedback,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        LINKTEL = #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="permitstatus != null" >
+        PERMITSTATUS = #{permitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="bjtime != null" >
+        BJTIME = #{bjtime,jdbcType=VARCHAR},
+      </if>
+      <if test="isZb != null" >
+        IS_ZB = #{isZb,jdbcType=VARCHAR},
+      </if>
+      <if test="jbName != null" >
+        JB_NAME = #{jbName,jdbcType=VARCHAR},
+      </if>
+      <if test="jdName != null" >
+        JD_NAME = #{jdName,jdbcType=VARCHAR},
+      </if>
+      <if test="spName != null" >
+        SP_NAME = #{spName,jdbcType=VARCHAR},
+      </if>
+      <if test="localplace != null" >
+        LOCALPLACE = #{localplace,jdbcType=VARCHAR},
+      </if>
+      <if test="hasmodified != null" >
+        HASMODIFIED = #{hasmodified,jdbcType=DECIMAL},
+      </if>
+      <if test="isBj != null" >
+        IS_BJ = #{isBj,jdbcType=VARCHAR},
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE = #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeckedbyfgs != null" >
+        ISCHECKEDBYFGS = #{ischeckedbyfgs,jdbcType=VARCHAR},
+      </if>
+      <if test="ischeckedbydc != null" >
+        ISCHECKEDBYDC = #{ischeckedbydc,jdbcType=VARCHAR},
+      </if>
+      <if test="zbqty != null" >
+        ZBQTY = #{zbqty,jdbcType=VARCHAR},
+      </if>
+      <if test="zbprice != null" >
+        ZBPRICE = #{zbprice,jdbcType=VARCHAR},
+      </if>
+      <if test="lastbjdate != null" >
+        LASTBJDATE = #{lastbjdate,jdbcType=VARCHAR},
+      </if>
+      <if test="sendport != null" >
+        SENDPORT = #{sendport,jdbcType=VARCHAR},
+      </if>
+      <if test="lf != null" >
+        LF = #{lf,jdbcType=DECIMAL},
+      </if>
+      <if test="pricemin != null" >
+        PRICEMIN = #{pricemin,jdbcType=VARCHAR},
+      </if>
+      <if test="fare != null" >
+        FARE = #{fare,jdbcType=VARCHAR},
+      </if>
+      <if test="hff != null" >
+        HFF = #{hff,jdbcType=REAL},
+      </if>
+      <if test="hffEnd != null" >
+        HFF_END = #{hffEnd,jdbcType=REAL},
+      </if>
+      <if test="ash != null" >
+        ASH = #{ash,jdbcType=REAL},
+      </if>
+      <if test="qsf != null" >
+        QSF = #{qsf,jdbcType=REAL},
+      </if>
+    </set>
+    where APPLYDETAILID = #{applydetailid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_fultbpurchasingapplydetail where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity">
+    select    <include refid="Base_Column_List" /> from t_fultbpurchasingapplydetail
+    where      APPLYDETAILID = #{applydetailid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity" resultType="int">
+    select count(*) from t_fultbpurchasingapplydetail where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity" resultType="com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity">
+    select <include refid="Base_Column_List"></include> from t_fultbpurchasingapplydetail where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

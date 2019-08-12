@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TSupgradeitemDataDao" >
+
+  <sql id="Base_Column_List" >
+    ID, SUPPLIERID, TIME_TYPE_ID TIMETYPEID, ITEM_ID ITEMID,
+     TIME_ID TIMEID, ITEM_CODE ITEMCODE, SYS_RES_CODE SYSRESCODE, BUYERCODE,
+    ITEM_VALUE_FACT ITEMVALUEFACT, ITEM_VALUE_REPORT ITEMVALUEREPORT,
+     ITEM_VALUE_APPROVE ITEMVALUEAPPROVE, STATE_ID STATEID,
+     VERSION_ID VERSIONID, FILL_IN_PERSON FILLINPERSON,
+    DATE_ID DATEID, END_UPDATE_DATE ENDUPDATEDATE,
+    REMARKS, AUDITING_FLAG AUDITINGFLAG, REPORT_SET REPORTSET, IS_GS_CHECK ISGSCHECK
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_supgradeitem_data
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity" >
+    insert into t_supgradeitem_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="timeTypeId != null" >
+        TIME_TYPE_ID,
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="timeId != null" >
+        TIME_ID,
+      </if>
+      <if test="itemCode != null" >
+        ITEM_CODE,
+      </if>
+      <if test="sysResCode != null" >
+        SYS_RES_CODE,
+      </if>
+      <if test="buyercode != null" >
+        BUYERCODE,
+      </if>
+      <if test="itemValueFact != null" >
+        ITEM_VALUE_FACT,
+      </if>
+      <if test="itemValueReport != null" >
+        ITEM_VALUE_REPORT,
+      </if>
+      <if test="itemValueApprove != null" >
+        ITEM_VALUE_APPROVE,
+      </if>
+      <if test="stateId != null" >
+        STATE_ID,
+      </if>
+      <if test="versionId != null" >
+        VERSION_ID,
+      </if>
+      <if test="fillInPerson != null" >
+        FILL_IN_PERSON,
+      </if>
+      <if test="dateId != null" >
+        DATE_ID,
+      </if>
+      <if test="endUpdateDate != null" >
+        END_UPDATE_DATE,
+      </if>
+      <if test="remarks != null" >
+        REMARKS,
+      </if>
+      <if test="auditingFlag != null" >
+        AUDITING_FLAG,
+      </if>
+      <if test="reportSet != null" >
+        REPORT_SET,
+      </if>
+      <if test="isGsCheck != null" >
+        IS_GS_CHECK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeTypeId != null" >
+        #{timeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="timeId != null" >
+        #{timeId,jdbcType=DOUBLE},
+      </if>
+      <if test="itemCode != null" >
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysResCode != null" >
+        #{sysResCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyercode != null" >
+        #{buyercode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueFact != null" >
+        #{itemValueFact,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueReport != null" >
+        #{itemValueReport,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueApprove != null" >
+        #{itemValueApprove,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        #{stateId,jdbcType=DOUBLE},
+      </if>
+      <if test="versionId != null" >
+        #{versionId,jdbcType=DOUBLE},
+      </if>
+      <if test="fillInPerson != null" >
+        #{fillInPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null" >
+        #{dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="endUpdateDate != null" >
+        #{endUpdateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="auditingFlag != null" >
+        #{auditingFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportSet != null" >
+        #{reportSet,jdbcType=VARCHAR},
+      </if>
+      <if test="isGsCheck != null" >
+        #{isGsCheck,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity" >
+    update t_supgradeitem_data
+    <set >
+      <if test="supplierid != null" >
+        SUPPLIERID = #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="timeTypeId != null" >
+        TIME_TYPE_ID = #{timeTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        ITEM_ID = #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="timeId != null" >
+        TIME_ID = #{timeId,jdbcType=DOUBLE},
+      </if>
+      <if test="itemCode != null" >
+        ITEM_CODE = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sysResCode != null" >
+        SYS_RES_CODE = #{sysResCode,jdbcType=VARCHAR},
+      </if>
+      <if test="buyercode != null" >
+        BUYERCODE = #{buyercode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueFact != null" >
+        ITEM_VALUE_FACT = #{itemValueFact,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueReport != null" >
+        ITEM_VALUE_REPORT = #{itemValueReport,jdbcType=VARCHAR},
+      </if>
+      <if test="itemValueApprove != null" >
+        ITEM_VALUE_APPROVE = #{itemValueApprove,jdbcType=VARCHAR},
+      </if>
+      <if test="stateId != null" >
+        STATE_ID = #{stateId,jdbcType=DOUBLE},
+      </if>
+      <if test="versionId != null" >
+        VERSION_ID = #{versionId,jdbcType=DOUBLE},
+      </if>
+      <if test="fillInPerson != null" >
+        FILL_IN_PERSON = #{fillInPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="dateId != null" >
+        DATE_ID = #{dateId,jdbcType=VARCHAR},
+      </if>
+      <if test="endUpdateDate != null" >
+        END_UPDATE_DATE = #{endUpdateDate,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null" >
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="auditingFlag != null" >
+        AUDITING_FLAG = #{auditingFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="reportSet != null" >
+        REPORT_SET = #{reportSet,jdbcType=VARCHAR},
+      </if>
+      <if test="isGsCheck != null" >
+        IS_GS_CHECK = #{isGsCheck,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_supgradeitem_data where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity">
+    select    <include refid="Base_Column_List" /> from t_supgradeitem_data
+    where      ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity" resultType="int">
+    select count(*) from t_supgradeitem_data where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity" resultType="com.isoftstone.gdcoal.entity.TSupgradeitemDataEntity">
+    select <include refid="Base_Column_List"></include> from t_supgradeitem_data where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtBondcontractdetailDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtBondcontractdetailEntity" >
+    <id column="detailId" property="detailid" jdbcType="VARCHAR" />
+    <result column="coalType" property="coaltype" jdbcType="VARCHAR" />
+    <result column="purchaseNum" property="purchasenum" jdbcType="DOUBLE" />
+    <result column="CalorificNum" property="calorificnum" jdbcType="DOUBLE" />
+    <result column="Createdate" property="createdate" jdbcType="VARCHAR" />
+    <result column="createUser" property="createuser" jdbcType="VARCHAR" />
+    <result column="Contract_no" property="contractNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    detailId, coalType, purchaseNum, CalorificNum, Createdate, createUser, Contract_no
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_bondcontractdetail where 1=1
+
+    <if test="_parameter != null" >
+       ${_parameter}
+    </if>
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_bondcontractdetail
+    where detailId = #{detailid}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_bondcontractdetail
+    where detailId = #{detailidR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractdetailEntity" >
+    insert into pt_bondcontractdetail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="detailid != null" >
+        detailId,
+      </if>
+      <if test="coaltype != null" >
+        coalType,
+      </if>
+      <if test="purchasenum != null" >
+        purchaseNum,
+      </if>
+      <if test="calorificnum != null" >
+        CalorificNum,
+      </if>
+      <if test="createdate != null" >
+        Createdate,
+      </if>
+      <if test="createuser != null" >
+        createUser,
+      </if>
+      <if test="contractNo != null" >
+        Contract_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="detailid != null" >
+        #{detailid,jdbcType=VARCHAR},
+      </if>
+      <if test="coaltype != null" >
+        #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasenum != null" >
+        #{purchasenum,jdbcType=DOUBLE},
+      </if>
+      <if test="calorificnum != null" >
+        #{calorificnum,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        #{contractNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractdetailEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_bondcontractdetail where 1=1
+    <if test="whereSql != null" >
+       ${whereSql}
+    </if>
+  </select>
+
+
+  <update id="udpateEntity" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractdetailEntity" >
+    update pt_bondcontractdetail
+    <set >
+      <if test="coaltype != null" >
+        coalType = #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="purchasenum != null" >
+        purchaseNum = #{purchasenum,jdbcType=DOUBLE},
+      </if>
+      <if test="calorificnum != null" >
+        CalorificNum = #{calorificnum,jdbcType=DOUBLE},
+      </if>
+      <if test="createdate != null" >
+        Createdate = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        createUser = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNo != null" >
+        Contract_no = #{contractNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where detailId = #{detailid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtBondcontractdetailEntity"  resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_bondcontractdetail where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+  </select>
+</mapper>

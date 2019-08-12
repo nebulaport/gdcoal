@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtUserDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtUserEntity" >
+    <id column="USER_UUID" property="userUuid" jdbcType="VARCHAR" />
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="ENABLED" property="enabled" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_NON_EXPIRED" property="accountNonExpired" jdbcType="DECIMAL" />
+    <result column="CREDENTIALS_NON_EXPIRED" property="credentialsNonExpired" jdbcType="DECIMAL" />
+    <result column="ACCOUNT_NON_LOCKED" property="accountNonLocked" jdbcType="DECIMAL" />
+    <result column="ORGAN_UUID" property="organUuid" jdbcType="VARCHAR" />
+    <result column="NICE_NAME" property="niceName" jdbcType="VARCHAR" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="DECIMAL" />
+    <result column="MAXIMUMSESSIONS" property="maximumsessions" jdbcType="DECIMAL" />
+    <result column="REGISTERDATE" property="registerdate" jdbcType="VARCHAR" />
+    <result column="LASTLOGINTIME" property="lastlogintime" jdbcType="VARCHAR" />
+    <result column="PWDQUE" property="pwdque" jdbcType="VARCHAR" />
+    <result column="PWDANS" property="pwdans" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DEPID" property="depid" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="CHAR" />
+    <result column="MODTIME" property="modtime" jdbcType="VARCHAR" />
+    <result column="MODIFIERID" property="modifierid" jdbcType="VARCHAR" />
+    <result column="IS_SUM" property="isSum" jdbcType="DECIMAL" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    USER_UUID, ID, USERNAME, PASSWORD, EMAIL, MOBILE, ENABLED, ACCOUNT_NON_EXPIRED, CREDENTIALS_NON_EXPIRED, 
+    ACCOUNT_NON_LOCKED, ORGAN_UUID, NICE_NAME, IS_ADMIN, MAXIMUMSESSIONS, REGISTERDATE, 
+    LASTLOGINTIME, PWDQUE, PWDANS, REMARK, DEPID, STATUS, MODTIME, MODIFIERID, IS_SUM
+  </sql>
+
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_user
+    where USER_UUID = #{id}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_user
+    where USER_UUID = #{id}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtUserEntity" >
+    insert into pt_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userUuid != null" >
+        USER_UUID,
+      </if>
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="enabled != null" >
+        ENABLED,
+      </if>
+      <if test="accountNonExpired != null" >
+        ACCOUNT_NON_EXPIRED,
+      </if>
+      <if test="credentialsNonExpired != null" >
+        CREDENTIALS_NON_EXPIRED,
+      </if>
+      <if test="accountNonLocked != null" >
+        ACCOUNT_NON_LOCKED,
+      </if>
+      <if test="organUuid != null" >
+        ORGAN_UUID,
+      </if>
+      <if test="niceName != null" >
+        NICE_NAME,
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN,
+      </if>
+      <if test="maximumsessions != null" >
+        MAXIMUMSESSIONS,
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE,
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME,
+      </if>
+      <if test="pwdque != null" >
+        PWDQUE,
+      </if>
+      <if test="pwdans != null" >
+        PWDANS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="depid != null" >
+        DEPID,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="modtime != null" >
+        MODTIME,
+      </if>
+      <if test="modifierid != null" >
+        MODIFIERID,
+      </if>
+      <if test="isSum != null" >
+        IS_SUM,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonExpired != null" >
+        #{accountNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNonExpired != null" >
+        #{credentialsNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonLocked != null" >
+        #{accountNonLocked,jdbcType=DECIMAL},
+      </if>
+      <if test="organUuid != null" >
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="niceName != null" >
+        #{niceName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="maximumsessions != null" >
+        #{maximumsessions,jdbcType=DECIMAL},
+      </if>
+      <if test="registerdate != null" >
+        #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdque != null" >
+        #{pwdque,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdans != null" >
+        #{pwdans,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null" >
+        #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=CHAR},
+      </if>
+      <if test="modtime != null" >
+        #{modtime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierid != null" >
+        #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="isSum != null" >
+        #{isSum,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtUserEntity" >
+    update pt_user
+    <set >
+      <if test="id != null" >
+        ID = #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED = #{enabled,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonExpired != null" >
+        ACCOUNT_NON_EXPIRED = #{accountNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="credentialsNonExpired != null" >
+        CREDENTIALS_NON_EXPIRED = #{credentialsNonExpired,jdbcType=DECIMAL},
+      </if>
+      <if test="accountNonLocked != null" >
+        ACCOUNT_NON_LOCKED = #{accountNonLocked,jdbcType=DECIMAL},
+      </if>
+      <if test="organUuid != null" >
+        ORGAN_UUID = #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="niceName != null" >
+        NICE_NAME = #{niceName,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        IS_ADMIN = #{isAdmin,jdbcType=DECIMAL},
+      </if>
+      <if test="maximumsessions != null" >
+        MAXIMUMSESSIONS = #{maximumsessions,jdbcType=DECIMAL},
+      </if>
+      <if test="registerdate != null" >
+        REGISTERDATE = #{registerdate,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME = #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdque != null" >
+        PWDQUE = #{pwdque,jdbcType=VARCHAR},
+      </if>
+      <if test="pwdans != null" >
+        PWDANS = #{pwdans,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="depid != null" >
+        DEPID = #{depid,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=CHAR},
+      </if>
+      <if test="modtime != null" >
+        MODTIME = #{modtime,jdbcType=VARCHAR},
+      </if>
+      <if test="modifierid != null" >
+        MODIFIERID = #{modifierid,jdbcType=VARCHAR},
+      </if>
+      <if test="isSum != null" >
+        IS_SUM = #{isSum,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where USER_UUID = #{userUuid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"   resultMap="BaseResultMap">
+
+    select <include refid="Base_Column_List" /> from pt_user where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+
+
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtUserEntity" resultType="int">
+    select count(*) from pt_user where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtUserEntity" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_user where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

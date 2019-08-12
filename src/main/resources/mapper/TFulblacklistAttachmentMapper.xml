@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFulblacklistAttachmentDao" >
+
+
+
+  <sql id="Base_Column_List" >
+    ATTACHMENT_ID attachmentId, BLACKID blackid, ATTACHMENT_PATH attachmentPath,
+     ATTACHMENT_NAME attachmentName, FILENAME, DOWNLOAD_COUNT downloadCount,
+    UPLOADDATE
+  </sql>
+
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity" >
+    insert into t_fulblacklist_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID,
+      </if>
+      <if test="blackid != null" >
+        BLACKID,
+      </if>
+      <if test="attachmentPath != null" >
+        ATTACHMENT_PATH,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+      <if test="filename != null" >
+        FILENAME,
+      </if>
+      <if test="downloadCount != null" >
+        DOWNLOAD_COUNT,
+      </if>
+      <if test="uploaddate != null" >
+        UPLOADDATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="attachmentId != null" >
+        #{attachmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="blackid != null" >
+        #{blackid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadCount != null" >
+        #{downloadCount,jdbcType=DECIMAL},
+      </if>
+      <if test="uploaddate != null" >
+        #{uploaddate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity" >
+    update t_fulblacklist_attachment
+    <set >
+      <if test="attachmentId != null" >
+        ATTACHMENT_ID = #{attachmentId,jdbcType=DECIMAL},
+      </if>
+      <if test="blackid != null" >
+        BLACKID = #{blackid,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentPath != null" >
+        ATTACHMENT_PATH = #{attachmentPath,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null" >
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="downloadCount != null" >
+        DOWNLOAD_COUNT = #{downloadCount,jdbcType=DECIMAL},
+      </if>
+      <if test="uploaddate != null" >
+        UPLOADDATE = #{uploaddate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where  ATTACHMENT_ID = #{attachmentId,jdbcType=DECIMAL}
+  </update>
+  <delete id="deleteEntity" parameterType="string">
+                delete from t_fulblacklist_attachment where ATTACHMENT_ID = #{id}
+    </delete>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity">
+
+    select  <include refid="Base_Column_List" /> from t_fulblacklist_attachment where 1=1
+    <if test="whereSql!=null">
+      #{whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity">
+    select    <include refid="Base_Column_List" /> from t_fulblacklist_attachment
+    where      ATTACHMENT_ID=#{ab}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity" resultType="int">
+    select count(*) from t_fulblacklist_attachment where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity" resultType="com.isoftstone.gdcoal.entity.TFulblacklistAttachmentEntity">
+    select  <include refid="Base_Column_List" /> from t_fulblacklist_attachment where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+
+  </select>
+
+</mapper>

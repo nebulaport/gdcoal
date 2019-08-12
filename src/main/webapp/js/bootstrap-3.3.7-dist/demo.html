@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset=UTF-8>
+        <title>自带半透明阴影的模态框</title>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <style>
+		  .modal-backdrop {
+  opacity: 0 !important;
+  filter: alpha(opacity=0) !important;
+}
+		</style>
+    </head>
+
+    <body>
+        <button class="btn btn-primary" type="button" id="test">点击我显示模态框</button>
+
+        <div class="modal" id="my-modal-alert">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                                <span aria-hidden="true">&times</span><span class="sr-only">Close</span>
+                            </button>
+                        <h4 class="modal-title" id="modal-title">模态框</h4><span id="num"></span>
+                    </div>
+                    <!--/*modal-header*/-->
+                    <div class="modal-body">
+                        <div id="modal_message">有半透明阴影的模态框</div>
+                    </div>
+                    <!--/*modal-body*/-->
+                    <div class="modal-footer" id="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                        <button type="button" class="btn btn-primary" >保存</button>
+                        <!--/*modal-body*/-->
+                    </div>
+                    <!--/*modal-footer*/-->
+                </div>
+                <!--/*modal-dialog*/-->
+            </div>
+            <!--/*modal-content*/-->
+        </div>
+        <!--/*modal*/-->
+        <script src="http://libs.baidu.com/jquery/1.9.0/jquery.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script>
+            $(function() {
+                $("#test").click(function(){
+                    $("#my-modal-alert").modal("toggle");
+                    
+                    $(".modal-backdrop").remove();//删除class值为modal-backdrop的标签，可去除阴影
+                });
+            });
+        </script>
+    </body>
+
+</html>

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TSuppliergradeitemDao" >
+
+
+  <sql id="Base_Column_List" >
+    ITEM_ID ITEMID, ITEM_CODE ITEMCODE,
+    ITEM_NAME ITEMNAME, PRECISION_Num PRECISIONNum, SORT, WEIGHT, REMARK
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_suppliergradeitem
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity" >
+    insert into t_suppliergradeitem
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        ITEM_ID,
+      </if>
+      <if test="itemCode != null" >
+        ITEM_CODE,
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME,
+      </if>
+      <if test="precisionNum != null" >
+        PRECISION_Num,
+      </if>
+      <if test="sort != null" >
+        SORT,
+      </if>
+      <if test="weight != null" >
+        WEIGHT,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="itemId != null" >
+        #{itemId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemCode != null" >
+        #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="precisionNum != null" >
+        #{precisionNum,jdbcType=DOUBLE},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity" >
+    update t_suppliergradeitem
+    <set >
+      <if test="itemCode != null" >
+        ITEM_CODE = #{itemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="itemName != null" >
+        ITEM_NAME = #{itemName,jdbcType=VARCHAR},
+      </if>
+      <if test="precisionNum != null" >
+        PRECISION_Num = #{precisionNum,jdbcType=DOUBLE},
+      </if>
+      <if test="sort != null" >
+        SORT = #{sort,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        WEIGHT = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_suppliergradeitem where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity">
+    select    <include refid="Base_Column_List" /> from t_suppliergradeitem
+    where     ITEM_ID = #{itemId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity" resultType="int">
+    select count(*) from t_suppliergradeitem where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity" resultType="com.isoftstone.gdcoal.entity.TSuppliergradeitemEntity">
+    select <include refid="Base_Column_List"></include> from t_suppliergradeitem where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

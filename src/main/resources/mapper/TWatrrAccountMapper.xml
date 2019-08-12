@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TWatrrAccountDao" >
+
+  <sql id="Base_Column_List" >
+    watera_account_id wateraaccountid, account_id accountid,
+     watera_account_code wateraaccountcode, organ_code organcode,
+     opt_member optmember, opt_time opttime,
+    account, type, remark, remittance_type remittancetype, remittance_time remittancetime
+  </sql>
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_watrr_account
+    where watera_account_id = #{wateraAccountId,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity" >
+    insert into t_watrr_account
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="wateraAccountId != null" >
+        watera_account_id,
+      </if>
+      <if test="accountId != null" >
+        account_id,
+      </if>
+      <if test="wateraAccountCode != null" >
+        watera_account_code,
+      </if>
+      <if test="organCode != null" >
+        organ_code,
+      </if>
+      <if test="optMember != null" >
+        opt_member,
+      </if>
+      <if test="optTime != null" >
+        opt_time,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="remark != null" >
+        remark,
+      </if>
+      <if test="remittanceType != null" >
+        remittance_type,
+      </if>
+      <if test="remittanceTime != null" >
+        remittance_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="wateraAccountId != null" >
+        #{wateraAccountId,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null" >
+        #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="wateraAccountCode != null" >
+        #{wateraAccountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="optMember != null" >
+        #{optMember,jdbcType=VARCHAR},
+      </if>
+      <if test="optTime != null" >
+        #{optTime,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remittanceType != null" >
+        #{remittanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="remittanceTime != null" >
+        #{remittanceTime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity" >
+    update t_watrr_account
+    <set >
+      <if test="accountId != null" >
+        account_id = #{accountId,jdbcType=VARCHAR},
+      </if>
+      <if test="wateraAccountCode != null" >
+        watera_account_code = #{wateraAccountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="organCode != null" >
+        organ_code = #{organCode,jdbcType=VARCHAR},
+      </if>
+      <if test="optMember != null" >
+        opt_member = #{optMember,jdbcType=VARCHAR},
+      </if>
+      <if test="optTime != null" >
+        opt_time = #{optTime,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=DECIMAL},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="remittanceType != null" >
+        remittance_type = #{remittanceType,jdbcType=VARCHAR},
+      </if>
+      <if test="remittanceTime != null" >
+        remittance_time = #{remittanceTime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where watera_account_id = #{wateraAccountId,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_watrr_account where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity">
+    select    <include refid="Base_Column_List" /> from t_watrr_account
+    where     watera_account_id = #{wateraAccountId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity" resultType="int">
+    select count(*) from t_watrr_account where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity" resultType="com.isoftstone.gdcoal.entity.TWatrrAccountEntity">
+    select <include refid="Base_Column_List"></include> from t_watrr_account where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

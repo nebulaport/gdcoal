@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtAttachmentDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtAttachmentEntity" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_NAME" property="attachmentName" jdbcType="VARCHAR" />
+    <result column="UPLOAD_DATE" property="uploadDate" jdbcType="TIMESTAMP" />
+    <result column="UPLOAD_IP" property="uploadIp" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_SIZE" property="attachmentSize" jdbcType="DECIMAL" />
+    <result column="ATTACHMENT_URL" property="attachmentUrl" jdbcType="VARCHAR" />
+    <result column="ATTACHMENT_TYPE" property="attachmentType" jdbcType="VARCHAR" />
+    <result column="BELONGID" property="belongid" jdbcType="VARCHAR" />
+  </resultMap>
+
+
+  <sql id="Base_Column_List" >
+    ID, ATTACHMENT_NAME, UPLOAD_DATE, UPLOAD_IP, ATTACHMENT_SIZE, ATTACHMENT_URL, ATTACHMENT_TYPE, 
+    BELONGID
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_attachment where 1=1
+
+    <if test="_paramter != null" >
+      ${_paramter}
+    </if>
+  </select>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtAttachmentEntity" >
+    insert into pt_attachment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME,
+      </if>
+      <if test="uploadDate != null" >
+        UPLOAD_DATE,
+      </if>
+      <if test="uploadIp != null" >
+        UPLOAD_IP,
+      </if>
+      <if test="attachmentSize != null" >
+        ATTACHMENT_SIZE,
+      </if>
+      <if test="attachmentUrl != null" >
+        ATTACHMENT_URL,
+      </if>
+      <if test="attachmentType != null" >
+        ATTACHMENT_TYPE,
+      </if>
+      <if test="belongid != null" >
+        BELONGID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentName != null" >
+        #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null" >
+        #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadIp != null" >
+        #{uploadIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentSize != null" >
+        #{attachmentSize,jdbcType=DECIMAL},
+      </if>
+      <if test="attachmentUrl != null" >
+        #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongid != null" >
+        #{belongid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtAttachmentEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_attachment where 1=1
+    <if test="whereSql != null" >
+        ${whereSql}
+    </if>
+  </select>
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtAttachmentEntity" >
+    update pt_attachment
+    <set >
+
+      <if test="attachmentName != null" >
+        ATTACHMENT_NAME = #{attachmentName,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadDate != null" >
+        UPLOAD_DATE = #{uploadDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uploadIp != null" >
+        UPLOAD_IP = #{uploadIp,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentSize != null" >
+        ATTACHMENT_SIZE = #{attachmentSize,jdbcType=DECIMAL},
+      </if>
+      <if test="attachmentUrl != null" >
+        ATTACHMENT_URL = #{attachmentUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachmentType != null" >
+        ATTACHMENT_TYPE = #{attachmentType,jdbcType=VARCHAR},
+      </if>
+      <if test="belongid != null" >
+        BELONGID = #{belongid,jdbcType=VARCHAR},
+      </if>
+    </set>
+
+     where  ID = #{id,jdbcType=VARCHAR}
+
+  </update>
+   <delete id="deleteEntity" parameterType="string">
+       delete from pt_attachment where  ID = #{id}
+   </delete>
+  <select id="selectById" resultMap="BaseResultMap"  parameterType="string">
+    select
+    <include refid="Base_Column_List" />
+    from pt_attachment where   ID = #{id}
+  </select>
+  <select id="selectForPage" resultMap="BaseResultMap"  parameterType="com.isoftstone.gdcoal.entity.PtAttachmentEntity">
+    select  <include refid="Base_Column_List" />  from pt_attachment where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+  </select>
+
+</mapper>

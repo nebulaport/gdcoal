@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+         http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+        http://www.springframework.org/schema/tx 
+        http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+         http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+        "
+
+>
+    <!-- 表示使用 annotation注解配置-->
+    <context:annotation-config></context:annotation-config>
+    <!--
+       用于bean的创建：
+     @Component 拆分为：
+     @Repository, @Service,   @Controller
+               持久层， 业务层，控制层
+
+    用于注入的注解：先按照名称匹配，如果装配不上，则按照类型匹配
+    @Autowired @Resource @Required
+    -->
+    <context:component-scan base-package="com.isoftstone.gdcoal.*"/>
+
+
+    <!-- spring来创建sqlSessionFactory -->
+    <bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean" >
+        <!-- <property name="configLocation" >
+               <value>classpath:sqlMapConfig.xml</value>
+            </property>
+        -->
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 注意：** 和* 只能认为替代一层目录（有坑） -->
+        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+        <property name="environment" value="Production"/>
+    </bean>
+    <!-- 创建事务管理器，事务由spring管理 -->
+    <bean id="TransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource"  ref="dataSource"></property>
+    </bean>
+
+    <!-- 配置事务传播特性（告诉AOP 切入事务时，哪些方法需要事务，且事务的传播特性是啥）
+       （1）之前有事务，不做事务处理
+     （2）之前可用的事务对象，则抛出异常
+     （3）不论之前是否有事务，都新建一个事务对象，提交事务
+     （4）有可用的，则用原有事务，没有则新建
+     。。。。。
+
+     -->
+    <tx:advice id="advice" transaction-manager="TransactionManager">
+        <tx:attributes>
+            <tx:method name="save*" propagation="REQUIRED"/>
+            <tx:method name="update*" propagation="REQUIRED"/>
+            <tx:method name="delete*" propagation="REQUIRED"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+
+    <!-- aop配置，事务切入到那一层， sevice -->
+    <aop:config>
+        <aop:pointcut expression="execution(* com.isoftstone.gdcoal.dao.*.*(..))" id="pointCut"/>
+        <aop:advisor advice-ref="advice" pointcut-ref="pointCut" />
+    </aop:config>
+    <!-- dao层的扫描 -->
+    <!-- 下面需要配置扫描 dao层接口  -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.isoftstone.gdcoal.dao"/> <!-- 该文件夹下面所有的baseDao子接口，进行映射 -->
+        <property name="markerInterface" value="com.isoftstone.gdcoal.framework.dao.BaseDaoSupport"/><!-- 告诉spring，所有该接口的子接口，进行sql语句映射 -->
+    </bean>
+
+    <!--包含其他spring配置文件-->
+    <import resource="spring_dataSource.xml"/>
+
+
+</beans>

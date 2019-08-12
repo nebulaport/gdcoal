@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.PtRRoleOrganDao" >
+  <resultMap id="BaseResultMap" type="com.isoftstone.gdcoal.entity.PtRRoleOrganEntity" >
+    <id column="DUTYID" property="dutyid" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ORGAN_UUID" property="organUuid" jdbcType="VARCHAR" />
+    <result column="ROLE_UUID" property="roleUuid" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <sql id="Base_Column_List" >
+    DUTYID, NAME, ORGAN_UUID, ROLE_UUID
+  </sql>
+  <select id="selectALL" resultMap="BaseResultMap" parameterType="java.lang.StringBuffer" >
+    select
+
+    <include refid="Base_Column_List" />
+    from pt_r_role_organ where 1=1
+    <if test="_parameter != null" >
+      ${_parameter}
+    </if>
+
+  </select>
+  <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pt_r_role_organ
+    where DUTYID = #{dutyid}
+  </select>
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from pt_r_role_organ
+    where DUTYID = #{dutyid}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.PtRRoleOrganEntity" >
+    insert into pt_r_role_organ
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dutyid != null" >
+        DUTYID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="organUuid != null" >
+        ORGAN_UUID,
+      </if>
+      <if test="roleUuid != null" >
+        ROLE_UUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dutyid != null" >
+        #{dutyid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organUuid != null" >
+        #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleUuid != null" >
+        #{roleUuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtRRoleOrganEntity" resultType="java.lang.Integer" >
+    select count(*) from pt_r_role_organ where 1=1
+    <if test="whereSql != null" >
+       ${whereSql}
+    </if>
+  </select>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.PtRRoleOrganEntity" >
+    update pt_r_role_organ
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="organUuid != null" >
+        ORGAN_UUID = #{organUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="roleUuid != null" >
+        ROLE_UUID = #{roleUuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DUTYID = #{dutyid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.PtRRoleOrganEntity" resultMap="BaseResultMap">
+    select  <include refid="Base_Column_List" />  from pt_r_role_organ where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

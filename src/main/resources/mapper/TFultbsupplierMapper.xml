@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFultbsupplierDao" >
+
+
+  <sql id="Base_Column_List" >
+    SUPPLIERID, MEMBERTYPEID, USER_UUID USERUUID, CREATEUSER, CREATEDATE, OPERUSER, OPERDATE,
+    NAME, CODE, SHORTNAME, CORPORATION, FINANCING, LICENCE, COALLICENCE, TAXCODE, LINKMAN, 
+    LINKTEL, FAXCODE, ADDRESS, POSTALCODE, ISSTOP, CREDITLEVEL, NORDER, ORGANIZATIONCODE, 
+    CONEMAIL, EXP_LAIN "EXPLAIN", REGISTERPLACE, CORPORATIONIDENTITY, OPENBANK, BANKACCOUNT, COALSOURCE,
+    TRANSPORTMODE, INTRODUCE, ACHIEVEMENT, TIMES, CLICKLOGINTIME, NCLICKLOGINTIME, AUTOID, 
+    SUPPLIERKIND, PASSWORD, LASTLOGINTIME, STEPNUMBER, CREATEUSERID, CREATEUSERDEPTID, 
+    CREATEUSERDEPTCODE, MINESPECIALCOST, RAILCARRIAGE, DATAFROM, IS_FB ISFB, PT_AUDIT PTAUDIT, IS_CAAUTH ISCAAUTH
+  </sql>
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_fultbsupplier
+    where SUPPLIERID = #{supplierid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity" >
+    insert into t_fultbsupplier
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        SUPPLIERID,
+      </if>
+      <if test="membertypeid != null" >
+        MEMBERTYPEID,
+      </if>
+      <if test="userUuid != null" >
+        USER_UUID,
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="operuser != null" >
+        OPERUSER,
+      </if>
+      <if test="operdate != null" >
+        OPERDATE,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="code != null" >
+        CODE,
+      </if>
+      <if test="shortname != null" >
+        SHORTNAME,
+      </if>
+      <if test="corporation != null" >
+        CORPORATION,
+      </if>
+      <if test="financing != null" >
+        FINANCING,
+      </if>
+      <if test="licence != null" >
+        LICENCE,
+      </if>
+      <if test="coallicence != null" >
+        COALLICENCE,
+      </if>
+      <if test="taxcode != null" >
+        TAXCODE,
+      </if>
+      <if test="linkman != null" >
+        LINKMAN,
+      </if>
+      <if test="linktel != null" >
+        LINKTEL,
+      </if>
+      <if test="faxcode != null" >
+        FAXCODE,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="postalcode != null" >
+        POSTALCODE,
+      </if>
+      <if test="isstop != null" >
+        ISSTOP,
+      </if>
+      <if test="creditlevel != null" >
+        CREDITLEVEL,
+      </if>
+      <if test="norder != null" >
+        NORDER,
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE,
+      </if>
+      <if test="conemail != null" >
+        CONEMAIL,
+      </if>
+      <if test="expLain != null" >
+        EXP_LAIN,
+      </if>
+      <if test="registerplace != null" >
+        REGISTERPLACE,
+      </if>
+      <if test="corporationidentity != null" >
+        CORPORATIONIDENTITY,
+      </if>
+      <if test="openbank != null" >
+        OPENBANK,
+      </if>
+      <if test="bankaccount != null" >
+        BANKACCOUNT,
+      </if>
+      <if test="coalsource != null" >
+        COALSOURCE,
+      </if>
+      <if test="transportmode != null" >
+        TRANSPORTMODE,
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE,
+      </if>
+      <if test="achievement != null" >
+        ACHIEVEMENT,
+      </if>
+      <if test="times != null" >
+        TIMES,
+      </if>
+      <if test="clicklogintime != null" >
+        CLICKLOGINTIME,
+      </if>
+      <if test="nclicklogintime != null" >
+        NCLICKLOGINTIME,
+      </if>
+      <if test="autoid != null" >
+        AUTOID,
+      </if>
+      <if test="supplierkind != null" >
+        SUPPLIERKIND,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME,
+      </if>
+      <if test="stepnumber != null" >
+        STEPNUMBER,
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID,
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID,
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE,
+      </if>
+      <if test="minespecialcost != null" >
+        MINESPECIALCOST,
+      </if>
+      <if test="railcarriage != null" >
+        RAILCARRIAGE,
+      </if>
+      <if test="datafrom != null" >
+        DATAFROM,
+      </if>
+      <if test="isFb != null" >
+        IS_FB,
+      </if>
+      <if test="ptAudit != null" >
+        PT_AUDIT,
+      </if>
+      <if test="isCaauth != null" >
+        IS_CAAUTH,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="supplierid != null" >
+        #{supplierid,jdbcType=VARCHAR},
+      </if>
+      <if test="membertypeid != null" >
+        #{membertypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operuser != null" >
+        #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="corporation != null" >
+        #{corporation,jdbcType=VARCHAR},
+      </if>
+      <if test="financing != null" >
+        #{financing,jdbcType=DECIMAL},
+      </if>
+      <if test="licence != null" >
+        #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="coallicence != null" >
+        #{coallicence,jdbcType=VARCHAR},
+      </if>
+      <if test="taxcode != null" >
+        #{taxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="faxcode != null" >
+        #{faxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isstop != null" >
+        #{isstop,jdbcType=DECIMAL},
+      </if>
+      <if test="creditlevel != null" >
+        #{creditlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="norder != null" >
+        #{norder,jdbcType=DECIMAL},
+      </if>
+      <if test="organizationcode != null" >
+        #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="conemail != null" >
+        #{conemail,jdbcType=VARCHAR},
+      </if>
+      <if test="expLain != null" >
+        #{expLain,jdbcType=VARCHAR},
+      </if>
+      <if test="registerplace != null" >
+        #{registerplace,jdbcType=VARCHAR},
+      </if>
+      <if test="corporationidentity != null" >
+        #{corporationidentity,jdbcType=VARCHAR},
+      </if>
+      <if test="openbank != null" >
+        #{openbank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccount != null" >
+        #{bankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="coalsource != null" >
+        #{coalsource,jdbcType=VARCHAR},
+      </if>
+      <if test="transportmode != null" >
+        #{transportmode,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="achievement != null" >
+        #{achievement,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        #{times,jdbcType=DECIMAL},
+      </if>
+      <if test="clicklogintime != null" >
+        #{clicklogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="nclicklogintime != null" >
+        #{nclicklogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="supplierkind != null" >
+        #{supplierkind,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="stepnumber != null" >
+        #{stepnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="minespecialcost != null" >
+        #{minespecialcost,jdbcType=DECIMAL},
+      </if>
+      <if test="railcarriage != null" >
+        #{railcarriage,jdbcType=DECIMAL},
+      </if>
+      <if test="datafrom != null" >
+        #{datafrom,jdbcType=VARCHAR},
+      </if>
+      <if test="isFb != null" >
+        #{isFb,jdbcType=VARCHAR},
+      </if>
+      <if test="ptAudit != null" >
+        #{ptAudit,jdbcType=VARCHAR},
+      </if>
+      <if test="isCaauth != null" >
+        #{isCaauth,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity" >
+    update t_fultbsupplier
+    <set >
+      <if test="membertypeid != null" >
+        MEMBERTYPEID = #{membertypeid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null" >
+        USER_UUID = #{userUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="operuser != null" >
+        OPERUSER = #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        OPERDATE = #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        CODE = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="shortname != null" >
+        SHORTNAME = #{shortname,jdbcType=VARCHAR},
+      </if>
+      <if test="corporation != null" >
+        CORPORATION = #{corporation,jdbcType=VARCHAR},
+      </if>
+      <if test="financing != null" >
+        FINANCING = #{financing,jdbcType=DECIMAL},
+      </if>
+      <if test="licence != null" >
+        LICENCE = #{licence,jdbcType=VARCHAR},
+      </if>
+      <if test="coallicence != null" >
+        COALLICENCE = #{coallicence,jdbcType=VARCHAR},
+      </if>
+      <if test="taxcode != null" >
+        TAXCODE = #{taxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="linkman != null" >
+        LINKMAN = #{linkman,jdbcType=VARCHAR},
+      </if>
+      <if test="linktel != null" >
+        LINKTEL = #{linktel,jdbcType=VARCHAR},
+      </if>
+      <if test="faxcode != null" >
+        FAXCODE = #{faxcode,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postalcode != null" >
+        POSTALCODE = #{postalcode,jdbcType=VARCHAR},
+      </if>
+      <if test="isstop != null" >
+        ISSTOP = #{isstop,jdbcType=DECIMAL},
+      </if>
+      <if test="creditlevel != null" >
+        CREDITLEVEL = #{creditlevel,jdbcType=VARCHAR},
+      </if>
+      <if test="norder != null" >
+        NORDER = #{norder,jdbcType=DECIMAL},
+      </if>
+      <if test="organizationcode != null" >
+        ORGANIZATIONCODE = #{organizationcode,jdbcType=VARCHAR},
+      </if>
+      <if test="conemail != null" >
+        CONEMAIL = #{conemail,jdbcType=VARCHAR},
+      </if>
+      <if test="expLain != null" >
+        EXP_LAIN = #{expLain,jdbcType=VARCHAR},
+      </if>
+      <if test="registerplace != null" >
+        REGISTERPLACE = #{registerplace,jdbcType=VARCHAR},
+      </if>
+      <if test="corporationidentity != null" >
+        CORPORATIONIDENTITY = #{corporationidentity,jdbcType=VARCHAR},
+      </if>
+      <if test="openbank != null" >
+        OPENBANK = #{openbank,jdbcType=VARCHAR},
+      </if>
+      <if test="bankaccount != null" >
+        BANKACCOUNT = #{bankaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="coalsource != null" >
+        COALSOURCE = #{coalsource,jdbcType=VARCHAR},
+      </if>
+      <if test="transportmode != null" >
+        TRANSPORTMODE = #{transportmode,jdbcType=VARCHAR},
+      </if>
+      <if test="introduce != null" >
+        INTRODUCE = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="achievement != null" >
+        ACHIEVEMENT = #{achievement,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null" >
+        TIMES = #{times,jdbcType=DECIMAL},
+      </if>
+      <if test="clicklogintime != null" >
+        CLICKLOGINTIME = #{clicklogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="nclicklogintime != null" >
+        NCLICKLOGINTIME = #{nclicklogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        AUTOID = #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="supplierkind != null" >
+        SUPPLIERKIND = #{supplierkind,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="lastlogintime != null" >
+        LASTLOGINTIME = #{lastlogintime,jdbcType=VARCHAR},
+      </if>
+      <if test="stepnumber != null" >
+        STEPNUMBER = #{stepnumber,jdbcType=DECIMAL},
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID = #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID = #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE = #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="minespecialcost != null" >
+        MINESPECIALCOST = #{minespecialcost,jdbcType=DECIMAL},
+      </if>
+      <if test="railcarriage != null" >
+        RAILCARRIAGE = #{railcarriage,jdbcType=DECIMAL},
+      </if>
+      <if test="datafrom != null" >
+        DATAFROM = #{datafrom,jdbcType=VARCHAR},
+      </if>
+      <if test="isFb != null" >
+        IS_FB = #{isFb,jdbcType=VARCHAR},
+      </if>
+      <if test="ptAudit != null" >
+        PT_AUDIT = #{ptAudit,jdbcType=VARCHAR},
+      </if>
+      <if test="isCaauth != null" >
+        IS_CAAUTH = #{isCaauth,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where SUPPLIERID = #{supplierid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_fultbsupplier where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity">
+    select    <include refid="Base_Column_List" /> from t_fultbsupplier
+    where   SUPPLIERID = #{supplierid,jdbcType=VARCHAR
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity" resultType="int">
+    select count(*) from t_fultbsupplier where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity" resultType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity">
+    select <include refid="Base_Column_List"></include> from t_fultbsupplier where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>

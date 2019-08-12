@@ -1,0 +1,566 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.isoftstone.gdcoal.dao.TFultbtemplateDao" >
+
+  <sql id="Base_Column_List" >
+    TEMPLATEID, OPERDATE, AUTOID, OPERUSER, CREATEUSER, CREATEDATE, CREATEUSERID, CREATEUSERDEPTID, 
+    CREATEUSERDEPTCODE, PERMITSTATUS, BILLNUMBER, DATAFROM, DATAFROMNAME, WRITERNAME, 
+    WRITERACCOUNT, WRITERDEPARTID, WRITERDEPARTNAME, WRITEDATE, JHTIME, JHTIME_END JHTIMEEND, COALTYPE,
+    QTY, QTY_END QTYEND, YUNSHU_MODE YUNSHUMODE, JIAOHUO_MODE JIAOHUOMODE JIAOHUOMODE, YANSHOU_MODE YANSHOUMODE, JIESUAN_MODE JIESUANMODE, TYPE_1 TYPE1, TYPE_2 TYPE2,
+    TYPE_3 TYPE3, TYPE_4 TYPE4, TYPE_5 TYPE5, TYPE_6 TYPE6, TYPE_7 TYPE7, TYPE_8 TYPE8, REMARK, SIGNNAME, SIGNACCOUNT, JHTIME2,
+    TYPE_32 TYPE32, CREATEBYAH, IS_FB ISFB, SOURCE, TYPE, TYPE_323 TYPE323, TYPE_333 TYPE333, MAXREMARK, TYPE_11 TYPE11,
+    TYPE_12 TYPE12, TYPE_14 TYPE14, TYPE_16 TYPE16, COALCLASS, KGJ_1 KGJ1, KGJ_2 KGJ2, KGJ_3 KGJ3, KGJ_4 KGJ4
+  </sql>
+
+
+  <delete id="deleteEntity" parameterType="java.lang.String" >
+    delete from t_fultbtemplate
+    where TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+  </delete>
+
+
+  <insert id="saveEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" >
+    insert into t_fultbtemplate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="templateid != null" >
+        TEMPLATEID,
+      </if>
+      <if test="operdate != null" >
+        OPERDATE,
+      </if>
+      <if test="autoid != null" >
+        AUTOID,
+      </if>
+      <if test="operuser != null" >
+        OPERUSER,
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER,
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE,
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID,
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID,
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE,
+      </if>
+      <if test="permitstatus != null" >
+        PERMITSTATUS,
+      </if>
+      <if test="billnumber != null" >
+        BILLNUMBER,
+      </if>
+      <if test="datafrom != null" >
+        DATAFROM,
+      </if>
+      <if test="datafromname != null" >
+        DATAFROMNAME,
+      </if>
+      <if test="writername != null" >
+        WRITERNAME,
+      </if>
+      <if test="writeraccount != null" >
+        WRITERACCOUNT,
+      </if>
+      <if test="writerdepartid != null" >
+        WRITERDEPARTID,
+      </if>
+      <if test="writerdepartname != null" >
+        WRITERDEPARTNAME,
+      </if>
+      <if test="writedate != null" >
+        WRITEDATE,
+      </if>
+      <if test="jhtime != null" >
+        JHTIME,
+      </if>
+      <if test="jhtimeEnd != null" >
+        JHTIME_END,
+      </if>
+      <if test="coaltype != null" >
+        COALTYPE,
+      </if>
+      <if test="qty != null" >
+        QTY,
+      </if>
+      <if test="qtyEnd != null" >
+        QTY_END,
+      </if>
+      <if test="yunshuMode != null" >
+        YUNSHU_MODE,
+      </if>
+      <if test="jiaohuoMode != null" >
+        JIAOHUO_MODE,
+      </if>
+      <if test="yanshouMode != null" >
+        YANSHOU_MODE,
+      </if>
+      <if test="jiesuanMode != null" >
+        JIESUAN_MODE,
+      </if>
+      <if test="type1 != null" >
+        TYPE_1,
+      </if>
+      <if test="type2 != null" >
+        TYPE_2,
+      </if>
+      <if test="type3 != null" >
+        TYPE_3,
+      </if>
+      <if test="type4 != null" >
+        TYPE_4,
+      </if>
+      <if test="type5 != null" >
+        TYPE_5,
+      </if>
+      <if test="type6 != null" >
+        TYPE_6,
+      </if>
+      <if test="type7 != null" >
+        TYPE_7,
+      </if>
+      <if test="type8 != null" >
+        TYPE_8,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="signname != null" >
+        SIGNNAME,
+      </if>
+      <if test="signaccount != null" >
+        SIGNACCOUNT,
+      </if>
+      <if test="jhtime2 != null" >
+        JHTIME2,
+      </if>
+      <if test="type32 != null" >
+        TYPE_32,
+      </if>
+      <if test="createbyah != null" >
+        CREATEBYAH,
+      </if>
+      <if test="isFb != null" >
+        IS_FB,
+      </if>
+      <if test="source != null" >
+        SOURCE,
+      </if>
+      <if test="type != null" >
+        TYPE,
+      </if>
+      <if test="type323 != null" >
+        TYPE_323,
+      </if>
+      <if test="type333 != null" >
+        TYPE_333,
+      </if>
+      <if test="maxremark != null" >
+        MAXREMARK,
+      </if>
+      <if test="type11 != null" >
+        TYPE_11,
+      </if>
+      <if test="type12 != null" >
+        TYPE_12,
+      </if>
+      <if test="type14 != null" >
+        TYPE_14,
+      </if>
+      <if test="type16 != null" >
+        TYPE_16,
+      </if>
+      <if test="coalclass != null" >
+        COALCLASS,
+      </if>
+      <if test="kgj1 != null" >
+        KGJ_1,
+      </if>
+      <if test="kgj2 != null" >
+        KGJ_2,
+      </if>
+      <if test="kgj3 != null" >
+        KGJ_3,
+      </if>
+      <if test="kgj4 != null" >
+        KGJ_4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="templateid != null" >
+        #{templateid,jdbcType=VARCHAR},
+      </if>
+      <if test="operdate != null" >
+        #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="operuser != null" >
+        #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="permitstatus != null" >
+        #{permitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billnumber != null" >
+        #{billnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="datafrom != null" >
+        #{datafrom,jdbcType=VARCHAR},
+      </if>
+      <if test="datafromname != null" >
+        #{datafromname,jdbcType=VARCHAR},
+      </if>
+      <if test="writername != null" >
+        #{writername,jdbcType=VARCHAR},
+      </if>
+      <if test="writeraccount != null" >
+        #{writeraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="writerdepartid != null" >
+        #{writerdepartid,jdbcType=VARCHAR},
+      </if>
+      <if test="writerdepartname != null" >
+        #{writerdepartname,jdbcType=VARCHAR},
+      </if>
+      <if test="writedate != null" >
+        #{writedate,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtime != null" >
+        #{jhtime,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtimeEnd != null" >
+        #{jhtimeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="coaltype != null" >
+        #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtyEnd != null" >
+        #{qtyEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="yunshuMode != null" >
+        #{yunshuMode,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaohuoMode != null" >
+        #{jiaohuoMode,jdbcType=VARCHAR},
+      </if>
+      <if test="yanshouMode != null" >
+        #{yanshouMode,jdbcType=VARCHAR},
+      </if>
+      <if test="jiesuanMode != null" >
+        #{jiesuanMode,jdbcType=VARCHAR},
+      </if>
+      <if test="type1 != null" >
+        #{type1,jdbcType=VARCHAR},
+      </if>
+      <if test="type2 != null" >
+        #{type2,jdbcType=VARCHAR},
+      </if>
+      <if test="type3 != null" >
+        #{type3,jdbcType=VARCHAR},
+      </if>
+      <if test="type4 != null" >
+        #{type4,jdbcType=VARCHAR},
+      </if>
+      <if test="type5 != null" >
+        #{type5,jdbcType=VARCHAR},
+      </if>
+      <if test="type6 != null" >
+        #{type6,jdbcType=VARCHAR},
+      </if>
+      <if test="type7 != null" >
+        #{type7,jdbcType=VARCHAR},
+      </if>
+      <if test="type8 != null" >
+        #{type8,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="signname != null" >
+        #{signname,jdbcType=VARCHAR},
+      </if>
+      <if test="signaccount != null" >
+        #{signaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtime2 != null" >
+        #{jhtime2,jdbcType=VARCHAR},
+      </if>
+      <if test="type32 != null" >
+        #{type32,jdbcType=VARCHAR},
+      </if>
+      <if test="createbyah != null" >
+        #{createbyah,jdbcType=VARCHAR},
+      </if>
+      <if test="isFb != null" >
+        #{isFb,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="type323 != null" >
+        #{type323,jdbcType=VARCHAR},
+      </if>
+      <if test="type333 != null" >
+        #{type333,jdbcType=VARCHAR},
+      </if>
+      <if test="maxremark != null" >
+        #{maxremark,jdbcType=VARCHAR},
+      </if>
+      <if test="type11 != null" >
+        #{type11,jdbcType=VARCHAR},
+      </if>
+      <if test="type12 != null" >
+        #{type12,jdbcType=VARCHAR},
+      </if>
+      <if test="type14 != null" >
+        #{type14,jdbcType=VARCHAR},
+      </if>
+      <if test="type16 != null" >
+        #{type16,jdbcType=VARCHAR},
+      </if>
+      <if test="coalclass != null" >
+        #{coalclass,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj1 != null" >
+        #{kgj1,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj2 != null" >
+        #{kgj2,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj3 != null" >
+        #{kgj3,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj4 != null" >
+        #{kgj4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+
+  <update id="updateEntity" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" >
+    update t_fultbtemplate
+    <set >
+      <if test="operdate != null" >
+        OPERDATE = #{operdate,jdbcType=VARCHAR},
+      </if>
+      <if test="autoid != null" >
+        AUTOID = #{autoid,jdbcType=DECIMAL},
+      </if>
+      <if test="operuser != null" >
+        OPERUSER = #{operuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createuser != null" >
+        CREATEUSER = #{createuser,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        CREATEDATE = #{createdate,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserid != null" >
+        CREATEUSERID = #{createuserid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptid != null" >
+        CREATEUSERDEPTID = #{createuserdeptid,jdbcType=VARCHAR},
+      </if>
+      <if test="createuserdeptcode != null" >
+        CREATEUSERDEPTCODE = #{createuserdeptcode,jdbcType=VARCHAR},
+      </if>
+      <if test="permitstatus != null" >
+        PERMITSTATUS = #{permitstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="billnumber != null" >
+        BILLNUMBER = #{billnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="datafrom != null" >
+        DATAFROM = #{datafrom,jdbcType=VARCHAR},
+      </if>
+      <if test="datafromname != null" >
+        DATAFROMNAME = #{datafromname,jdbcType=VARCHAR},
+      </if>
+      <if test="writername != null" >
+        WRITERNAME = #{writername,jdbcType=VARCHAR},
+      </if>
+      <if test="writeraccount != null" >
+        WRITERACCOUNT = #{writeraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="writerdepartid != null" >
+        WRITERDEPARTID = #{writerdepartid,jdbcType=VARCHAR},
+      </if>
+      <if test="writerdepartname != null" >
+        WRITERDEPARTNAME = #{writerdepartname,jdbcType=VARCHAR},
+      </if>
+      <if test="writedate != null" >
+        WRITEDATE = #{writedate,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtime != null" >
+        JHTIME = #{jhtime,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtimeEnd != null" >
+        JHTIME_END = #{jhtimeEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="coaltype != null" >
+        COALTYPE = #{coaltype,jdbcType=VARCHAR},
+      </if>
+      <if test="qty != null" >
+        QTY = #{qty,jdbcType=DECIMAL},
+      </if>
+      <if test="qtyEnd != null" >
+        QTY_END = #{qtyEnd,jdbcType=DECIMAL},
+      </if>
+      <if test="yunshuMode != null" >
+        YUNSHU_MODE = #{yunshuMode,jdbcType=VARCHAR},
+      </if>
+      <if test="jiaohuoMode != null" >
+        JIAOHUO_MODE = #{jiaohuoMode,jdbcType=VARCHAR},
+      </if>
+      <if test="yanshouMode != null" >
+        YANSHOU_MODE = #{yanshouMode,jdbcType=VARCHAR},
+      </if>
+      <if test="jiesuanMode != null" >
+        JIESUAN_MODE = #{jiesuanMode,jdbcType=VARCHAR},
+      </if>
+      <if test="type1 != null" >
+        TYPE_1 = #{type1,jdbcType=VARCHAR},
+      </if>
+      <if test="type2 != null" >
+        TYPE_2 = #{type2,jdbcType=VARCHAR},
+      </if>
+      <if test="type3 != null" >
+        TYPE_3 = #{type3,jdbcType=VARCHAR},
+      </if>
+      <if test="type4 != null" >
+        TYPE_4 = #{type4,jdbcType=VARCHAR},
+      </if>
+      <if test="type5 != null" >
+        TYPE_5 = #{type5,jdbcType=VARCHAR},
+      </if>
+      <if test="type6 != null" >
+        TYPE_6 = #{type6,jdbcType=VARCHAR},
+      </if>
+      <if test="type7 != null" >
+        TYPE_7 = #{type7,jdbcType=VARCHAR},
+      </if>
+      <if test="type8 != null" >
+        TYPE_8 = #{type8,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="signname != null" >
+        SIGNNAME = #{signname,jdbcType=VARCHAR},
+      </if>
+      <if test="signaccount != null" >
+        SIGNACCOUNT = #{signaccount,jdbcType=VARCHAR},
+      </if>
+      <if test="jhtime2 != null" >
+        JHTIME2 = #{jhtime2,jdbcType=VARCHAR},
+      </if>
+      <if test="type32 != null" >
+        TYPE_32 = #{type32,jdbcType=VARCHAR},
+      </if>
+      <if test="createbyah != null" >
+        CREATEBYAH = #{createbyah,jdbcType=VARCHAR},
+      </if>
+      <if test="isFb != null" >
+        IS_FB = #{isFb,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null" >
+        SOURCE = #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        TYPE = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="type323 != null" >
+        TYPE_323 = #{type323,jdbcType=VARCHAR},
+      </if>
+      <if test="type333 != null" >
+        TYPE_333 = #{type333,jdbcType=VARCHAR},
+      </if>
+      <if test="maxremark != null" >
+        MAXREMARK = #{maxremark,jdbcType=VARCHAR},
+      </if>
+      <if test="type11 != null" >
+        TYPE_11 = #{type11,jdbcType=VARCHAR},
+      </if>
+      <if test="type12 != null" >
+        TYPE_12 = #{type12,jdbcType=VARCHAR},
+      </if>
+      <if test="type14 != null" >
+        TYPE_14 = #{type14,jdbcType=VARCHAR},
+      </if>
+      <if test="type16 != null" >
+        TYPE_16 = #{type16,jdbcType=VARCHAR},
+      </if>
+      <if test="coalclass != null" >
+        COALCLASS = #{coalclass,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj1 != null" >
+        KGJ_1 = #{kgj1,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj2 != null" >
+        KGJ_2 = #{kgj2,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj3 != null" >
+        KGJ_3 = #{kgj3,jdbcType=VARCHAR},
+      </if>
+      <if test="kgj4 != null" >
+        KGJ_4 = #{kgj4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
+
+    select  <include refid="Base_Column_List"></include> from t_fultbtemplate where 1=1
+    <if test="whereSql!=null">
+      ${whereSql}
+    </if>
+
+  </select>
+  <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
+    select    <include refid="Base_Column_List" /> from t_fultbtemplate
+    where     TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+  </select>
+  <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="int">
+    select count(*) from t_fultbtemplate where 1=1
+    <if test="whereSql!=null" >
+      ${whereSql }
+    </if>
+  </select>
+  <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
+    select <include refid="Base_Column_List"></include> from t_fultbtemplate where 1=1
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+      limit #{offset} ,#{pageSize}
+
+
+  </select>
+</mapper>
