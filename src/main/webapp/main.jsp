@@ -90,8 +90,10 @@
                         <div class="sidebar-submenu">
                             <ul>
 
-                                <li><a href="#">采购需求创建</a></li>
-                                <li><a href="#">采购申请信息</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadCreateTFultbtemplate">采购需求创建</a></li>
+                                <li><a href="#">采购申请查询</a></li>
+                                <li><a href="#">采购申请修改</a></li>
+                                <li><a href="#">采购申请删除</a></li>
                             </ul>
                         </div>
                     </li>
