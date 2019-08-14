@@ -79,6 +79,7 @@
             <thead>
 
             <tr>
+                <th>序号</th>
                 <th>单据编号</th>
                 <th>创建日期</th>
                 <th>煤种</th>
@@ -102,7 +103,7 @@
                     <td>${r.applystate}</td>
 
                     <td>
-                        <a href="<%=basePath%>check/selectById?organId=${r.purchapplyid}" class="btn btn-primary">审批</a>
+                        <a href="<%=basePath%>check/selectById?purchapplyid=${r.purchapplyid}" class="btn btn-primary">审批</a>
                     </td>
                 </tr>
             </c:forEach>

@@ -2,11 +2,12 @@ package com.isoftstone.gdcoal.controller;
 
 import com.isoftstone.gdcoal.entity.TFultbpurchasingapplyEntity;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplyService;
+import com.isoftstone.gdcoal.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -20,18 +21,19 @@ import java.util.Map;
  * @Date 2019/8/13 10:10
  */
 @Controller
+@RequestMapping("/check")
 public class TFultbpurchasingapplyController {
     @Autowired
     private TFultbpurchasingapplyService tFultbpurchasingapplyService;
     /**
      * 加载Purchapply.jsp页面
      * */
-    @RequestMapping("/check/logPurchapplyPage")
+    @RequestMapping("/logPurchapplyPage")
     public String loadPurchapplyPage(){
         return "/views/check/Purchapply.jsp";
     }
 
-    @RequestMapping("/check/selectPurchapplyPage")
+    @RequestMapping("/selectPurchapplyPage")
     public String  selectPurchapplyPage(String purchapplyid, Integer pageNow, HttpServletRequest request, Model model){
         if(!(pageNow!=null&&!pageNow.toString().equals(""))){
             pageNow=1;
@@ -45,10 +47,7 @@ public class TFultbpurchasingapplyController {
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbpurchasingapplyService.selectTotal(entity));
         List<TFultbpurchasingapplyEntity> list=tFultbpurchasingapplyService.selectPurchapplyPage(entity);
-        //请对象HttpServletRequest   HttpServletResponse
-        // request.setAttribute("rows",list);//将数据放入请求对象，该数据在本次请求中一直存在
-        //request.setAttribute("entity",entity);
-        // request.setAttribute("organName",organName);
+
         model.addAttribute("tFultbpurchasingapply",list);
         Map<String,Object> map=new HashMap<String,Object>();
         map.put("entity",entity);
@@ -59,13 +58,54 @@ public class TFultbpurchasingapplyController {
 
     }
 
-    @RequestMapping("/check/selectById")
+    @RequestMapping("/selectById")
     public String selectById(String purchapplyid,Model model){
         TFultbpurchasingapplyEntity entity=tFultbpurchasingapplyService.selectById(purchapplyid);
         model.addAttribute("tFultbpurchasingapply",entity);
 
         return "/views/check/checkApply.jsp";
     }
+
+    @RequestMapping("/checkApply")
+    public String updatePurchapply(String purchapplyid,String applyState){
+        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+
+        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
+        if(i>0){
+            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+        }
+        return "/error.jsp";
+    }
+    @RequestMapping("/applyPass")
+    public String applyPass(String purchapplyid,String applyState){
+        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+        entity.setPurchapplyid(purchapplyid);
+        entity.setApplystate("通过");
+        entity.setOperuser("张三");//暂时写死
+        entity.setOperdate(DateUtils.getCurrentTime());
+
+        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
+        if(i>0){
+            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+        }
+        return "/error.jsp";
+    }
+    @RequestMapping("/applyFail")
+    public String applyFail(String purchapplyid,String applyState){
+        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+        entity.setPurchapplyid(purchapplyid);
+        entity.setApplystate("未通过");
+        entity.setOperuser("张三");//暂时写死
+        entity.setOperdate(DateUtils.getCurrentTime());
+
+        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
+        if(i>0){
+            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+        }
+        return "/error.jsp";
+    }
+
+
 
 
 }
