@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+
+   <link href="bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
+   <link href="bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css" rel="stylesheet">
+   
+   <script type="text/javascript" src="bootstrap-datepicker-1.9.0-dist/jquery-1.8.3.min.js"></script>
+   <script type="text/javascript" src="bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
+   <script type="text/javascript" src="bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+   
+
+</head>
+<body> 
+<!--demo_1-->
+	<div id="datepicker" style="display:hidden" ></div>
+	<input  id="my_hidden_input">
+	<script>
+	$('#datepicker').datepicker({
+			format: 'yyyy-mm-dd',
+			language: 'zh-CN'
+			
+	});
+	 
+	$('#datepicker').on('changeDate', function() {
+		$('#my_hidden_input').val(
+			$('#datepicker').datepicker('getFormattedDate')
+		);
+	}); 
+	</script>
+ 
+	
+	 
+	  
+
+<!---demo_2----->
+	<input  class="date_1"><input  class="date_1">
+	<script>
+	$('.date_1').datepicker({
+			format: 'yyyy-mm-dd',
+			language: 'zh-CN',
+			autoclose: 1,
+			todayBtn:true,
+			todayHighlight:1,
+			minView:2// 不会再找时分秒界面
+			
+	});
+	
+	</script>
+<!------->
+
+
+<div class="container">
+    <form action="" class="form-horizontal"  role="form">
+        <fieldset>
+            <legend>测试</legend>
+
+            <div class="form-group">
+                <label for="dtp_input2" class="col-md-2 control-label">Date Picking</label>
+                <div class="input-group date form_date col-md-5" data-date="" data-date-format="" data-link-field="dtp_input2" data-link-format="yyyy-mm-dd">
+                    <input class="form-control" size="16" type="text" value="" readonly>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <input type="hidden" id="dtp_input2" value="" /><br/>
+            </div>
+
+        </fieldset>
+    </form>
+</div>
+ <script type="text/javascript">
+    $('.form_date').datepicker({
+        format: 'yyyy-mm-dd',
+        language: 'zh-CN',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+</script>
+ 
+
+</body>
+</html>

@@ -2,7 +2,7 @@
 
 <html>
 <head>
-    <title>Title</title>
+    <title>国电煤炭交易平台</title>
     <%@include file="/include.jsp"%>
     <script type="text/javascript">
         //点击导航访问url（获取当前a的url属性，赋值给iframe的src）
@@ -59,7 +59,7 @@
                         <div class="sidebar-submenu">
                             <ul>
                                 <li><a href="#">代办中心管理</a></li>
-                                <li><a href="#">采购审批管理</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/check/selectPurchapplyPage?pageNow=1">采购审批管理</a></li>
                                 <li><a href="#">采购执行管理</a></li>
 
                             </ul>

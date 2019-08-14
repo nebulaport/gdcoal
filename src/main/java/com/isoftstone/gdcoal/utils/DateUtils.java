@@ -10,7 +10,14 @@ public class DateUtils {
     public static String getCurrentTime(){
         SimpleDateFormat f=new SimpleDateFormat("yyyyMMddHHmmss");
         Date day=new Date();
-       String res= f.format(day);
+        String res= f.format(day);
         return res;
     }
+    public static String getCurrentDate(){
+        SimpleDateFormat f=new SimpleDateFormat("yyyyMMdd");
+        Date day=new Date();
+        String res= f.format(day);
+        return res;
+    }
+
 }
