@@ -49,7 +49,7 @@
             <div class="formRow">
                 <div class="form-group">
                     <label >备注</label>
-                    <textarea class="form-control" rows="5" cols="40" name="desc" id="desc"></textarea>
+                    <label for="desc"></label><textarea class="form-control" rows="5" cols="40" name="desc" id="desc"></textarea>
 
                 </div>
             </div>

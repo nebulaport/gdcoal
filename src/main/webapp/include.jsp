@@ -15,3 +15,11 @@
 <!--bootstrap-Valitor-->
 <link rel="stylesheet" type="text/css" href="<%=basePath%>js/bootstrapvalidator-0.4.5/dist/css/bootstrapValidator.min.css">
 <script type="text/javascript" src="<%=basePath%>js/bootstrapvalidator-0.4.5/dist/js/bootstrapValidator.min.js"></script>
+
+
+<link rel="stylesheet" type="text/css" href="<%=basePath%>js/bootstrap-datepicker-1.9.0-dist/css/bootstrap-datepicker.min.css">
+<script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+
+
+

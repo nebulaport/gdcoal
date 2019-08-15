@@ -25,87 +25,87 @@ import java.util.Map;
 public class TFultbpurchasingapplyController {
     @Autowired
     private TFultbpurchasingapplyService tFultbpurchasingapplyService;
+
     /**
      * 加载Purchapply.jsp页面
-     * */
-    @RequestMapping("/logPurchapplyPage")
-    public String loadPurchapplyPage(){
-        return "/views/check/Purchapply.jsp";
+     */
+    @RequestMapping("/loadPurchapplyPage")
+    public String loadPurchapplyPage() {
+        return "/views/check/purchapply.jsp";
     }
 
+
+    /**
+     * 分页查询
+     */
     @RequestMapping("/selectPurchapplyPage")
-    public String  selectPurchapplyPage(String purchapplyid, Integer pageNow, HttpServletRequest request, Model model){
-        if(!(pageNow!=null&&!pageNow.toString().equals(""))){
-            pageNow=1;
+    public String selectPurchapplyPage(String purchapplyid, Integer pageNow, HttpServletRequest request, Model model) {
+        if (!(pageNow != null && !pageNow.toString().equals(""))) {
+            pageNow = 1;
         }
-        StringBuffer whereSql=new StringBuffer("");
-        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+        StringBuffer whereSql = new StringBuffer("");
+        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPageNow(pageNow);
-        if(purchapplyid!=null&&!purchapplyid.trim().equals("")){
-            whereSql.append(" and t_fultbpurchasingapply.PURCHAPPLYID like '%"+purchapplyid+"%' ");
+        if (purchapplyid != null && !purchapplyid.trim().equals("")) {
+            whereSql.append(" and t_fultbpurchasingapply.PURCHAPPLYID like '%" + purchapplyid + "%' ");
         }
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbpurchasingapplyService.selectTotal(entity));
-        List<TFultbpurchasingapplyEntity> list=tFultbpurchasingapplyService.selectPurchapplyPage(entity);
+        List<TFultbpurchasingapplyEntity> list = tFultbpurchasingapplyService.selectPurchapplyPage(entity);
 
-        model.addAttribute("tFultbpurchasingapply",list);
-        Map<String,Object> map=new HashMap<String,Object>();
-        map.put("entity",entity);
-        map.put("purchapplyid",purchapplyid);
+        model.addAttribute("tFultbpurchasingapply", list);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("entity", entity);
+        map.put("purchapplyid", purchapplyid);
         model.addAllAttributes(map);
 
-        return "/views/check/Purchapply.jsp";
+        return "/views/check/purchapply.jsp";
 
     }
 
     @RequestMapping("/selectById")
-    public String selectById(String purchapplyid,Model model){
-        TFultbpurchasingapplyEntity entity=tFultbpurchasingapplyService.selectById(purchapplyid);
-        model.addAttribute("tFultbpurchasingapply",entity);
+    public String selectById(String purchapplyid, Model model) {
+        TFultbpurchasingapplyEntity entity = tFultbpurchasingapplyService.selectById(purchapplyid);
+        model.addAttribute("tFultbpurchasingapply", entity);
 
         return "/views/check/checkApply.jsp";
     }
 
-    @RequestMapping("/checkApply")
-    public String updatePurchapply(String purchapplyid,String applyState){
-        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
-
-        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
-        if(i>0){
-            return "redirect:/check/selectPurchapplyPage?pageNow=1";
-        }
-        return "/error.jsp";
-    }
+    /**
+     * 审核通过
+     */
     @RequestMapping("/applyPass")
-    public String applyPass(String purchapplyid,String applyState){
-        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+    public String applyPass(String purchapplyid, String applyState) {
+        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPurchapplyid(purchapplyid);
-        entity.setApplystate("通过");
-        entity.setOperuser("张三");//暂时写死
+        entity.setApplystate("已下达");
+        entity.setOperuser("001");//暂时写死
         entity.setOperdate(DateUtils.getCurrentTime());
 
-        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
-        if(i>0){
+        int i = tFultbpurchasingapplyService.updatePurchapply(entity);
+        if (i > 0) {
             return "redirect:/check/selectPurchapplyPage?pageNow=1";
         }
         return "/error.jsp";
     }
+
+    /**
+     * 审核不通过
+     */
     @RequestMapping("/applyFail")
-    public String applyFail(String purchapplyid,String applyState){
-        TFultbpurchasingapplyEntity entity=new TFultbpurchasingapplyEntity();
+    public String applyFail(String purchapplyid, String applyState) {
+        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPurchapplyid(purchapplyid);
-        entity.setApplystate("未通过");
-        entity.setOperuser("张三");//暂时写死
+        entity.setApplystate("已驳回");
+        entity.setOperuser("001");//暂时写死
         entity.setOperdate(DateUtils.getCurrentTime());
 
-        int i=  tFultbpurchasingapplyService.updatePurchapply(entity);
-        if(i>0){
+        int i = tFultbpurchasingapplyService.updatePurchapply(entity);
+        if (i > 0) {
             return "redirect:/check/selectPurchapplyPage?pageNow=1";
         }
         return "/error.jsp";
     }
-
-
 
 
 }

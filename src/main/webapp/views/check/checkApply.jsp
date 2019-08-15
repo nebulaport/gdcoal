@@ -78,8 +78,13 @@
                             </div>
                             <div class="form-group">
                                 <label>煤种</label>
-                                <input readonly="readonly" disabled id="text" value="${tFultbpurchasingapply.coaltype}" name="coaltype"
-                                       type="text" class="form-control">
+                                <input readonly="readonly" disabled type="text" value="${tFultbpurchasingapply.coaltype}" name="coaltype"
+                                       id="coaltype" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label>数量（万吨）</label>
+                                <input readonly="readonly" disabled type="text" value="${tFultbpurchasingapply.qty}" name="qty"
+                                       id="qty" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label>结算方式</label>
@@ -114,7 +119,7 @@
                 <a href="<%=basePath%>check/applyFail?purchapplyid=${tFultbpurchasingapply.purchapplyid}"
                    class="btn btn-primary">不通过</a>
 
-                <a class="btn btn-primary" href="<%=basePath%>check/logPurchapplyPage">返回</a>
+                <a class="btn btn-primary" href="<%=basePath%>check/selectPurchapplyPage">返回</a>
             </div>
         </div>
     </div>

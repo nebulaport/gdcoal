@@ -109,9 +109,6 @@
                     $("#addBondctractForm")[0].submit();//必须注意；一定写下标，然后submit
                 }
             });
-
-
-
         });
 
        function  coalType1(obj){

@@ -56,8 +56,8 @@
             </div>
             <div class="formRow">
                 <div class="form-group">
-                    <label >备注</label>
-                    <textarea class="form-control"  rows="5" cols="40" name="desc" id="desc">${row.description}</textarea>
+                    <label for="desc">备注</label>
+                    <textarea class="form-control" rows="5" cols="40" name="desc" id="desc">${row.description}</textarea>
 
                 </div>
             </div>
