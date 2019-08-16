@@ -90,8 +90,6 @@ public class TFultbtemplateEntity extends BaseEntity {
 
     private String source;
 
-    private String type;
-
     public String getStatus() {
         return status;
     }
@@ -482,14 +480,6 @@ public class TFultbtemplateEntity extends BaseEntity {
 
     public void setSource(String source) {
         this.source = source;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getType323() {
