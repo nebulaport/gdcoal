@@ -5,6 +5,7 @@ import com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity;
 import com.isoftstone.gdcoal.entity.TFultbsupplierEntity;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplyService;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplydetailService;
+import com.isoftstone.gdcoal.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -81,25 +82,25 @@ public class TFultbpurchasingapplydetailController {
      * 添加记录
      * */
     @RequestMapping("/addApplydetailInfo")
-    public String addApplydetailInfo(String purchapplyid, String applydetailid, BigDecimal qty, String yunshuMode,
-                                     String yanshoMode, String linktel,
-                                     String supplierid, String remark){
-        TFultbpurchasingapplyEntity purchapply=new TFultbpurchasingapplyEntity();
+    public String addApplydetailInfo( String purchapplyid, String applydetailid, BigDecimal qty,
+                                      String linktel,
+                                     String supplierid, String remark, String zbqty,String zbprice){
+
         TFultbpurchasingapplydetailEntity applydetail=new TFultbpurchasingapplydetailEntity();
 
-        purchapply.setPurchapplyid(purchapplyid);
-        purchapply.setQty(qty);
-        purchapply.setYunshuMode(yunshuMode);
-        purchapply.setYanshouMode(yanshoMode);
-
         applydetail.setApplydetailid(applydetailid);
+        applydetail.setPurchapplyid(purchapplyid);
         applydetail.setSupplierid(supplierid);
         applydetail.setLinktel(linktel);
         applydetail.setRemark(remark);
+        applydetail.setZbqty(zbqty);
+        applydetail.setZbprice(zbprice);
+        applydetail.setQty(qty);
+        applydetail.setCreatedate(DateUtils.getCurrentDate());
 
-        int i = tFultbpurchasingapplyService.updatePurchapply(purchapply);
-        int j= tFultbpurchasingapplydetailService.saveApplydetail(applydetail);
-        if (i > 0 && j > 0) {
+
+        int i= tFultbpurchasingapplydetailService.saveApplydetail(applydetail);
+        if (i > 0 ) {
             return "redirect:/success.jsp";
         }
         return "redirect:/error.jsp";

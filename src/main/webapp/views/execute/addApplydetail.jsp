@@ -82,29 +82,37 @@
                             notEmpty: {
                                 message: '采购数量不能为空'
                             },
-                            regexp: {//正则验证，0到5位小数的正实数
-                                regexp: /^[0-9]+(.[0-9]{0,5})?$/,
+                            regexp: {//正则验证，正实数
+                                regexp: /^(?:[1-9]\d*|0)(?:\.\d+)?$/,
                                 message: '请输入正确的采购数量'
                             }
                         }
                     },
-                    yunshuMode: {
+                    zbqty: {
                         trigger: 'change',
                         validators: {
                             notEmpty: {
-                                message: '运输方式不能为空'
+                                message: '中标数量不能为空'
+                            },
+                            regexp: {//正则验证，正实数
+                                regexp: /^(?:[1-9]\d*|0)(?:\.\d+)?$/,
+                                message: '请输入正确的中标数量'
                             }
                         }
                     },
-                    yanshouMode: {
+                    zbprice: {
                         trigger: 'change',
-
                         validators: {
                             notEmpty: {
-                                message: '验收方式不能为空'
+                                message: '中标价格不能为空'
+                            },
+                            regexp: {//正则验证，正实数
+                                regexp: /^(?:[1-9]\d*|0)(?:\.\d+)?$/,
+                                message: '请输入正确的中标价格'
                             }
                         }
                     }
+
 
 
                 }
@@ -158,7 +166,7 @@
 
 
                             <div class="form-group">
-                                <label for="applydetailid">编号</label>
+                                <label for="applydetailid">供应商报价编号</label>
                                 <input type="text" readonly value="${applydetailid}"
                                        name="applydetailid"
                                        id="applydetailid"
@@ -171,31 +179,29 @@
                                        value="${purchapply.purchapplyid}" class="form-control">
 
                             </div>
+
+
+
+                            <div class="form-group">
+                                <label for="zbqty">中标数量</label>
+                                <input id="zbqty"  name="zbqty"  type="text"
+                                       class="form-control">
+
+                            </div>
+                            <div class="form-group">
+                                <label for="zbprice">中标价格</label>
+                                <input id="zbprice"  name="zbprice"  type="text"
+                                       class="form-control">
+
+                            </div>
                             <div class="form-group">
                                 <label for="qty">采购数量（万吨）</label>
                                 <input id="qty" required name="qty" value="${purchapply.qty}" type="text"
                                        class="form-control">
 
                             </div>
-                            <div class="form-group">
-                                <label for="yunshuMode">运输方式</label><select required name="yunshuMode" id="yunshuMode"
-                                                                            class="form-control">
 
-                                <option selected value="${purchapply.yunshuMode}">${purchapply.yunshuMode}</option>
-                                <option value="火车">火车</option>
-                                <option value="航空">航空</option>
-                            </select>
-                            </div>
 
-                            <div class="form-group">
-                                <label for="yanshouMode">验收方式</label><select required name="yanshouMode"
-                                                                             id="yanshouMode" class="form-control">
-                                <option selected
-                                        value="${purchapply.yanshouMode}">${purchapply.yanshouMode}</option>
-                                <option value="到场验收">到场验收</option>
-                                <option value="非到场验收">非到场验收</option>
-                            </select>
-                            </div>
                             <div class="form-group">
                                 <label for="linktel">联系电话</label>
                                 <input id="linktel" required name="linktel" type="text"
