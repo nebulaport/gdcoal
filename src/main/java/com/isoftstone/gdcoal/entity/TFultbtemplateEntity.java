@@ -46,7 +46,7 @@ public class TFultbtemplateEntity extends BaseEntity {
     private String type5;// 灰熔点
     private String type7;// 哈氏可磨系数
     private String remark;//备注
-    private String status;//状态
+    private String status;//状态(0 草稿,1 审核中,2 已发布,3 已驳回)
 
     private String templateid;
 
