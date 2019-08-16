@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @ClassName TFultbpurchasingapplyController
- * @Description TODO：采购申请审批相关业务逻辑实现
+ * @Description TODO
  * @Author NebulaPort
  * @Date 2019/8/13 10:10
  */
@@ -89,23 +89,43 @@ public class TFultbpurchasingapplyController {
         return "/error.jsp";
     }
 
-    /**
-     * 审核不通过
-     */
-    @RequestMapping("/applyFail")
-    public String applyFail(String purchapplyid, String applyState) {
-        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
-        entity.setPurchapplyid(purchapplyid);
-        entity.setApplystate("已驳回");
-        entity.setOperuser("001");//暂时写死
-        entity.setOperdate(DateUtils.getCurrentTime());
 
-        int i = tFultbpurchasingapplyService.updatePurchapply(entity);
-        if (i > 0) {
-            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+    /**
+     * 待办中心管理
+     */
+    @RequestMapping("/toDo")
+    public String toDo(String state,Integer pageNow, Model model,HttpServletRequest request) {
+
+        if (!(pageNow != null && !"".equals(pageNow.toString()))) {
+            pageNow = 1;
         }
-        return "/error.jsp";
+         StringBuffer whereSql = new StringBuffer("");
+
+       if ("toCheck".equals(state)) {
+           whereSql.append(" and t_fultbpurchasingapply.applystate not in('已下达','已驳回') ");
+       }else if("toFill".equals(state)){
+           whereSql.append(" and t_fultbpurchasingapply.applystate ='已下达'");
+         }
+
+        TFultbpurchasingapplyEntity purchapply = new TFultbpurchasingapplyEntity();
+        purchapply.setPageNow(pageNow);
+        purchapply.setWhereSql(whereSql);
+
+        purchapply.setTotal(tFultbpurchasingapplyService.selectTotal(purchapply));
+        List<TFultbpurchasingapplyEntity> purchapplyList = tFultbpurchasingapplyService.selectPurchapplyPage(purchapply);
+
+        model.addAttribute("purchapplyList", purchapplyList);
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("purchapply", purchapply);
+        map.put("state", state);
+        model.addAllAttributes(map);
+
+
+        return "/views/check/toDo.jsp";
+
     }
+
+
 
 
 }

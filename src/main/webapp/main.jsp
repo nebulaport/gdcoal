@@ -58,9 +58,9 @@
                         <a href="#"><i class="fa fa-photo"></i><span>会员中心</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-                                <li><a href="#">代办中心管理</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/check/toDo?pageNow=1">代办中心管理</a></li>
                                 <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/check/selectPurchapplyPage?pageNow=1">采购审批管理</a></li>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/execute/selectApplydetailPage">采购执行管理</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/execute/selectApplydetailPage?pageNow=1">采购执行管理</a></li>
 
                             </ul>
                         </div>
