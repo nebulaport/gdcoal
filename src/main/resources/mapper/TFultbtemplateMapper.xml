@@ -8,8 +8,9 @@
     WRITERACCOUNT, WRITERDEPARTID, WRITERDEPARTNAME, WRITEDATE, JHTIME, JHTIME_END JHTIMEEND, COALTYPE,
     QTY, QTY_END QTYEND, YUNSHU_MODE YUNSHUMODE, JIAOHUO_MODE JIAOHUOMODE JIAOHUOMODE, YANSHOU_MODE YANSHOUMODE, JIESUAN_MODE JIESUANMODE, TYPE_1 TYPE1, TYPE_2 TYPE2,
     TYPE_3 TYPE3, TYPE_4 TYPE4, TYPE_5 TYPE5, TYPE_6 TYPE6, TYPE_7 TYPE7, TYPE_8 TYPE8, REMARK, SIGNNAME, SIGNACCOUNT, JHTIME2,
-    TYPE_32 TYPE32, CREATEBYAH, IS_FB ISFB, SOURCE, TYPE, TYPE_323 TYPE323, TYPE_333 TYPE333, MAXREMARK, TYPE_11 TYPE11,
-    TYPE_12 TYPE12, TYPE_14 TYPE14, TYPE_16 TYPE16, COALCLASS, KGJ_1 KGJ1, KGJ_2 KGJ2, KGJ_3 KGJ3, KGJ_4 KGJ4
+    TYPE_32 TYPE32, CREATEBYAH, IS_FB ISFB, SOURCE, TYPE_323 TYPE323, TYPE_333 TYPE333, MAXREMARK, TYPE_11 TYPE11,
+    TYPE_12 TYPE12, TYPE_14 TYPE14, TYPE_16 TYPE16, COALCLASS, KGJ_1 KGJ1, KGJ_2 KGJ2, KGJ_3 KGJ3, KGJ_4 KGJ4,
+     MAXLIMITPRICE, MINLIMITPRICE,PAYMODE,IS_QUOTEBOND ISQUOTEBOND,IS_PERFORMBOND ISPERFORMBOND , STATUS
   </sql>
 
 
@@ -151,9 +152,6 @@
       <if test="source != null" >
         SOURCE,
       </if>
-      <if test="type != null" >
-        TYPE,
-      </if>
       <if test="type323 != null" >
         TYPE_323,
       </if>
@@ -189,6 +187,25 @@
       </if>
       <if test="kgj4 != null" >
         KGJ_4,
+      </if>
+
+      <if test="maxlimitprice != null" >
+        MAXLIMITPRICE,
+      </if>
+      <if test="minlimitprice != null" >
+        MINLIMITPRICE,
+      </if>
+      <if test="paymode != null" >
+        PAYMODE,
+      </if>
+      <if test="isquotebond != null" >
+        IS_QUOTEBOND,
+      </if>
+      <if test="isperformbond != null" >
+        IS_PERFORMBOND,
+      </if>
+      <if test="status != null" >
+        STATUS,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -321,9 +338,6 @@
       <if test="source != null" >
         #{source,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        #{type,jdbcType=VARCHAR},
-      </if>
       <if test="type323 != null" >
         #{type323,jdbcType=VARCHAR},
       </if>
@@ -359,6 +373,25 @@
       </if>
       <if test="kgj4 != null" >
         #{kgj4,jdbcType=VARCHAR},
+      </if>
+
+      <if test="maxlimitprice != null" >
+        #{maxlimitprice,jdbcType=VARCHAR},
+      </if>
+      <if test="minlimitprice != null" >
+        #{minlimitprice,jdbcType=VARCHAR},
+      </if>
+      <if test="paymode != null" >
+        #{paymode,jdbcType=VARCHAR},
+      </if>
+      <if test="isquotebond != null" >
+        #{isquotebond,jdbcType=VARCHAR},
+      </if>
+      <if test="isperformbond != null" >
+        #{isperformbond,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -493,9 +526,6 @@
       <if test="source != null" >
         SOURCE = #{source,jdbcType=VARCHAR},
       </if>
-      <if test="type != null" >
-        TYPE = #{type,jdbcType=VARCHAR},
-      </if>
       <if test="type323 != null" >
         TYPE_323 = #{type323,jdbcType=VARCHAR},
       </if>
@@ -532,6 +562,25 @@
       <if test="kgj4 != null" >
         KGJ_4 = #{kgj4,jdbcType=VARCHAR},
       </if>
+      <!--MAXLIMITPRICE, MINLIMITPRICE,PAYMODE,IS_QUOTEBOND ISQUOTEBOND,IS_PERFORMBOND ISPERFORMBOND , STATUS-->
+      <if test="maxlimitprice != null" >
+        MAXLIMITPRICE = #{maxlimitprice,jdbcType=VARCHAR},
+      </if>
+      <if test="minlimitprice != null" >
+        MINLIMITPRICE = #{minlimitprice,jdbcType=VARCHAR},
+      </if>
+      <if test="paymode != null" >
+        PAYMODE = #{paymode,jdbcType=VARCHAR},
+      </if>
+      <if test="isquotebond != null" >
+        IS_QUOTEBOND = #{isquotebond,jdbcType=VARCHAR},
+      </if>
+      <if test="isperformbond != null" >
+        IS_PERFORMBOND = #{isperformbond,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=VARCHAR},
+      </if>
     </set>
     where TEMPLATEID = #{templateid,jdbcType=VARCHAR}
   </update>
@@ -544,7 +593,7 @@
 
   </select>
   <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
-    select    <include refid="Base_Column_List" /> from t_fultbtemplate
+    select    <include refid="Base_Column_List"></include> from t_fultbtemplate
     where     TEMPLATEID = #{templateid,jdbcType=VARCHAR}
   </select>
   <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="int">
@@ -558,9 +607,6 @@
     <if test="whereSql!=null">
       ${whereSql }
     </if>
-
       limit #{offset} ,#{pageSize}
-
-
   </select>
 </mapper>
