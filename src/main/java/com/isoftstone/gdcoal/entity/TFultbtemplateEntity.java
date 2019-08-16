@@ -7,27 +7,64 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class TFultbtemplateEntity extends BaseEntity {
+    private String jhtimeEnd;//报价截止时间
+    private String createuserdeptid;// 申请单位
+    private String billnumber;// 单据编号
+    private String createuser;// 申请人
+    private String signname;// 签发人
+    private String createdate;//申请日期
+    private String jhtime;//交货开始时间
+    private String jhtime2;// 交货截止时间
+    private String coalclass;//煤样
+    private String coaltype;// 煤种
+    private BigDecimal qty;// 采购数量
+    private String yunshuMode;//运输方式
+    private String jiaohuoMode;// 交货地点
+    private String jiesuanMode;// 结算方式
+    private String yanshouMode;// 验收方式
+    private String maxlimitprice;//最高限价
+    private String minlimitprice;//  最低限价
+    private String maxremark;// 最高限价说明
+    private String paymode;//结算付款方式
+    private String isquotebond;// 报价保证金缴纳（0不要求，1要求）
+    private String isperformbond;// 履约保证金缴纳（0不要求，1要求）
+    private String type1;// 收到基低位发热量
+    private String type4;// 收到基全硫
+    private String type2;// 全水分
+    private String type6;// 收到基灰分
+    private String type3;//收到基挥发分(小）
+    private String type32;//收到基挥发分(大）
+    private String kgj1;// 空干基水分
+    private String kgj2;//空干基全硫
+    private String kgj3;// 空干基挥发分(小）
+    private String kgj4; // 空干基挥发分(大）
+    private String type11;// 干基高位发热量
+    private String type14;//  干基全硫
+    private String type323;//  干燥无灰基挥发分（小)
+    private String type333;//  干燥无灰基挥发分（大)
+    private String type8;// 粒度
+    private String type5;// 灰熔点
+    private String type7;// 哈氏可磨系数
+    private String remark;//备注
+    private String status;//状态
+
     private String templateid;
 
     private String operdate;
 
     private Long autoid;
 
+    private String type12;
+
+    private String type16;
+
     private String operuser;
 
-    private String createuser;
-
-    private String createdate;
-
     private String createuserid;
-
-    private String createuserdeptid;
 
     private String createuserdeptcode;
 
     private String permitstatus;
-
-    private String billnumber;
 
     private String datafrom;
 
@@ -43,49 +80,9 @@ public class TFultbtemplateEntity extends BaseEntity {
 
     private String writedate;
 
-    private String jhtime;
-
-    private String jhtimeEnd;
-
-    private String coaltype;
-
-    private BigDecimal qty;
-
     private BigDecimal qtyEnd;
 
-    private String yunshuMode;
-
-    private String jiaohuoMode;
-
-    private String yanshouMode;
-
-    private String jiesuanMode;
-
-    private String type1;
-
-    private String type2;
-
-    private String type3;
-
-    private String type4;
-
-    private String type5;
-
-    private String type6;
-
-    private String type7;
-
-    private String type8;
-
-    private String remark;
-
-    private String signname;
-
     private String signaccount;
-
-    private String jhtime2;
-
-    private String type32;
 
     private String createbyah;
 
@@ -95,29 +92,53 @@ public class TFultbtemplateEntity extends BaseEntity {
 
     private String type;
 
-    private String type323;
+    public String getStatus() {
+        return status;
+    }
 
-    private String type333;
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
-    private String maxremark;
+    public String getIsperformbond() {
+        return isperformbond;
+    }
 
-    private String type11;
+    public void setIsperformbond(String isperformbond) {
+        this.isperformbond = isperformbond;
+    }
 
-    private String type12;
+    public String getIsquotebond() {
+        return isquotebond;
+    }
 
-    private String type14;
+    public void setIsquotebond(String isquotebond) {
+        this.isquotebond = isquotebond;
+    }
 
-    private String type16;
+    public String getPaymode() {
+        return paymode;
+    }
 
-    private String coalclass;
+    public void setPaymode(String paymode) {
+        this.paymode = paymode;
+    }
 
-    private String kgj1;
+    public String getMaxlimitprice() {
+        return maxlimitprice;
+    }
 
-    private String kgj2;
+    public void setMaxlimitprice(String maxlimitprice) {
+        this.maxlimitprice = maxlimitprice;
+    }
 
-    private String kgj3;
+    public String getMinlimitprice() {
+        return minlimitprice;
+    }
 
-    private String kgj4;
+    public void setMinlimitprice(String minlimitprice) {
+        this.minlimitprice = minlimitprice;
+    }
 
     public String getTemplateid() {
         return templateid;
