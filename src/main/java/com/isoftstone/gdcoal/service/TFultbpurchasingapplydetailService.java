@@ -50,4 +50,6 @@ public class TFultbpurchasingapplydetailService {
         return tFultbsupplierDao.selectALL(null);
     }
 
+    public List<TFultbpurchasingapplydetailEntity> selectApplydetail(TFultbpurchasingapplydetailEntity entity){return tFultbpurchasingapplydetailDao.selectALL(null);}
+
 }

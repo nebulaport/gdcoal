@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -108,6 +109,20 @@ public class TFultbpurchasingapplydetailController {
         return "redirect:/error.jsp";
 
 
+    }
+    /**
+     * 判重
+     * */
+    @RequestMapping("/saveApplydetailValidate")
+    @ResponseBody
+    public Boolean saveRoleValidate(String applydetailid){
+        TFultbpurchasingapplydetailEntity entity=new TFultbpurchasingapplydetailEntity();
+        entity.setWhereSql(new StringBuffer(" and applydetailid ='"+applydetailid+"' "));
+        List<TFultbpurchasingapplydetailEntity> list=tFultbpurchasingapplydetailService.selectApplydetail(entity);
+        if(list!=null&&list.size()>0){
+            return false;
+        }
+        return true;
     }
 
 
