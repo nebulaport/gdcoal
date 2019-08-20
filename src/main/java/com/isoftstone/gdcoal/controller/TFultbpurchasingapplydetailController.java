@@ -102,7 +102,7 @@ public class TFultbpurchasingapplydetailController {
 
         int i= tFultbpurchasingapplydetailService.saveApplydetail(applydetail);
         if (i > 0 ) {
-            return "redirect:/success.jsp";
+            return "redirect:/execute/selectApplydetailPage?pageNow=1";
         }
         return "redirect:/error.jsp";
 
