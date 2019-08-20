@@ -49,6 +49,8 @@
             $("#searchForm").attr("action","<%=basePath%>check/toDo?pageNow="+totalPage).submit();
         }
 
+
+
     </script>
 </head>
 <body style="padding:0px;margin:0px;background-color:#fff;">
@@ -67,8 +69,7 @@
                     <div class="form-group">
                         <label for="state">状态</label><select required name="state" id="state"
                                                              class="form-control">
-
-                        <option selected value="">全部</option>
+                        <option selected value="">请选择</option>
                         <option value="toCheck">待审批</option>
                         <option value="toFill">待填报</option>
                     </select>
@@ -112,9 +113,17 @@
                     <td>${r.applystate}</td>
 
                     <td>
-                        <a href="<%=basePath%>check/selectById?purchapplyid=${r.purchapplyid}" class="btn btn-primary">审批</a>
+                    <c:if test="${r.applystate !='已下达'}">
+                        <c:if test="${r.applystate !='已驳回' }">
+                            <a href="<%=basePath%>check/selectById?purchapplyid=${r.purchapplyid}" class="btn btn-primary">审批</a>
+                        </c:if>
+                    </c:if>
+
+                    <c:if test="${r.applystate=='已下达'}">
                         <a href="<%=basePath%>execute/selectById?purchapplyid=${r.purchapplyid}" class="btn btn-primary">填报</a>
+                    </c:if>
                     </td>
+
                 </tr>
             </c:forEach>
 
@@ -133,17 +142,9 @@
             </ul>
         </nav>
 
-
-
-
-
-
     </div>
 
-
-
 </div>
-
 
 </body>
 </html>
