@@ -89,6 +89,23 @@ public class TFultbpurchasingapplyController {
         }
         return "/error.jsp";
     }
+    /**
+     * 审核通过
+     */
+    @RequestMapping("/applyFail")
+    public String applyFail(String purchapplyid, String applyState) {
+        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
+        entity.setPurchapplyid(purchapplyid);
+        entity.setApplystate("已驳回");
+        entity.setOperuser("001");//暂时写死
+        entity.setOperdate(DateUtils.getCurrentTime());
+
+        int i = tFultbpurchasingapplyService.updatePurchapply(entity);
+        if (i > 0) {
+            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+        }
+        return "/error.jsp";
+    }
 
 
     /**
