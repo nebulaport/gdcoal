@@ -84,7 +84,6 @@ public class TFultbpurchasingapplyController {
         }else if (check==0){
             entity.setApplystate("已驳回");
         }
-        entity.setApplystate("已下达");
         entity.setOperuser("001");//暂时写死
         entity.setOperdate(DateUtils.getCurrentTime());
 
