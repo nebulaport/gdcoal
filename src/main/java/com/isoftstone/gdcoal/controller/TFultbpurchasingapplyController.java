@@ -110,7 +110,12 @@ public class TFultbpurchasingapplyController {
            whereSql.append(" and t_fultbpurchasingapply.applystate not in('已下达','已驳回') ");
        }else if("toFill".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已下达'");
-         }
+           whereSql.append(" and t_fultbpurchasingapply.purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
+       }else if ("rejected".equals(state)){
+           whereSql.append(" and t_fultbpurchasingapply.applystate ='已驳回'");
+       }else{
+           whereSql.append("and purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
+       }
 
         TFultbpurchasingapplyEntity purchapply = new TFultbpurchasingapplyEntity();
         purchapply.setPageNow(pageNow);

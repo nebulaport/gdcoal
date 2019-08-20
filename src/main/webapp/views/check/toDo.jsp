@@ -69,9 +69,10 @@
                     <div class="form-group">
                         <label for="state">状态</label><select required name="state" id="state"
                                                              class="form-control">
-                        <option selected value="">请选择</option>
+                        <option value="">--请选择--</option>
                         <option value="toCheck">待审批</option>
                         <option value="toFill">待填报</option>
+                        <option value="rejected">已驳回</option>
                     </select>
                     </div>
 

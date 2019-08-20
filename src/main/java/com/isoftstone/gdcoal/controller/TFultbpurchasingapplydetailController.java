@@ -48,6 +48,7 @@ public class TFultbpurchasingapplydetailController {
             whereSql.append(" and t_fultbpurchasingapply.purchapplyid like '%" + purchapplyid + "%' ");
         }
         whereSql.append("and applystate ='已下达'");
+        whereSql.append("and purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbpurchasingapplyService.selectTotal(entity));
         List<TFultbpurchasingapplyEntity> list = tFultbpurchasingapplyService.selectPurchapplyPage(entity);
