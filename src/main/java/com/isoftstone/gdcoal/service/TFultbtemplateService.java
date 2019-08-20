@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by tupingping on 2019/8/13.
@@ -30,23 +31,26 @@ public class TFultbtemplateService {
         return tFultbtemplateDao.updateEntity(entity);
     }
 
-    //按采购申请但编号查询
-    public  TFultbtemplateEntity selectTFultbtemplateList(String templateid){
-        return tFultbtemplateDao.selectById(templateid);
+    //按单据编号查询采购申请单信息
+    public List<TFultbtemplateEntity> selectByIdTFultbtemplate(String billnumber){
+        String whereSql = " and billnumber = '" + billnumber + "'";
+        return tFultbtemplateDao.selectALL(new StringBuffer(whereSql));
     }
 
-    //查询所有符合条件的采购申请单信息
-    public List<TFultbtemplateEntity> selectALLTFultbtemplate(StringBuffer whereSql){
-        return tFultbtemplateDao.selectALL(whereSql);
+    //按采购申请单状态查询
+    public List<TFultbtemplateEntity> selectByStatusTFultbtemplate(String status){
+        String whereSql = " and status = '" + status + "'";
+        return tFultbtemplateDao.selectALL(new StringBuffer(whereSql));
     }
 
     //总记录数
     public int selectTotalTFultbtemplate(TFultbtemplateEntity entity){
         return tFultbtemplateDao.selectTotal(entity);
     }
+
     //分页查询
-    public List<TFultbtemplateEntity> selectForPageTFultbtemplate(TFultbtemplateEntity entity){
-        return tFultbtemplateDao.selectForPage(entity);
+    public List<Map<String,Object>> selectPageTFultbtemplate(TFultbtemplateEntity entity){
+        return tFultbtemplateDao.selectPageTFultbtemplate(entity);
     }
 
 
