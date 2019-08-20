@@ -114,9 +114,9 @@
 
         <div class="formRow" style="text-align: center;">
             <div class="form-group">
-                <a href="<%=basePath%>check/applyPass?purchapplyid=${tFultbpurchasingapply.purchapplyid}"
+                <a href="<%=basePath%>check/checkApply?purchapplyid=${tFultbpurchasingapply.purchapplyid}&check=1"
                    id="submitBtn" class="btn btn-primary">审批通过</a>
-                <a href="<%=basePath%>check/applyFail?purchapplyid=${tFultbpurchasingapply.purchapplyid}"
+                <a href="<%=basePath%>check/checkApply?purchapplyid=${tFultbpurchasingapply.purchapplyid}&check=0"
                    class="btn btn-primary">驳回</a>
 
                 <a class="btn btn-primary" href="<%=basePath%>check/selectPurchapplyPage">返回</a>

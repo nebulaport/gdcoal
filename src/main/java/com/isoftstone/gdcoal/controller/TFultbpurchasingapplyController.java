@@ -73,30 +73,18 @@ public class TFultbpurchasingapplyController {
     }
 
     /**
-     * 审核通过
+     * 审核通过/不通过
      */
-    @RequestMapping("/applyPass")
-    public String applyPass(String purchapplyid, String applyState) {
+    @RequestMapping("/checkApply")
+    public String applyPass(String purchapplyid, Integer check) {
         TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPurchapplyid(purchapplyid);
-        entity.setApplystate("已下达");
-        entity.setOperuser("001");//暂时写死
-        entity.setOperdate(DateUtils.getCurrentTime());
-
-        int i = tFultbpurchasingapplyService.updatePurchapply(entity);
-        if (i > 0) {
-            return "redirect:/check/selectPurchapplyPage?pageNow=1";
+        if (check==1){
+            entity.setApplystate("已下达");
+        }else if (check==0){
+            entity.setApplystate("已驳回");
         }
-        return "/error.jsp";
-    }
-    /**
-     * 审核通过
-     */
-    @RequestMapping("/applyFail")
-    public String applyFail(String purchapplyid, String applyState) {
-        TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
-        entity.setPurchapplyid(purchapplyid);
-        entity.setApplystate("已驳回");
+        entity.setApplystate("已下达");
         entity.setOperuser("001");//暂时写死
         entity.setOperdate(DateUtils.getCurrentTime());
 
