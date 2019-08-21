@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+
+    
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd"
+         
+        >
+
+   <context:annotation-config></context:annotation-config>
+   <context:component-scan base-package="com.isoftstone.gdcoal.*"></context:component-scan>
+
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--<property name="cacheManager" ref="cacheManager" />-->
+        <property name="sessionMode" value="native" />
+        <property name="realm" ref="jdbcRealm" />
+    </bean>
+  <!--
+   <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+        <property name="cacheManagerConfigFile" value="classpath:ehcache.xml" />
+    </bean>-->
+    <bean id="jdbcRealm" class="com.isoftstone.gdcoal.shiro.UserRealm">
+        <!-- 指定密码的加密算法为MD5 -->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+                <!-- hashAlgorithmName:指定了shiro的加密方式，默认就是MD5，如果需要使用其他的加密方式，就必须自定义实现 -->
+                <property name="hashAlgorithmName" value="MD5"></property>
+                <!--指定使用MD5加密的次数 -->
+                <property name="hashIterations" value="16"></property>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!-- 最终shiro的生命周期由spring的ioc容器进行托管 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+    <!-- Enable Shiro Annotations for Spring-configured beans. Only run after
+        the lifecycleBeanProcessor has run: -->
+    <!-- 默认自动代理生成器(生成shiro对象) 开启shiro注解 必须要配置在lifecycleBeanPostProcessor之后 -->
+    <bean
+            class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+            depends-on="lifecycleBeanPostProcessor" />
+
+
+    <!-- 配置 securityManager 可以用注解的形式实现 -->
+   <!-- <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager" />
+    </bean>
+    -->
+
+
+    <!--  shiroFilter securityManager loginUrl:登录的路径
+        successUrl:登录成功跳转的路径 unauthorizedUrl:如果该用户没有权限，需要跳转的页面 -->
+    <!-- <bean id="shiroFilter">和web.xml的<filter-name>shiroFilter</filter-name>保持一致
+        如果配置的不一致 报错org.springframework.beans.factory.NoSuchBeanDefinitionException:
+        No bean named 'shiroFilter' is defined -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager" >
+
+        </property>
+        <property name="loginUrl" value="/login.jsp" />
+        <property name="successUrl" value="/main.jsp" />
+        <!-- 在授权阶段才能进入该页面 如果已经认证没有权限的时候，才会触发 -->
+        <property name="unauthorizedUrl" value="/unauthorized.jsp" />
+
+        <property name="filterChainDefinitions">
+            <value>
+                <!-- 注意：shiro拦截配置优先选举规则 如果把/**配置到前面 后面所有配置都失效
+                如果配置的不是/** shiro会默认覆盖前面的配置 -->
+
+                /user/** = anon
+                /logout = logout
+                /sys/** = roles[admin]
+                /image/** = anon
+                /js/** = anon
+                /css/** = anon
+                /bondCtractManager/** = roles[dcuser]
+                /check/** = roles[dcuser]
+                /excute/** = roles[dcuser]
+                /** = authc  <!--其他只做登录验证-->
+
+                <!--除了上述配置，其他都需要授权-->
+                <!--/** = authc-->
+                <!-- 例如：roles["admin,user"]必须同时具备两个角色才可通过-->
+            </value>
+        </property>
+    </bean>
+</beans>
