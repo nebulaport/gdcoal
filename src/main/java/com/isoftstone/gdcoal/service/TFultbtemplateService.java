@@ -21,9 +21,14 @@ public class TFultbtemplateService {
          return tFultbtemplateDao.saveEntity(entity);
      }
 
-     //删除采购申请
-    public int deleteTFultbtemplate(String templateid){
-         return tFultbtemplateDao.deleteEntity(templateid);
+    //提交采购申请信息
+    public int submitTFultbtemplate(TFultbtemplateEntity entity){
+         return tFultbtemplateDao.updateEntity(entity);
+    }
+
+    //删除采购申请
+    public int deleteTFultbtemplate(String billnumber){
+         return tFultbtemplateDao.deleteEntity(billnumber);
     }
 
     //修改采购申请信息
@@ -31,10 +36,9 @@ public class TFultbtemplateService {
         return tFultbtemplateDao.updateEntity(entity);
     }
 
-    //按单据编号查询采购申请单信息
-    public List<TFultbtemplateEntity> selectByIdTFultbtemplate(String billnumber){
-        String whereSql = " and billnumber = '" + billnumber + "'";
-        return tFultbtemplateDao.selectALL(new StringBuffer(whereSql));
+    //按采购申请单号查询
+    public TFultbtemplateEntity selectByIdTFultbtemplate(String billnumber){
+         return tFultbtemplateDao.selectById(billnumber);
     }
 
     //按采购申请单状态查询
@@ -49,8 +53,8 @@ public class TFultbtemplateService {
     }
 
     //分页查询
-    public List<Map<String,Object>> selectPageTFultbtemplate(TFultbtemplateEntity entity){
-        return tFultbtemplateDao.selectPageTFultbtemplate(entity);
+    public List<TFultbtemplateEntity> selectPageTFultbtemplate(TFultbtemplateEntity entity){
+        return tFultbtemplateDao.selectForPage(entity);
     }
 
 
