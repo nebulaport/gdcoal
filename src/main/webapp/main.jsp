@@ -89,11 +89,8 @@
                         <a href="#"><i class="fa fa-photo"></i><span>采购申请管理</span></a>
                         <div class="sidebar-submenu">
                             <ul>
-
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadCreateTFultbtemplate">采购需求创建</a></li>
-                                <li><a href="#">采购申请查询</a></li>
-                                <li><a href="#">采购申请修改</a></li>
-                                <li><a href="#">采购申请删除</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadTFultbtemplate">采购申请查询</a></li>
+                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadCreateTFultbtemplate">采购申请创建</a></li>
                             </ul>
                         </div>
                     </li>

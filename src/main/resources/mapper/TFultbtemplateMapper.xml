@@ -2,21 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.isoftstone.gdcoal.dao.TFultbtemplateDao" >
 
+
   <sql id="Base_Column_List" >
     TEMPLATEID, OPERDATE, AUTOID, OPERUSER, CREATEUSER, CREATEDATE, CREATEUSERID, CREATEUSERDEPTID, 
     CREATEUSERDEPTCODE, PERMITSTATUS, BILLNUMBER, DATAFROM, DATAFROMNAME, WRITERNAME, 
     WRITERACCOUNT, WRITERDEPARTID, WRITERDEPARTNAME, WRITEDATE, JHTIME, JHTIME_END JHTIMEEND, COALTYPE,
-    QTY, QTY_END QTYEND, YUNSHU_MODE YUNSHUMODE, JIAOHUO_MODE JIAOHUOMODE JIAOHUOMODE, YANSHOU_MODE YANSHOUMODE, JIESUAN_MODE JIESUANMODE, TYPE_1 TYPE1, TYPE_2 TYPE2,
+    QTY, QTY_END QTYEND, YUNSHU_MODE YUNSHUMODE, JIAOHUO_MODE JIAOHUOMODE, YANSHOU_MODE YANSHOUMODE, JIESUAN_MODE JIESUANMODE, TYPE_1 TYPE1, TYPE_2 TYPE2,
     TYPE_3 TYPE3, TYPE_4 TYPE4, TYPE_5 TYPE5, TYPE_6 TYPE6, TYPE_7 TYPE7, TYPE_8 TYPE8, REMARK, SIGNNAME, SIGNACCOUNT, JHTIME2,
     TYPE_32 TYPE32, CREATEBYAH, IS_FB ISFB, SOURCE, TYPE_323 TYPE323, TYPE_333 TYPE333, MAXREMARK, TYPE_11 TYPE11,
     TYPE_12 TYPE12, TYPE_14 TYPE14, TYPE_16 TYPE16, COALCLASS, KGJ_1 KGJ1, KGJ_2 KGJ2, KGJ_3 KGJ3, KGJ_4 KGJ4,
      MAXLIMITPRICE, MINLIMITPRICE,PAYMODE,IS_QUOTEBOND ISQUOTEBOND,IS_PERFORMBOND ISPERFORMBOND , STATUS
   </sql>
 
-
+  <!--MAXLIMITPRICE, MINLIMITPRICE,PAYMODE,IS_QUOTEBOND ISQUOTEBOND,IS_PERFORMBOND ISPERFORMBOND , STATUS-->
+  <!--maxlimitprice,minlimitprice,paymode,isquotebond,isperformbond,status-->
   <delete id="deleteEntity" parameterType="java.lang.String" >
     delete from t_fultbtemplate
-    where TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+    where BILLNUMBER = #{billnumber,jdbcType=VARCHAR}
   </delete>
 
 
@@ -188,7 +190,6 @@
       <if test="kgj4 != null" >
         KGJ_4,
       </if>
-
       <if test="maxlimitprice != null" >
         MAXLIMITPRICE,
       </if>
@@ -374,7 +375,6 @@
       <if test="kgj4 != null" >
         #{kgj4,jdbcType=VARCHAR},
       </if>
-
       <if test="maxlimitprice != null" >
         #{maxlimitprice,jdbcType=VARCHAR},
       </if>
@@ -582,7 +582,7 @@
         STATUS = #{status,jdbcType=VARCHAR},
       </if>
     </set>
-    where TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+    where BILLNUMBER = #{billnumber,jdbcType=VARCHAR}
   </update>
   <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
 
@@ -594,7 +594,7 @@
   </select>
   <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
     select    <include refid="Base_Column_List"></include> from t_fultbtemplate
-    where     TEMPLATEID = #{templateid,jdbcType=VARCHAR}
+    where     BILLNUMBER = #{billnumber,jdbcType=VARCHAR}
   </select>
   <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="int">
     select count(*) from t_fultbtemplate where 1=1
@@ -603,10 +603,27 @@
     </if>
   </select>
   <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
-    select <include refid="Base_Column_List"></include> from t_fultbtemplate where 1=1
-    <if test="whereSql!=null">
+    select BILLNUMBER,
+      STR_TO_DATE(CREATEDATE,'%Y%m%d') CREATEDATE,
+      <!--
+      var json = {
+            "WY": [{"WY1": "无烟一号"}, {"WY2": "无烟二号"}, {"WY3": "无烟三号"}],
+            "HY": [{"HY1": "褐煤一号"}, {"HY2": "褐煤二号"}],
+            "YM": [{"PM": "贫煤"}, {"PS": "贫瘦煤"}, {"SM": "瘦煤"}, {"JM": "焦煤"}, {"QM": "气煤"}]
+        };
+        -->
+      case COALTYPE when 'WY1' then '无烟一号' when 'WY2' then '无烟二号' when 'WY3' then '无烟三号' when 'HY1' then '褐煤一号'
+      when 'HY2' then '褐煤二号' when 'PM' then '贫煤' when 'PS' then '贫瘦煤' when 'SM' then '瘦煤' when 'JM' then '焦煤' when 'QM' then '气煤' else null end COALTYPE,
+      QTY,
+      case JIESUAN_MODE when '1' then '一票结算' when '2' then '分期付款' else null end JIESUANMODE,
+      CREATEUSER,
+      case   STATUS  when '0' then '草稿'
+      when '1' then '审核中' when '2' then  '已发布' when '3' then  '已驳回' else NULL end STATUS from t_fultbtemplate where 1=1
+     <if test="whereSql!=null">
       ${whereSql }
-    </if>
-      limit #{offset} ,#{pageSize}
+     </if>
+     Order By CREATEDATE Desc
+     limit #{offset} ,#{pageSize}
   </select>
+
 </mapper>

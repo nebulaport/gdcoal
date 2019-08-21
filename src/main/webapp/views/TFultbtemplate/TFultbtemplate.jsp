@@ -17,19 +17,39 @@
             font-size: 12px;
             font-weight: bold;
             font-family: "宋体";
-
-        }
-        .formRow {
-            padding-left: 20px;
-
-            border-bottom: 1px dashed #C9C9C9;
         }
         .form-group {
             padding-left: 10px;
         }
     </style>
     <script type="text/javascript">
+         function search(){
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
+         }
+         function firstPage(){
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
+         }
+         function laterPage(pageNow){
+             if(pageNow=="1"){
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
+             }else{
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+(pageNow-1)).submit();
+             }
 
+         }
+
+         function nextPage(pageNow,totalPage){
+             if(pageNow==totalPage){
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+totalPage).submit();
+             }else{
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+(parseInt(pageNow)+1)).submit();
+             }
+
+         }
+         function lastPage(totalPage){
+
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+totalPage).submit();
+         }
     </script>
 </head>
 <body>
@@ -42,32 +62,30 @@
     </div>
     <div class="panel-body">
         <div class="table-responsive">
-            <h3 class="panel-title panelTitle" style = "background-color: #0166CD;padding-top: 5px;">采购申请列表</h3>
-            <form class="form-inline" method="post" enctype="multipart/form-data" id="selectTFultbtemplate">
-                <input type="hidden" id="permitstatus" name="permitstatus">
+            <h3 class="panel-title panelTitle" style = "background-color: #0166CD;padding-top: 5px;padding-bottom:5px;font-family: '黑体';">采购申请列表</h3>
+            <form class="form-inline" method="post"  id="searchTFultbtemplate" action = "">
+                <input type="hidden" id="status" name="status">
                 <div class="panel panel-default">
                     <div class="formRow" style = "border-bottom:1px solid #8c8c8c;">
                         <div class="form-group" style = "border:1px solid #8c8c8c;background-color:#c4e3f3;text-align: center;width:100px;height:35px;">
                             <label style = "color:#9acfea;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
                         </div>
                         <div class="form-group">
-                            <lable class="input">
-                                <input type="radio" name="all" value="${code}">全部
+                            <lable class="input"><input type="radio" name="status" value="${code}">全部</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="draft" value="${code}">草稿
+                            <lable class="input"><input type="radio" name="status" value="${'0'}">草稿</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="viewing" value="${code}">审核中
+                            <lable class="input"><input type="radio" name="status" value="${'1'}">审核中</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="published" value="${code}">已发布
+                            <lable class="input"><input type="radio" name="status" value="${'2'}">已发布</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                                <input type="radio" name="reject" value="${code}">已驳回
-                            </lable>
+                            <lable class="input"><input type="radio" name="status" value="${'3'}">已驳回</lable>
                         </div>
                     </div>
-                    <div class="formRow" style = "padding-top: 20px;">
+                    <div class="formRow" style = "padding-top: 20px;padding-left: 20px; border-bottom: 1px dashed #C9C9C9;">
                         <div class="form-group">
                             <label>采购单号：</label>
-                            <input type="text" id="tid" name="tid" value="${code}"
+                            <input type="text" id="billnumber" name="billnumber" value="${billnumber}"
                                    class="form-control">
                         </div>
                         <div class="form-group">
@@ -103,7 +121,9 @@
                 <th>
                     状态
                 </th>
-                <th>操作</th>
+                <th>
+                    操作
+                </th>
             </tr>
 
             </thead>
@@ -111,16 +131,22 @@
             <c:forEach items="${rows}" var="r"   varStatus="st">
                 <tr>
                     <td class="text-nowrap" scope="row">${st.count}</td>
-                    <td>${r.eorganName}</td>
-                    <td>${r.eorganType}</td>
-                    <td>${r.einUse}</td>
-                    <td>${r.dorganName}</td>
-                    <td>${r.dorganType}</td>
-                    <td>${r.dinUse}</td>
-                    <td>${r.description}</td>
+                    <td>${r.billnumber}</td>
+                    <td>${r.createdate}</td>
+                    <td>${r.coaltype}</td>
+                    <td>${r.qty}</td>
+                    <td>${r.jiesuanMode}</td>
+                    <td>${r.createuser}</td>
+                    <td>${r.status}</td>
                     <td>
-                        <a href="<%=basePath%>sys/deleteOrgan?organId=${r.eorganUuid}" class="btn btn-primary">删除</a>
-                        <a href="<%=basePath%>sys/selectById?organId=${r.eorganUuid}" class="btn btn-primary">修改</a>
+                        <c:if test="${r.status=='草稿'}">
+                            <a href="<%=basePath%>selectById?organId=" class="btn btn-primary">修改</a>
+                            <a href="<%=basePath%>deleteTFultbtemplate?templateid=${r.templateid}" class="btn btn-primary">删除</a>
+                        </c:if>
+                        <c:if test="${r.status!='草稿'}">
+                            <a href="<%=basePath%>selectTFultbtemplateInfo?billnumber=${r.billnumber}" class="btn btn-primary">查看</a>
+
+                        </c:if>
                     </td>
                 </tr>
             </c:forEach>
