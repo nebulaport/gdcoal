@@ -29,7 +29,7 @@
         }
 
         .form-group {
-            padding-left: 10px;
+            padding: 30px;
             color: #052963
         }
 
@@ -125,18 +125,17 @@
                 if ($("#addApplydetailForm").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
                     $("#status").val('1');
 
-                    //判重
-                    var applydetailid=$("#applydetailid").val();
+                    var supplierid=$("#supplierid").val();
                     $.ajax({
                         url:"<%=basePath%>execute/saveApplydetailValidate",
-                        data:{applydetailid:applydetailid},
+                        data:{supplierid:supplierid},
                         dataType:"json",
                         type:"post",
                         success:function(res){
                             if(res){
                                 $("#addApplydetailForm")[0].submit();
                             }else{
-                                alert("该供应商报价已经存在！");
+                                alert("该供应商已经报价!");
                             }
                         },error:function(){
                             alert("响应失败！");
@@ -150,19 +149,20 @@
                 $("#addApplydetailForm").bootstrapValidator('validate');//提交验证
                 if ($("#addApplydetailForm").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
                      $("#status").val('2');
+
                     // $("#addApplydetailForm")[0].submit();//必须注意；一定写下标，然后submit
-                    //判重
-                    var applydetailid=$("#applydetailid").val();
+                   //判重
+                    var supplierid=$("#supplierid").val();
                     $.ajax({
                         url:"<%=basePath%>execute/saveApplydetailValidate",
-                        data:{applydetailid:applydetailid},
+                        data:{supplierid:supplierid},
                         dataType:"json",
                         type:"post",
                         success:function(res){
                             if(res){
                                 $("#addApplydetailForm")[0].submit();
                             }else{
-                                alert("该供应商报价已经存在！");
+                                alert("该供应商已经报价!");
                             }
                         },error:function(){
                             alert("响应失败！");

@@ -18,6 +18,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @ClassName TFultbpurchasingapplydetailController
@@ -49,7 +50,7 @@ public class TFultbpurchasingapplydetailController {
             whereSql.append(" and t_fultbpurchasingapply.purchapplyid like '%" + purchapplyid + "%' ");
         }
         whereSql.append("and applystate ='已下达'");
-        whereSql.append("and purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
+//        whereSql.append("and purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbpurchasingapplyService.selectTotal(entity));
         List<TFultbpurchasingapplyEntity> list = tFultbpurchasingapplyService.selectPurchapplyPage(entity);
@@ -69,7 +70,7 @@ public class TFultbpurchasingapplydetailController {
 
         TFultbpurchasingapplyEntity purchapply=tFultbpurchasingapplyService.selectById(purchapplyid);
         StringBuilder applydetailid=new StringBuilder();
-        applydetailid.append("DETAIL-").append(purchapplyid);
+        applydetailid.append(UUID.randomUUID().toString());
 
 
         //获取供应商列表
@@ -115,9 +116,9 @@ public class TFultbpurchasingapplydetailController {
      * */
     @RequestMapping("/saveApplydetailValidate")
     @ResponseBody
-    public Boolean saveRoleValidate(String applydetailid){
+    public Boolean saveRoleValidate(String supplierid){
         TFultbpurchasingapplydetailEntity entity=new TFultbpurchasingapplydetailEntity();
-        entity.setWhereSql(new StringBuffer(" and applydetailid ='"+applydetailid+"' "));
+        entity.setWhereSql(new StringBuffer(" and supplierid ='"+supplierid+"' "));
         List<TFultbpurchasingapplydetailEntity> list=tFultbpurchasingapplydetailService.selectApplydetail(entity);
         if(list!=null&&list.size()>0){
             return false;
