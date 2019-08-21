@@ -75,8 +75,34 @@
         <property name="markerInterface" value="com.isoftstone.gdcoal.framework.dao.BaseDaoSupport"/><!-- 告诉spring，所有该接口的子接口，进行sql语句映射 -->
     </bean>
 
+
+    <!--验证码-->
+
+
+    <bean id="producer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+            <bean class="com.google.code.kaptcha.util.Config">
+                <constructor-arg>
+                    <props>
+                        <prop key="kaptcha.border">yes</prop>
+                        <prop key="kaptcha.border.color">105,179,90</prop>
+                        <prop key="kaptcha.textproducer.font.color">blue</prop>
+                        <prop key="kaptcha.image.width">125</prop>
+                        <prop key="kaptcha.image.height">45</prop>
+                        <prop key="kaptcha.textproducer.font.size">45</prop>
+                        <prop key="kaptcha.session.key">code</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.font.names">宋体,楷体,微软雅黑</prop>
+                    </props>
+                </constructor-arg>
+            </bean>
+        </property>
+    </bean>
+
+
     <!--包含其他spring配置文件-->
     <import resource="spring_dataSource.xml"/>
+    <import resource="spring_shiro.xml"/>
 
 
 </beans>
