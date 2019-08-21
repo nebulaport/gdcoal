@@ -83,6 +83,7 @@
                 /bondCtractManager/** = roles[dcuser]
                 /check/** = roles[dcuser]
                 /excute/** = roles[dcuser]
+                /tfultbtemplate/** = roles[dcuser]
                 /** = authc  <!--其他只做登录验证-->
 
                 <!--除了上述配置，其他都需要授权-->
