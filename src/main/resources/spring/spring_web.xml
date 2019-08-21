@@ -31,8 +31,12 @@
     <!-- 使用默认servlet来处理静态资源（ 例如Tomcat有默认serlvet，即DefaultServlet ，名字为default） -->
     <mvc:default-servlet-handler/>
     <!-- 配置视图解析器 -->
-    <bean id="viewResolver"
-          class="org.springframework.web.servlet.view.InternalResourceViewResolver"/>
+
+<!--    <bean id="viewResolver"
+            class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <property name="suffix" value=".jsp"></property>
+    </bean>-->
 
 
 </beans>
