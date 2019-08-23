@@ -12,7 +12,7 @@
     <title>采购申请查询</title>
     <%@include file="/include.jsp" %>
     <style type="text/css">
-        .formRow .form-group label, .input{
+        .formRow .form-group label, .input, .content td{
             color: black;
             font-size: 12px;
             font-weight: bold;
@@ -23,33 +23,34 @@
         }
     </style>
     <script type="text/javascript">
-         function search(){
-             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
-         }
          function firstPage(){
-             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1").submit();
          }
          function laterPage(pageNow){
              if(pageNow=="1"){
-                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow=1").submit();
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1").submit();
              }else{
-                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+(pageNow-1)).submit();
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow="+(pageNow-1)).submit();
              }
-
          }
-
          function nextPage(pageNow,totalPage){
              if(pageNow==totalPage){
-                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+totalPage).submit();
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow="+totalPage).submit();
              }else{
-                 $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+(parseInt(pageNow)+1)).submit();
+                 $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow="+(parseInt(pageNow)+1)).submit();
              }
-
          }
          function lastPage(totalPage){
 
-             $("#searchTFultbtemplate").attr("action","<%=basePath%>selectPageTFultbtemplate?pageNow="+totalPage).submit();
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow="+totalPage).submit();
          }
+         function searchByBillnumber(billnumber){
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1&BILLNUMBER="+billnumber).submit();
+         }
+         function searchByStatus(status){
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1&STATUS="+status).submit();
+         }
+
     </script>
 </head>
 <body>
@@ -71,15 +72,15 @@
                             <label style = "color:#9acfea;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
                         </div>
                         <div class="form-group">
-                            <lable class="input"><input type="radio" name="status" value="${code}">全部</lable>
+                            <lable class="input"><input type="radio" name="status" id = "all" value = '' onclick="firstPage()">全部</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" value="${'0'}">草稿</lable>
+                            <lable class="input"><input type="radio" name="status" id = "0"  value = '0' onclick="searchByStatus('0')">草稿</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" value="${'1'}">审核中</lable>
+                            <lable class="input"><input type="radio" name="status" id = "1"  value = '1' onclick="searchByStatus('1')">审核中</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" value="${'2'}">已发布</lable>
+                            <lable class="input"><input type="radio" name="status" id = "2"  value = '2' onclick="searchByStatus('2')">已发布</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" value="${'3'}">已驳回</lable>
+                            <lable class="input"><input type="radio" name="status" id = "3"  value = '3' onclick="searchByStatus('3')">已驳回</lable>
                         </div>
                     </div>
                     <div class="formRow" style = "padding-top: 20px;padding-left: 20px; border-bottom: 1px dashed #C9C9C9;">
@@ -89,7 +90,7 @@
                                    class="form-control">
                         </div>
                         <div class="form-group">
-                            <button type="button" class="btn btn-primary" onclick="search()">查询</button>
+                            <button type="button" class="btn btn-primary" onclick="searchByBillnumber(($('#billnumber')).val())">查询</button>
                         </div>
                     </div>
                 </div>
@@ -129,7 +130,7 @@
             </thead>
             <tbody>
             <c:forEach items="${rows}" var="r"   varStatus="st">
-                <tr>
+                <tr class = "content">
                     <td class="text-nowrap" scope="row">${st.count}</td>
                     <td>${r.billnumber}</td>
                     <td>${r.createdate}</td>
@@ -140,8 +141,8 @@
                     <td>${r.status}</td>
                     <td>
                         <c:if test="${r.status=='草稿'}">
-                            <a href="<%=basePath%>selectById?organId=" class="btn btn-primary">修改</a>
-                            <a href="<%=basePath%>deleteTFultbtemplate?templateid=${r.templateid}" class="btn btn-primary">删除</a>
+                            <a href="<%=basePath%>selectByIdTFultbtemplate?billnumber=${r.billnumber}" class="btn btn-primary">修改</a>
+                            <a href="<%=basePath%>deleteTFultbtemplate?billnumber=${r.billnumber}" class="btn btn-primary">删除</a>
                         </c:if>
                         <c:if test="${r.status!='草稿'}">
                             <a href="<%=basePath%>selectTFultbtemplateInfo?billnumber=${r.billnumber}" class="btn btn-primary">查看</a>

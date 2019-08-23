@@ -13,7 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,15 +28,10 @@ public class TFultbtemplateController {
     @Autowired
     private TFultbtemplateService tFultbtemplateService;
 
-    @RequestMapping("/tFultbtemplateManager/loadTFultbtemplate")
-    public String loadTFultbtemplate() {
-        return "/selectPageTFultbtemplate";
-    }
-
     @RequestMapping("/tFultbtemplateManager/loadCreateTFultbtemplate")
     public String loadCreateTFultbtemplate() {
 
-        return "/views/sys/addTFultbtemplate.jsp";
+        return "/views/tfultbtemplate/addTFultbtemplate.jsp";
     }
 
     //保存采购申请信息
@@ -104,32 +100,22 @@ public class TFultbtemplateController {
      public String selectTFultbtemplateInfo(String billnumber,Model model){
          TFultbtemplateEntity entity = tFultbtemplateService.selectByIdTFultbtemplate(billnumber);
          model.addAttribute("entity",entity);
-         return "/views/sys/TFultbtemplateInfo.jsp";
+         return "/views/tfultbtemplate/TFultbtemplateInfo.jsp";
      }
-
-    // 提交采购申请信息
-    @RequestMapping("/submitTFultbtemplate")
-    public String submitTFultbtemplate(String billnumber){
-        TFultbtemplateEntity entity = new TFultbtemplateEntity();
-        entity.setTemplateid(billnumber);
-        entity.setStatus("1");
-        tFultbtemplateService.updateTFultbtemplate(entity);
-        return "/selectTFultbtemplatePage?pageNow=1";
-    }
 
     // /删除采购申请
     @RequestMapping("/deleteTFultbtemplate")
     public String deleteTFultbtemplate(String billnumber){
        int i = tFultbtemplateService.deleteTFultbtemplate(billnumber);
         if(i > 0){
-            return "redirect:/selectTFultbtemplatePage?pageNow=1" ;
+            return "redirect:/tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1" ;
         }
         return "/error.jsp";
     }
 
     //修改采购申请信息
     @RequestMapping("/updateTFultbtemplate")
-    public String updateTFultbtemplate(String jhtimeEnd, String createuserdeptid, String billnumber,
+    public String updateTFultbtemplate(String templateid,String jhtimeEnd, String createuserdeptid, String billnumber,
                                        String createuser, String signname, String createdate, String jhtime,
                                        String jhtime2, String coalclass,String coaltype, BigDecimal qty,
                                        String yunshuMode, String jiaohuoMode, String jiesuanMode,String yanshouMode,
@@ -139,12 +125,13 @@ public class TFultbtemplateController {
                                        String kgj4,String type11,String type14, String type323,String type333,
                                        String type8, String type5,String type7,String remark,String status){
         TFultbtemplateEntity entity = new TFultbtemplateEntity();
+        entity.setTemplateid(templateid);
         entity.setJhtimeEnd(jhtimeEnd);
         entity.setCreateuserdeptid(createuserdeptid);
         entity.setBillnumber(billnumber);
         entity.setCreateuser(createuser);
         entity.setSignname(signname);
-        entity.setCreatedate(DateUtils.getCurrentTime());
+        entity.setCreatedate(createdate);
         entity.setJhtime(jhtime);
         entity.setJhtime2(jhtime2);
         entity.setCoalclass(coalclass);
@@ -180,11 +167,8 @@ public class TFultbtemplateController {
         entity.setRemark(remark);
         entity.setStatus(status);
 
-        int i = tFultbtemplateService.updateTFultbtemplate(entity);
-        if(i > 0){
-            return "redirect:/selectTFultbtemplateInfo?billnumber=" + entity.getBillnumber();
-        }
-        return "/error.jsp";
+        tFultbtemplateService.updateTFultbtemplate(entity);
+        return "redirect:/selectTFultbtemplateInfo?billnumber=" + entity.getBillnumber();
     }
 
     //按模板单号查询采购申请单信息
@@ -192,22 +176,25 @@ public class TFultbtemplateController {
     public String selectByIdTFultbtemplate(String billnumber,Model model){
         TFultbtemplateEntity entity = tFultbtemplateService.selectByIdTFultbtemplate(billnumber);
         model.addAttribute("entity",entity);
-        return "/updateTFultbtemplate";
+        return "/views/tfultbtemplate/operateTFultbtemplate.jsp";
     }
 
-
     //分页查询
-    @RequestMapping("/selectPageTFultbtemplate")
-    public String selectPageTFultbtemplate(String status,String billnumber,Integer pageNow, HttpServletRequest request, Model model){
+    @RequestMapping("/tFultbtemplateManager/selectPageTFultbtemplate")
+    public String selectPageTFultbtemplate(String status,String billnumber,Integer pageNow,Model model){
         if(!(pageNow!=null&&!pageNow.toString().equals(""))){
             pageNow=1;
         }
         StringBuffer whereSql = new StringBuffer("");
         TFultbtemplateEntity entity = new TFultbtemplateEntity();
         entity.setPageNow(pageNow);
-
+        entity.setBillnumber(billnumber);
+        entity.setStatus(status);
+        if(billnumber != null && !billnumber.trim().equals("")){
+            whereSql.append(" and BILLNUMBER = '" + billnumber + "'");
+        }
         if(status != null && !status.trim().equals("")){
-            whereSql.append(" and STATUS = " + status);
+            whereSql.append(" and STATUS = '" + status + "'");
         }
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbtemplateService.selectTotalTFultbtemplate(entity));
@@ -217,7 +204,7 @@ public class TFultbtemplateController {
         map.put("entity",entity);
         map.put("billnumber",billnumber);
         map.put("status",status);
-        model.addAttribute(map);
-        return "/views/sys/TFultbtemplate.jsp";
+        model.addAllAttributes(map);
+        return "/views/tfultbtemplate/TFultbtemplate.jsp";
     }
 }

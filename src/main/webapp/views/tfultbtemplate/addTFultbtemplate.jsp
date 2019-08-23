@@ -111,13 +111,13 @@
         
         $(document).ready(function () {
             var  ul= " <select id='coalclass' style='width:120px' class='form-control' name='coalclass' onchange='changeCoal(this)'>"
-                    +"<option value = 'NULL' selected>--请选择--</option>"
+                    +"<option value = ''>--请选择--</option>"
                     +"<option value='WY'>无烟煤</option>"
                     +" <option value='YM'>烟煤</option>"
                     +"<option value='HY'>褐煤</option>"
                     +"</select>"
                     +"<select style='width:120px' id='coaltype'  class='form-control' name='coaltype'>"
-                    +"<option value = 'NULL' selected>--请选择--</option>"
+                    +"<option value = ''>--请选择--</option>"
                     +" <option value='WY1'>无烟一号</option>"
                     +" <option value='WY2'>无烟二号</option>"
                     +"<option value='WY3'>无烟三号</option>"
@@ -219,7 +219,7 @@
                             callback: {
                                 message: '交货开始时间必须小于交货截止时间',
                                 callback: function (value, validator, $field) {
-                                    other = validator.getFieldElements($('#jhtime2')).val();//获得另一个的值
+                                    other = validator.getFieldElements('jhtime2').val();//获得另一个的值
                                     end = new Date(other.replace("-", "/").replace("-", "/"));
                                     start = new Date(value.replace("-", "/").replace("-", "/"));
 
@@ -234,20 +234,7 @@
                         validators: {
                             notEmpty: {
                                 message: '交货截止时间不能为空'
-                            }, trigger: 'change',
-                            callback: {
-                                message: '交货截止时间必须大于交货开始时间',
-                                callback: function (value, validator, $field) {
-                                    other = validator.getFieldElements($('#jhtime')).val();//获得另一个的值
-                                    start = new Date(other.replace("-", "/").replace("-", "/"));
-                                    end = new Date(value.replace("-", "/").replace("-", "/"));
-
-                                    if (start <= end) {
-                                        return true;
-                                    }
-                                    return false;
-                                }
-                            }
+                            }, trigger: 'change'
                         }
                     }, coalclass: {
                         validators: {
@@ -741,7 +728,9 @@
                                     <select required name="yunshuMode" id="yunshuMode" class="form-control">
                                         <option value="">--请选择--</option>
                                         <option value="1">火车</option>
-                                        <option value="2">航空</option>
+                                        <option value="2">汽车</option>
+                                        <option value="3">船运</option>
+                                        <option value="4">其它</option>
                                     </select>
                                 </div>
                             </div>
@@ -756,15 +745,19 @@
                                     <select required name="jiesuanMode" id="jiesuanMode" class="form-control">
                                         <option value="">--请选择--</option>
                                         <option value="1">一票结算</option>
-                                        <option value="2">分期付款</option>
+                                        <option value="2">两票结算</option>
+                                        <option value="3">铁路大票结算</option>
+                                        <option value="4">煤款税票</option>
+                                        <option value=5">其他</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>验收方式：</label>
                                     <select required name="yanshouMode" id="yanshouMode" class="form-control">
                                         <option value="">--请选择--</option>
-                                        <option value="1">到场验收</option>
-                                        <option value="2">非到场验收</option>
+                                        <option value="1">到厂验收</option>
+                                        <option value="2">到厂第三方验收</option>
+                                        <option value="3">港口第三方验收</option>
                                     </select>
                                 </div>
                             </div>
@@ -792,7 +785,7 @@
                             <div class="formRow">
                                 <div class="form-group">
                                     <label>结算付款方式：</label>
-                                    <textarea class="form-group" name="paymode"
+                                    <textarea class="form-group" name="paymode"  id = "paymode"
                                               style="width: 300px;height: 40px;"></textarea>
                                 </div>
                             </div>

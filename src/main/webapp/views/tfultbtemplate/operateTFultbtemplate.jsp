@@ -7,10 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <title>保存采购申请</title>
+    <title>修改采购申请</title>
     <%@include file="/include.jsp" %>
     <style type="text/css">
         .formRow {
@@ -66,19 +65,27 @@
         }
     </style>
     <script type="text/javascript">
-        //校验数字
-        function checkType(obj) {
-            var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
-            var alt = "<small class='help-block' style='color:#a94442' data-bv-validator='notEmpty'>必须纯数字</small>";
-            if (!reg.test($(obj).val())) {
-                $(obj).next("span").html(alt);
-            } else {
-                $(obj).next("span").html("");
+        var json = {
+            "WY": [{"WY1": "无烟一号"}, {"WY2": "无烟二号"}, {"WY3": "无烟三号"}],
+            "HY": [{"HY1": "褐煤一号"}, {"HY2": "褐煤二号"}],
+            "YM": [{"PM": "贫煤"}, {"PS": "贫瘦煤"}, {"SM": "瘦煤"}, {"JM": "焦煤"}, {"QM": "气煤"}]
+        };
+
+        //根据coalclass，显示对应coaltype
+        function changeCoal(obj) {
+            $("#coaltype").get(0).options.length = 0;
+            var type1 = $(obj).val();
+            var coalArray = json[type1];
+            for (var i = 0; i < coalArray.length; i++) {
+                $.each(coalArray[i], function (name, value) {
+                    var option = new Option(value, name);
+                    $("#coaltype").get(0).options[i] = option;
+                });
             }
         }
 
-
         $(document).ready(function () {
+
             //日期控件格式控制
             $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
@@ -89,8 +96,48 @@
                 minView: 2// 不会再找时分秒界面
             });
 
+            //校验限价大小
+            function checkLimitprice(){
+                if(($("#maxlimitprice").val()) < ($("#minlimitprice").val())){
+                    alert("最高限价要大于最低限价！");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            //校验收到基挥发分大小
+            function checkType3() {
+                if(($("#type3").val()) > ($("#type32").val())){
+                    alert("收到基挥发分(小)要小于收到基挥发分(大)！");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            //空干基挥发分大小
+            function checkKgj() {
+                if(($('#kgj3').val()) > ($('#kgj4').val())){
+                    alert("空干基挥发分(小)要小于空干基挥发分(大)！");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
+            //干燥无灰基挥发分大小
+            function checkType323() {
+                if(($('#type323').val()) > ($('#type333').val())){
+                    alert("干燥无灰基挥发分(小)要小于干燥无灰基挥发分(大)！");
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+
             //校验
-            $('#addTFultbtemplate').bootstrapValidator({
+            $('#updateTFultbtemplate').bootstrapValidator({
                 feedbackIcons: {
                     valid: 'glyphicon glyphicon-ok',
                     invalid: 'glyphicon glyphicon-remove',
@@ -102,35 +149,30 @@
                                 message: '报价截止日期不能为空'
                             }, trigger: 'change'
                         }
-                    }, createuserdeptid: {
-                        validators: {
-                            notEmpty: {
-                                message: '申请单位不能为空'
-                            }
-                        }
-                    }, createuser: {
-                        validators: {
-                            notEmpty: {
-                                message: '申请人不能为空'
-                            }
-                        }
                     }, signname: {
                         validators: {
                             notEmpty: {
                                 message: '签发人不能为空'
                             }
                         }
-                    }, createdate: {
-                        validators: {
-                            notEmpty: {
-                                message: '创建日期不能为空'
-                            }, trigger: 'change'
-                        }
                     }, jhtime: {
                         validators: {
                             notEmpty: {
-                                message: '交货时间不能为空'
-                            }, trigger: 'change'
+                                message: '交货开始时间不能为空'
+                            }, trigger: 'change',
+                            callback: {
+                                message: '交货开始时间必须小于交货截止时间',
+                                callback: function (value, validator, $field) {
+                                    other = validator.getFieldElements('jhtime2').val();//获得另一个的值
+                                    end = new Date(other.replace("-", "/").replace("-", "/"));
+                                    start = new Date(value.replace("-", "/").replace("-", "/"));
+
+                                    if (start <= end) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
+                            }
                         }
                     }, jhtime2: {
                         validators: {
@@ -154,6 +196,15 @@
                         validators: {
                             notEmpty: {
                                 message: '采购数量不能为空'
+                            },callback: {
+                                message: '请输入数字',
+                                callback: function () {
+                                    var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+                                    if (reg.test($('#qty').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, yunshuMode: {
@@ -184,12 +235,30 @@
                         validators: {
                             notEmpty: {
                                 message: '最高限价不能为空'
+                            },callback: {
+                                message: '请输入数字',
+                                callback: function () {
+                                    var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+                                    if (reg.test($('#maxlimitprice').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, minlimitprice: {
                         validators: {
                             notEmpty: {
                                 message: '最低限价不能为空'
+                            },callback: {
+                                message: '请输入数字',
+                                callback: function () {
+                                    var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+                                    if (reg.test($('#minlimitprice').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, isquotebond: {
@@ -208,102 +277,255 @@
                         validators: {
                             notEmpty: {
                                 message: '收到基低位发热量不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type1').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type4: {
                         validators: {
                             notEmpty: {
                                 message: '收到基全硫不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type4').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type2: {
                         validators: {
                             notEmpty: {
                                 message: '全水分不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type2').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type6: {
                         validators: {
                             notEmpty: {
                                 message: '收到基灰分不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type6').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type3: {
                         validators: {
                             notEmpty: {
                                 message: '收到基挥发分(小）不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type3').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type32: {
                         validators: {
                             notEmpty: {
                                 message: '收到基挥发分(大）不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type32').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, kgj1: {
                         validators: {
                             notEmpty: {
                                 message: '空干基水分不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#kgj1').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, kgj2: {
                         validators: {
                             notEmpty: {
                                 message: '空干基全硫不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#kgj2').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, kgj3: {
                         validators: {
                             notEmpty: {
                                 message: '空干基挥发分(小）不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#kgj3').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, kgj4: {
                         validators: {
                             notEmpty: {
                                 message: '空干基挥发分(大）不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#kgj4').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type11: {
                         validators: {
                             notEmpty: {
                                 message: '干基高位发热量不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type11').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type14: {
                         validators: {
                             notEmpty: {
                                 message: '干基全硫不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type14').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type323: {
                         validators: {
                             notEmpty: {
                                 message: '干燥无灰基挥发分（小)不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type323').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type333: {
                         validators: {
                             notEmpty: {
                                 message: '干燥无灰基挥发分（大)不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type333').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type8: {
                         validators: {
                             notEmpty: {
                                 message: '粒度不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type8').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type5: {
                         validators: {
                             notEmpty: {
                                 message: '灰熔点不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type5').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }, type7: {
                         validators: {
                             notEmpty: {
                                 message: '哈氏可磨系数不能为空'
+                            },callback: {
+                                message: '请输入0-100间的数字',
+                                callback: function () {
+                                    var reg = /^(([1-9][0-9]|[1-9])(\.\d{1,2})?|0\.\d{1,2}|100)$/;
+                                    if (reg.test($('#type7').val())) {
+                                        return true;
+                                    }
+                                    return false;
+                                }
                             }
                         }
                     }
@@ -313,43 +535,52 @@
             //点击保存
             $('#saveCreatTFultbtemplate').click(function () {
                 var flag = true;
-                $("#qty,#maxlimitprice,#minlimitprice,#type1,#type4,#type2,#type6,#type3,#type32,#kgj1,#kgj2,#kgj3,#kgj4,#type11,#type14,#type323,#type333,#type8,#type5,#type7").each(function () {
-                    checkType($(this));
-                    var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
-                    if (!reg.test($(this).val())) {
-                        flag = false;
-                    }
-                });
-
-
+                if(!checkLimitprice()){
+                    flag = false;
+                }
+                if(!checkType3()){
+                    flag = false;
+                }
+                if(!checkKgj()){
+                    flag = false;
+                }
+                if(!checkType323()){
+                    flag = false;
+                }
 
                 // 开始校验
-                $('#addTFultbtemplate').bootstrapValidator('validate');//提交验证
-                if ($('#addTFultbtemplate').data('bootstrapValidator').isValid() && flag) {//获取验证结果，如果成功，执行下面代码
+                $('#updateTFultbtemplate').bootstrapValidator('validate');//提交验证
+                if ($('#updateTFultbtemplate').data('bootstrapValidator').isValid() && flag) {//获取验证结果，如果成功，执行下面代码
                     $("#status").val('0');
-                    $("#addTFultbtemplate")[0].submit();
+                    $("#updateTFultbtemplate")[0].submit();
                 }
             });
 
             //点击提交
             $('#submitCreatTFultbtemplate').click(function () {
                 var flag = true;
-                $("#qty,#maxlimitprice,#minlimitprice,#type1,#type4,#type2,#type6,#type3,#type32,#kgj1,#kgj2,#kgj3,#kgj4,#type11,#type14,#type323,#type333,#type8,#type5,#type7").each(function () {
-                    checkType($(this));
-                    var reg = /^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
-                    if (!reg.test($(this).val())) {
-                        flag = false;
-                    }
-                });
+                if(!checkLimitprice()){
+                    flag = false;
+                }
+                if(!checkType3()){
+                    flag = false;
+                }
+                if(!checkKgj()){
+                    flag = false;
+                }
+                if(!checkType323()){
+                    flag = false;
+                }
 
                 //开始校验
-                $('#addTFultbtemplate').bootstrapValidator('validate');//提交验证
-                if ($('#addTFultbtemplate').data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
+                $('#updateTFultbtemplate').bootstrapValidator('validate');//提交验证
+                if ($('#updateTFultbtemplate').data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
                     $("#status").val('1');
-                    $("#addTFultbtemplate")[0].submit(); //必须注意；一定写下标，然后submit
+                    $("#updateTFultbtemplate")[0].submit(); //必须注意；一定写下标，然后submit
                 }
             });
         });
+
     </script>
 </head>
 <body style="padding:0px;margin:0px;background-color:#fff;">
@@ -360,11 +591,11 @@
     <div class="panel panel-default">
         <div class="panel-heading" style="background-color:#05298F">
             <h2 class="panel-title" style="font-weight:bold; color:#fff;">
-                采购申请管理-<span style="font-size:15px;">采购申请创建</span>
+                采购申请管理-<span style="font-size:15px;">采购申请修改</span>
             </h2>
         </div>
         <form class="form-inline" method="post" id="updateTFultbtemplate"
-              action="<%=basePath%>updateTFultbtemplate">
+              action="<%=basePath%>updateTFultbtemplate?billnumber=${entity.billnumber}">
             <input type="hidden" id="status" name="status">
             <div class="panel-body">
                 <div class="panel panel-default">
@@ -395,7 +626,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>申请人：</label>
-                                    <input type="text" id="createuser" name="createuser"
+                                    <input type="text" readonly="readonly" disabled id="createuser" name="createuser"
                                            value="${entity.createuser}"
                                            class="form-control">
                                 </div>
@@ -433,6 +664,7 @@
                                 <div class="form-group" id="coal">
                                     <select id='coalclass' onchange="changeCoal(this)"
                                             style='width:120px' class='form-control' name='coalclass'>
+                                        <option value=''>--请选择--</option>
                                         <c:if test="${entity.coalclass=='WY'}">
                                             <option selected value='WY'>无烟煤</option>
                                             <option value='YM'>烟煤</option>
@@ -451,6 +683,7 @@
                                     </select>
                                     <select style='width:120px' id='coaltype'
                                             class='form-control' name='coaltype'>
+                                        <option value=''>--请选择--</option>
                                         <c:if test="${entity.coaltype=='WY1'}">
                                             <option value="WY1" selected>无烟一号</option>
                                             <option value="WY2">无烟二号</option>
@@ -524,12 +757,28 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.yunshuMode==1}">
-                                            <option selected value="1">火车</option>
-                                            <option value="2">航空</option>
+                                            <option value="1" selected>火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4">其它</option>
                                         </c:if>
                                         <c:if test="${entity.yunshuMode==2}">
                                             <option value="1">火车</option>
-                                            <option selected value="2">航空</option>
+                                            <option value="2" selected>汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4">其它</option>
+                                        </c:if>
+                                        <c:if test="${entity.yunshuMode==3}">
+                                            <option value="1">火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3" selected>船运</option>
+                                            <option value="4">其它</option>
+                                        </c:if>
+                                        <c:if test="${entity.yunshuMode==4}">
+                                            <option value="1">火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4" selected>其它</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -547,12 +796,39 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.jiesuanMode==1}">
-                                            <option selected value="1">一票结算</option>
-                                            <option value="2">分期付款</option>
+                                            <option value="1" selected>一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
                                         </c:if>
                                         <c:if test="${entity.jiesuanMode==2}">
-                                            <option value="1">一票结算</option>
-                                            <option selected value="2">分期付款</option>
+                                            <option value="1" >一票结算</option>
+                                            <option value="2" selected>两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==3}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3" selected>铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==4}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4" selected>煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==5}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5" selected>其他</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -562,12 +838,19 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.yanshouMode==1}">
-                                            <option selected value="1">到场验收</option>
-                                            <option value="2">非到场验收</option>
+                                            <option value="1" selected>到厂验收</option>
+                                            <option value="2">到厂第三方验收</option>
+                                            <option value="3">港口第三方验收</option>
                                         </c:if>
                                         <c:if test="${entity.yanshouMode==2}">
-                                            <option value="1">到场验收</option>
-                                            <option selected value="2">非到场验收</option>
+                                            <option value="1" >到厂验收</option>
+                                            <option value="2" selected>到厂第三方验收</option>
+                                            <option value="3">港口第三方验收</option>
+                                        </c:if>
+                                        <c:if test="${entity.yanshouMode==3}">
+                                            <option value="1" >到厂验收</option>
+                                            <option value="2">到厂第三方验收</option>
+                                            <option value="3" selected>港口第三方验收</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -598,7 +881,7 @@
                             <div class="formRow">
                                 <div class="form-group">
                                     <label>结算付款方式：</label>
-                                    <textarea class="form-group" readonly="readonly" disabled name="paymode"
+                                    <textarea class="form-group" name="paymode"
                                               style="width: 300px;height: 40px;">${entity.paymode}</textarea>
                                 </div>
                             </div>
@@ -607,14 +890,14 @@
                                     <label>报价保证金缴纳：</label>
                                     <lable class="input">
                                         <c:if test="${entity.isquotebond==0}">
-                                            不要求<input type="radio" name="isquotebond" selected value="0">
+                                            不要求<input type="radio" name="isquotebond" checked value="0">
                                             &nbsp; &nbsp; &nbsp; &nbsp;
                                             要求<input type="radio" name="isquotebond" value="1">
                                         </c:if>
                                         <c:if test="${entity.isquotebond==1}">
                                             不要求<input type="radio" name="isquotebond"  value="0">
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                            要求<input type="radio" name="isquotebond" selected value="1">
+                                            要求<input type="radio" name="isquotebond" checked value="1">
                                         </c:if>
                                     </lable>
                                 </div>
@@ -622,14 +905,14 @@
                                     <label>履约保证金缴纳：</label>
                                     <lable class="input">
                                         <c:if test="${entity.isperformbond==0}">
-                                            不要求<input type="radio" name="isperformbond" selected value="0">
+                                            不要求<input type="radio" name="isperformbond" checked value="0">
                                             &nbsp; &nbsp; &nbsp; &nbsp;
                                             要求<input type="radio" name="isperformbond" value="1">
                                         </c:if>
                                         <c:if test="${entity.isperformbond==1}">
                                             不要求<input type="radio" name="isperformbond"  value="0">
                                             &nbsp; &nbsp; &nbsp; &nbsp;
-                                            要求<input type="radio" name="isperformbond" selected value="1">
+                                            要求<input type="radio" name="isperformbond" checked value="1">
                                         </c:if>
                                     </lable>
                                 </div>
@@ -782,6 +1065,7 @@
                                 <div class="form-group">
                                     <input type="button" id="saveCreatTFultbtemplate" class="btn btn-primary" value="保存">
                                     <input type="button" id="submitCreatTFultbtemplate" class="btn btn-primary" value="提交">
+                                    <a class="btn btn-primary" href="<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate">返回</a>
                                 </div>
                             </div>
                         </div>
