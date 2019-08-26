@@ -7,7 +7,6 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>保存采购申请</title>
@@ -77,7 +76,7 @@
     <div class="panel panel-default">
         <div class="panel-heading" style="background-color:#05298F">
             <h2 class="panel-title" style="font-weight:bold; color:#fff;">
-                采购申请管理-<span style="font-size:15px;">采购申请创建</span>
+                采购申请单-<span style="font-size:15px;">填写信息查看</span>
             </h2>
         </div>
         <form class="form-inline" method="post" id="addTFultbtemplate" action="<%=basePath%>saveTFultbtemplate">
@@ -149,6 +148,7 @@
                                 <div class="form-group" id="coal">
                                     <select disabled readonly="readonly" id='coalclass' onchange="changeCoal(this)"
                                             style='width:120px' class='form-control' name='coalclass'>
+                                        <option value=''>--请选择--</option>
                                         <c:if test="${entity.coalclass=='WY'}">
                                             <option selected value='WY'>无烟煤</option>
                                             <option value='YM'>烟煤</option>
@@ -167,6 +167,7 @@
                                     </select>
                                     <select disabled readonly="readonly" style='width:120px' id='coaltype'
                                             class='form-control' name='coaltype'>
+                                        <option value=''>--请选择--</option>
                                         <option value="WY1"
                                                 <c:if test="${entity.coaltype=='WY1'}">selected</c:if> >无烟一号
                                         </option>
@@ -212,12 +213,28 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.yunshuMode==1}">
-                                            <option selected value="1">火车</option>
-                                            <option value="2">航空</option>
+                                            <option value="1" selected>火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4">其它</option>
                                         </c:if>
                                         <c:if test="${entity.yunshuMode==2}">
                                             <option value="1">火车</option>
-                                            <option selected value="2">航空</option>
+                                            <option value="2" selected>汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4">其它</option>
+                                        </c:if>
+                                        <c:if test="${entity.yunshuMode==3}">
+                                            <option value="1">火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3" selected>船运</option>
+                                            <option value="4">其它</option>
+                                        </c:if>
+                                        <c:if test="${entity.yunshuMode==4}">
+                                            <option value="1">火车</option>
+                                            <option value="2">汽车</option>
+                                            <option value="3">船运</option>
+                                            <option value="4" selected>其它</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -235,12 +252,39 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.jiesuanMode==1}">
-                                            <option selected value="1">一票结算</option>
-                                            <option value="2">分期付款</option>
+                                            <option value="1" selected>一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
                                         </c:if>
                                         <c:if test="${entity.jiesuanMode==2}">
-                                            <option value="1">一票结算</option>
-                                            <option selected value="2">分期付款</option>
+                                            <option value="1" >一票结算</option>
+                                            <option value="2" selected>两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==3}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3" selected>铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==4}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4" selected>煤款税票</option>
+                                            <option value=5">其他</option>
+                                        </c:if>
+                                        <c:if test="${entity.jiesuanMode==5}">
+                                            <option value="1" >一票结算</option>
+                                            <option value="2">两票结算</option>
+                                            <option value="3">铁路大票结算</option>
+                                            <option value="4">煤款税票</option>
+                                            <option value=5" selected>其他</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -250,12 +294,19 @@
                                             class="form-control">
                                         <option value="">--请选择--</option>
                                         <c:if test="${entity.yanshouMode==1}">
-                                            <option selected value="1">到场验收</option>
-                                            <option value="2">非到场验收</option>
+                                            <option value="1" selected>到厂验收</option>
+                                            <option value="2">到厂第三方验收</option>
+                                            <option value="3">港口第三方验收</option>
                                         </c:if>
                                         <c:if test="${entity.yanshouMode==2}">
-                                            <option value="1">到场验收</option>
-                                            <option selected value="2">非到场验收</option>
+                                            <option value="1" >到厂验收</option>
+                                            <option value="2" selected>到厂第三方验收</option>
+                                            <option value="3">港口第三方验收</option>
+                                        </c:if>
+                                        <c:if test="${entity.yanshouMode==3}">
+                                            <option value="1" >到厂验收</option>
+                                            <option value="2">到厂第三方验收</option>
+                                            <option value="3" selected>港口第三方验收</option>
                                         </c:if>
                                     </select>
                                 </div>
@@ -295,27 +346,29 @@
                                     <label>报价保证金缴纳：</label>
 
                                     <c:if test="${entity.isquotebond==0}">
-                                        <lable class="input" readonly="readonly" disabled>
-                                            不要求<input type="radio" name="isquotebond" selected value="0">
+                                        不要求<input type="radio" name="isquotebond" checked value="0">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        要求<input type="radio" name="isquotebond" value="1">
                                     </c:if>
                                     <c:if test="${entity.isquotebond==1}">
-                                        <lable class="input" readonly="readonly" disabled>
-                                            要求<input type="radio" name="isquotebond" selected value="1"></lable>
+                                        不要求<input type="radio" name="isquotebond"  value="0">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        要求<input type="radio" name="isquotebond" checked value="1">
                                     </c:if>
                                 </div>
                                 <div class="form-group">
                                     <label>履约保证金缴纳：</label>
-
                                     <c:if test="${entity.isperformbond==0}">
-                                        <lable class="input" readonly="readonly" disabled>
-                                            不要求<input type="radio" name="isperformbond" selected value="0">
-                                        </lable>
+                                        不要求<input type="radio" name="isperformbond" checked value="0">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        要求<input type="radio" name="isperformbond" value="1">
                                     </c:if>
                                     <c:if test="${entity.isperformbond==1}">
-                                        <lable class="input" readonly="readonly" disabled>
-                                            要求<input type="radio" name="isperformbond" selected value="1">
-                                        </lable>
+                                        不要求<input type="radio" name="isperformbond"  value="0">
+                                        &nbsp; &nbsp; &nbsp; &nbsp;
+                                        要求<input type="radio" name="isperformbond" checked value="1">
                                     </c:if>
+
                                 </div>
                             </div>
                         </div>
@@ -465,7 +518,7 @@
                             <div class="formRow" style="text-align: center;">
                                 <div class="form-group">
                                     <a class="btn btn-primary"
-                                       href="<%=basePath%>tFultbtemplateManager/loadTFultbtemplate">返回</a>
+                                       href="<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate">返回</a>
                                 </div>
                             </div>
                         </div>

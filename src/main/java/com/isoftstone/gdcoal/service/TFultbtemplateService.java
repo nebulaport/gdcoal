@@ -21,11 +21,6 @@ public class TFultbtemplateService {
          return tFultbtemplateDao.saveEntity(entity);
      }
 
-    //提交采购申请信息
-    public int submitTFultbtemplate(TFultbtemplateEntity entity){
-         return tFultbtemplateDao.updateEntity(entity);
-    }
-
     //删除采购申请
     public int deleteTFultbtemplate(String billnumber){
          return tFultbtemplateDao.deleteEntity(billnumber);
@@ -39,12 +34,6 @@ public class TFultbtemplateService {
     //按采购申请单号查询
     public TFultbtemplateEntity selectByIdTFultbtemplate(String billnumber){
          return tFultbtemplateDao.selectById(billnumber);
-    }
-
-    //按采购申请单状态查询
-    public List<TFultbtemplateEntity> selectByStatusTFultbtemplate(String status){
-        String whereSql = " and status = '" + status + "'";
-        return tFultbtemplateDao.selectALL(new StringBuffer(whereSql));
     }
 
     //总记录数

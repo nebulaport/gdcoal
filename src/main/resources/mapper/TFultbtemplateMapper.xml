@@ -604,7 +604,7 @@
   </select>
   <select id="selectForPage" parameterType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity" resultType="com.isoftstone.gdcoal.entity.TFultbtemplateEntity">
     select BILLNUMBER,
-      STR_TO_DATE(CREATEDATE,'%Y%m%d') CREATEDATE,
+    STR_TO_DATE(CREATEDATE,'%Y%m%d') CREATEDATE,
       <!--
       var json = {
             "WY": [{"WY1": "无烟一号"}, {"WY2": "无烟二号"}, {"WY3": "无烟三号"}],
@@ -615,15 +615,16 @@
       case COALTYPE when 'WY1' then '无烟一号' when 'WY2' then '无烟二号' when 'WY3' then '无烟三号' when 'HY1' then '褐煤一号'
       when 'HY2' then '褐煤二号' when 'PM' then '贫煤' when 'PS' then '贫瘦煤' when 'SM' then '瘦煤' when 'JM' then '焦煤' when 'QM' then '气煤' else null end COALTYPE,
       QTY,
-      case JIESUAN_MODE when '1' then '一票结算' when '2' then '分期付款' else null end JIESUANMODE,
+      case JIESUAN_MODE when '1' then '一票结算' when '2' then '两票结算' when '3' then '铁路大票结算' when '4' then '煤款税票' when '5' then '其他' else null end JIESUANMODE,
       CREATEUSER,
       case   STATUS  when '0' then '草稿'
       when '1' then '审核中' when '2' then  '已发布' when '3' then  '已驳回' else NULL end STATUS from t_fultbtemplate where 1=1
      <if test="whereSql!=null">
-      ${whereSql }
+      ${whereSql}
      </if>
      Order By CREATEDATE Desc
      limit #{offset} ,#{pageSize}
+
   </select>
 
 </mapper>
