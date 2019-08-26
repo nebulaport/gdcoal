@@ -9,7 +9,7 @@
         .formRow{padding-left:50px;padding-top:20px;}
         .formRow .form-group label{color:#052963;}
         .panelTitle{color:#052963;font-weight:bold;font-family:"黑体"}
-        .form-group{padding-left:10px;}
+        .form-group{padding-left:10px;height:80px;}
         .font-table{color:#052963}
     </style>
     <script type="text/javascript">

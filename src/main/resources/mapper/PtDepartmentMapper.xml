@@ -215,4 +215,7 @@
 
   </select>
 
+  <update id="deleteDept" parameterType="String">
+     update pt_department set status='0' where  ORGAN_UUID=#{uuid}
+  </update>
 </mapper>

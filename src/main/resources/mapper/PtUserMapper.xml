@@ -30,13 +30,13 @@
 
 
   <sql id="Base_Column_List" >
-    USER_UUID, ID, USERNAME, PASSWORD, EMAIL, MOBILE, ENABLED, ACCOUNT_NON_EXPIRED, CREDENTIALS_NON_EXPIRED, 
-    ACCOUNT_NON_LOCKED, ORGAN_UUID, NICE_NAME, IS_ADMIN, MAXIMUMSESSIONS, REGISTERDATE, 
+    USER_UUID, ID, USERNAME, PASSWORD, EMAIL, MOBILE, ENABLED, ACCOUNT_NON_EXPIRED, CREDENTIALS_NON_EXPIRED,
+    ACCOUNT_NON_LOCKED, ORGAN_UUID, NICE_NAME, IS_ADMIN, MAXIMUMSESSIONS, REGISTERDATE,
     LASTLOGINTIME, PWDQUE, PWDANS, REMARK, DEPID, STATUS, MODTIME, MODIFIERID, IS_SUM
   </sql>
 
   <select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from pt_user
     where USER_UUID = #{id}
@@ -275,11 +275,11 @@
     </set>
     where USER_UUID = #{userUuid,jdbcType=VARCHAR}
   </update>
-  <select id="selectALL"  parameterType="String"   resultMap="BaseResultMap">
+  <select id="selectALL"  parameterType="java.lang.StringBuffer"   resultMap="BaseResultMap">
 
     select <include refid="Base_Column_List" /> from pt_user where 1=1
-    <if test="whereSql!=null">
-      ${whereSql}
+    <if test="_parameter!=null">
+      ${_parameter}
     </if>
 
   </select>

@@ -18,8 +18,18 @@
     <result column="contractURL" property="contracturl" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
+
   <resultMap id="ResultMapWithBLOBs" type="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" extends="BaseResultMap" >
     <result column="Remark" property="remark" jdbcType="LONGVARCHAR" />
+  </resultMap>
+
+  <resultMap id="bondContractMap" type="java.util.HashMap">
+    <result column="contract_no" property="contractNo" jdbcType="VARCHAR" />
+    <result column="NAME" property="supplierName" jdbcType="VARCHAR" />
+    <result column="calorificNumSum" property="calorificNumSum" jdbcType="VARCHAR" />
+    <result column="SUPPLIERID" property="supplierId" jdbcType="VARCHAR" />
+    <result column="createDate" property="createDate" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
   </resultMap>
 
 
@@ -226,6 +236,46 @@
 
     limit #{offset} ,#{pageSize}
 
+
+
+  </select>
+
+  <!--长协交易查看-->
+  <select id="selectBondcontractInfo" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" resultMap="bondContractMap">
+    select d.contract_no, c.NAME,d.calorificNumSum,d.SUPPLIERID,d.createDate,
+    case   d.status when '1' then '已保存'
+    when '2' then '已提交' when '3' THEN  '已完成' else    NULL end status
+    from t_fultbsupplier c,
+    (select b.contract_no, sum(IFNULL(a.CalorificNum,0)) calorificNumSum,
+    b.SUPPLIERID,b.status, STR_TO_DATE(b.createDate,'%Y%m%d') createDate
+    from pt_bondcontractdetail a right join
+    pt_bondcontracttab b  on  a.Contract_no=b.Contract_no
+    group by b.contract_no,b.SUPPLIERID,b.status,b.createDate)  d
+    where c.SUPPLIERID=d.SUPPLIERID
+    <!--<if test="_parameter!=null">
+      and c.NAME like '%${_parameter}%'
+    </if>-->
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+  </select>
+  <!--长协交易查看-->
+  <select id="selectBondcontractInfoTotal" parameterType="com.isoftstone.gdcoal.entity.PtBondcontracttabEntity" resultType="int">
+    select  count(*) from t_fultbsupplier c,
+    (select b.contract_no, sum(IFNULL(a.CalorificNum,0)) calorificNumSum,
+    b.SUPPLIERID,b.status,b.createDate
+    from pt_bondcontractdetail a right join
+    pt_bondcontracttab b  on  a.Contract_no=b.Contract_no
+    group by b.contract_no,b.SUPPLIERID,b.status,b.createDate)  d
+    where c.SUPPLIERID=d.SUPPLIERID
+    <!--<if test="_parameter!=null">
+      and c.NAME like '%${_parameter}%'
+    </if>-->
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
 
 
   </select>

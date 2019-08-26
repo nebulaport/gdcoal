@@ -7,5 +7,5 @@ import java.util.List;
  
 
 public interface PtDepartmentDao extends BaseDao<PtDepartmentEntity> {
-    
+    public int deleteDept(String organUUID);//status修改为0
 }

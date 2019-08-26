@@ -21,5 +21,8 @@
 <script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker-1.9.0-dist/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>js/bootstrap-datepicker-1.9.0-dist/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 
+<!--bootstrap-treeview-->
+<link rel="stylesheet" type="text/css" href="<%=basePath%>js/bootstrap-treeview/dist/bootstrap-treeview.min.css">
+<script type="text/javascript" src="<%=basePath%>js/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
 
 

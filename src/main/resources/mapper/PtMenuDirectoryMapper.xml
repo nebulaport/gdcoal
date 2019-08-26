@@ -19,6 +19,30 @@
     <result column="REALID" property="realid" jdbcType="VARCHAR" />
   </resultMap>
 
+  <resultMap id="menuResMap" type="java.util.HashMap">
+
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="DIR_NAME" property="dirName" jdbcType="VARCHAR" />
+    <result column="DIR_LEVEL_NUMBER" property="dirLevelNumber" jdbcType="VARCHAR" />
+    <result column="DIR_TYPE" property="dirType" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="RES_URL" property="resUrl" jdbcType="VARCHAR" />
+    <result column="IS_ADMIN" property="isAdmin" jdbcType="VARCHAR" />
+    <result column="DIR_ORDER" property="dirOrder" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <resultMap id="menuResult" type="java.util.HashMap">
+
+    <result column="id" property="id" jdbcType="VARCHAR" />
+    <result column="DIR_NAME" property="dirName" jdbcType="VARCHAR" />
+    <result column="DIR_LEVEL_NUMBER" property="dirLevelNumber" jdbcType="VARCHAR" />
+    <result column="DIR_TYPE" property="dirType" jdbcType="VARCHAR" />
+    <result column="PARENT_ID" property="parentId" jdbcType="VARCHAR" />
+    <result column="RES_URL" property="resUrl" jdbcType="VARCHAR" />
+
+
+  </resultMap>
+
 
   <sql id="Base_Column_List" >
     ID, LOCALE, DIR_CODE, DIR_NAME, DIR_LEVEL_NUMBER, DIR_TYPE, RESOURCE_ID, PARENT_ID, 
@@ -206,6 +230,41 @@
     </if>
 
     limit #{offset} ,#{pageSize}
+
+
+  </select>
+
+
+
+  <!--根据系统用户id，查询可访问目录结构-->
+  <select id="selectUserMenuDir" parameterType="string" resultMap="menuResMap">
+
+
+select e.id,e.DIR_NAME,e.DIR_LEVEL_NUMBER,e.DIR_TYPE,e.PARENT_ID,f.RES_URL ,a.IS_ADMIN ,
+e.DIR_ORDER
+from pt_user a, pt_role b,pt_role_user
+c,pt_role_res d ,pt_menu_directory e ,
+pt_res f
+where a.USER_UUID=c.USER_UUID and b.ROLE_UUID=c.ROLE_UUID
+ and e.id=d.ID and d.ROLE_UUID=b.ROLE_UUID
+and f.id=e.RES_UUID   and e.FLAG=1 and e.STATUS=1
+
+and a.USER_UUID=#{userid}
+
+  </select>
+
+  <select id="selectAllMenus" parameterType="string" resultMap="menuResult">
+
+
+    select e.id,e.DIR_NAME,e.DIR_LEVEL_NUMBER,e.DIR_TYPE,e.PARENT_ID,f.RES_URL  ,
+    e.DIR_ORDER
+    from  pt_menu_directory e ,
+    pt_res f
+    where
+    f.id=e.RES_UUID   and e.FLAG=1 and e.STATUS=1
+    <if test="_parameter!=null">
+      e.DIR_LEVEL_NUMBER=#{_parameter}
+    </if>
 
 
   </select>

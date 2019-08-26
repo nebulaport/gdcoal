@@ -63,7 +63,7 @@ public class PtOrganController {
         }
         entity.setWhereSql(whereSql);
         entity.setTotal(ptOrganService.selectTotal(entity));
-        List<PtOrganEntity> list=ptOrganService.selectOrganPage(entity);
+        List<Map<String, Object>> list=ptOrganService.selectOrganPage(entity);
         //请对象HttpServletRequest   HttpServletResponse
        // request.setAttribute("rows",list);//将数据放入请求对象，该数据在本次请求中一直存在
         //request.setAttribute("entity",entity);

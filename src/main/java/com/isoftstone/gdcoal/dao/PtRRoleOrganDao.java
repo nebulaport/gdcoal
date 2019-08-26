@@ -7,5 +7,5 @@ import com.isoftstone.gdcoal.framework.dao.BaseDao;
  
 
 public interface PtRRoleOrganDao extends BaseDao<PtRRoleOrganEntity> {
-    
+    public  int deleteRUserDytyOrgan(String dutyid);
 }

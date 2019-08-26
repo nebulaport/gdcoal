@@ -65,7 +65,5 @@
     </servlet-mapping>
 
 
-    <welcome-file-list>
-        <welcome-file>main.jsp</welcome-file>
-    </welcome-file-list>
+
 </web-app>

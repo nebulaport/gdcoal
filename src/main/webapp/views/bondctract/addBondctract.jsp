@@ -2,13 +2,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>长协交易创建</title>
+    <title>Title</title>
     <%@include file="/include.jsp"%>
     <style type="text/css">
         .formRow{padding-left:50px;padding-top:20px;}
         .formRow .form-group label{color:#052963;}
         .panelTitle{color:#052963;font-weight:bold;font-family:"黑体"}
-        .form-group{padding-left:10px;}
+        .form-group{padding-left:10px;height:80px;}
         .font-table{color:#052963}
     </style>
     <script type="text/javascript">
@@ -91,24 +91,49 @@
                 }
 
             });
+
+
+
             //点击保存
             $("#saveBtn").click(function(){
+                var flag=true;
+                //校验煤炭数值
+                $("#coalRow tr td input[name='purchasenum'],#coalRow tr td input[name='calorificnum']").each(function(){
+                    checkType($(this));
+                    var reg=/^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+                    if(!reg.test($(this).val())){
+                        flag=false;
+                    }
+                });
                 //开始校验
                 $("#addBondctractForm").bootstrapValidator('validate');//提交验证
-                if ($("#addBondctractForm").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
+                if ($("#addBondctractForm").data('bootstrapValidator').isValid()&&flag) {//获取验证结果，如果成功，执行下面代码
                     $("#status").val('1');
                     $("#addBondctractForm")[0].submit();
                 }
             });
             //点击提交
             $("#submitBtn").click(function(){
+                var flag=true;
+                //校验煤炭数值
+                $("#coalRow tr td input[name='purchasenum'],#coalRow tr td input[name='calorificnum']").each(function(){
+                    checkType($(this));
+                    var reg=/^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+                    if(!reg.test($(this).val())){
+                        flag=false;
+                    }
+                });
+
                 //开始校验
                 $("#addBondctractForm").bootstrapValidator('validate');//提交验证
-                if ($("#addBondctractForm").data('bootstrapValidator').isValid()) {//获取验证结果，如果成功，执行下面代码
+                if ($("#addBondctractForm").data('bootstrapValidator').isValid()&&flag) {//获取验证结果，如果成功，执行下面代码
                     $("#status").val('2');
                     $("#addBondctractForm")[0].submit();//必须注意；一定写下标，然后submit
                 }
             });
+
+
+
         });
 
        function  coalType1(obj){
@@ -142,17 +167,37 @@
                    +" </select>"
                    +" </td>"
                    +"<td>"
-                   +" <input   type='text' class='form-control' name='purchasenum'  >"
-                   +" </td>"
+                   +" <input   type='text' required class='form-control'  id='purchasenum' onblur='checkType(this)' name='purchasenum' >"
+                   +" <span></span></td>"
                    +"<td>"
-                   +" <input   type='text' class='form-control'   name='calorificnum'>"
-                   +" </td>"
+                   +" <input   type='text' required class='form-control'   name='calorificnum' onblur='checkType(this)'>"
+                   +"<span></span> </td>"
                    +" <td>"
-                   +" <a   class='btn btn-primary'>删除</a>"
+                   +" <a   class='btn btn-primary'  href='javascript:void(0)' onclick='deleteRow(this)'>删除</a>"
                    +"</td>"
                    +"</tr>";
                    $("#coalRow").append($(tr));
 
+
+
+       }
+
+        //删除煤质信息行
+        function deleteRow(obj){
+            $(obj).parent().parent().remove();
+            $("#coalRow").find("tr").each(function(i){//each即找到的元素，每一个都执行该方法
+               $(this).find("td:first").html(i+1);
+            });
+        }
+
+        function checkType(obj){
+            var reg=/^(\-\+)?(([^0][0-9]+|0)\.([0-9]{1,2})$)|^(([^0][0-9]+|0)$)|^(([1-9]+)\.([0-9]{1,2})$)|^(([1-9]+)$)/;
+            var alt="<small class='help-block' style='color:#a94442' data-bv-validator='notEmpty'>必须纯数字</small>";
+            if(!reg.test($(obj).val())){
+                $(obj).next("span").html(alt);
+            }else{
+                $(obj).next("span").html("");
+            }
        }
 
     </script>
@@ -275,7 +320,7 @@
 
                 <div class="form-group">
                     <label  >备注</label>
-                    <textarea class="form-group" name="desc">
+                    <textarea class="form-control" rows="5" cols="20" name="desc">
                     </textarea>
                 </div>
             </div>

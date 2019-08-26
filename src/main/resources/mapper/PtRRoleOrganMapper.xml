@@ -97,4 +97,8 @@
 
 
   </select>
+
+  <delete id="deleteRUserDytyOrgan" parameterType="string">
+    delete from PT_R_USER_DUTY_ORG where DUTYID =#{dutyid}
+  </delete>
 </mapper>

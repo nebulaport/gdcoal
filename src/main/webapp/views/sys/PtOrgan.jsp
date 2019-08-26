@@ -84,24 +84,35 @@
                     状态(可用/禁用)
                 </th>
                 <th>
+                    上级组织机构名称
+                </th>
+                <th>
+                    上级机构类型
+                </th>
+                <th>
+                    上级机构状态(可用/禁用)
+                </th>
+                <th>
                     备注
                 </th>
                 <th>操作</th>
             </tr>
-
 
             </thead>
             <tbody>
             <c:forEach items="${rows}" var="r"   varStatus="st">
                 <tr>
                     <td class="text-nowrap" scope="row">${st.count}</td>
-                    <td>${r.organName}</td>
-                    <td>${r.organType}</td>
-                    <td>${r.inUse}</td>
+                    <td>${r.eorganName}</td>
+                    <td>${r.eorganType}</td>
+                    <td>${r.einUse}</td>
+                    <td>${r.dorganName}</td>
+                    <td>${r.dorganType}</td>
+                    <td>${r.dinUse}</td>
                     <td>${r.description}</td>
                     <td>
-                        <a href="<%=basePath%>sys/deleteOrgan?organId=${r.organUuid}" class="btn btn-primary">删除</a>
-                        <a href="<%=basePath%>sys/selectById?organId=${r.organUuid}" class="btn btn-primary">修改</a>
+                        <a href="<%=basePath%>sys/deleteOrgan?organId=${r.eorganUuid}" class="btn btn-primary">删除</a>
+                        <a href="<%=basePath%>sys/selectOrganById?organId=${r.eorganUuid}" class="btn btn-primary">修改</a>
                     </td>
                 </tr>
             </c:forEach>

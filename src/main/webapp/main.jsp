@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -5,12 +6,15 @@
     <title>国电煤炭交易平台</title>
     <%@include file="/include.jsp"%>
     <script type="text/javascript">
+
         //点击导航访问url（获取当前a的url属性，赋值给iframe的src）
         function checkUrl(obj){
-           $("#mainFrame").attr("src", $(obj).attr("url"));
+            $("#mainFrame").attr("src", $(obj).attr("url"));
         }
 
     </script>
+
+
 </head>
 <body style="background-color:#F3F5F8">
 
@@ -29,7 +33,7 @@
                     <img class="img-responsive img-rounded"   src="<%=basePath%>image/user.jpg" alt="">
                 </div>
                 <div class="user-info">
-                    <span class="user-name" style="font-size:16px;">张三</span>
+                    <span class="user-name" style="font-size:16px;">${niceName}</span>
                     <span class="user-role"  style="font-size:14px;color:#f5f5f5">电厂采购员</span>
                     <div class="user-status">
                         <%--<a href="#"><span class="label label-success">Online</span></a>--%>
@@ -38,62 +42,23 @@
             </div><!-- sidebar-header  -->
 
             <div class="sidebar-menu">
-                <ul>
-                    <li class="header-menu"><span>系统菜单>></span></li>
-                    <li class="sidebar-dropdown">
-                        <a  href="#" ><i class="fa fa-tv"></i><span>系统信息管理</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>sys/selectOrganPage?pageNow=1">组织机构管理</a></li>
-                                <li><a href="#">部门信息管理</a></li>
-                                <li><a href="#">岗位信息管理</a></li>
-                                <li><a href="#">用户信息管理</a></li>
-                                <li><a href="#">角色信息管理</a></li>
-                                <li><a href="#">资源信息管理</a></li>
-                                <li><a href="#">菜单目录管理</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a href="#"><i class="fa fa-photo"></i><span>会员中心</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/check/toDo?pageNow=1">代办中心管理</a></li>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/check/selectPurchapplyPage?pageNow=1">采购审批管理</a></li>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>/execute/selectApplydetailPage?pageNow=1">采购执行管理</a></li>
+                <ul id="ptMenuTree">
+                     <li class="header-menu"><span>系统菜单>></span></li>
+                      <c:forEach items="${menus}" var="menu" >
+                             <li class="sidebar-dropdown">
+                                <a  href="${menu.href}" ><i class="fa fa-tv"></i><span>${menu.text}</span></a>
+                                <c:if test="${menu.nodes!=null&&menu.nodes!=''}">
+                                    <div class="sidebar-submenu">
+                                        <ul>
+                                            <c:forEach items="${menu.nodes}" var="nav">
+                                            <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>${nav.href}">${nav.text}</a></li>
+                                            </c:forEach>
+                                        </ul>
+                                    </div>
+                                </c:if>
 
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a href="#"><i class="fa fa-photo"></i><span>保证金管理</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-
-                                <li><a href="#">保证金明细</a></li>
-
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a href="#"><i class="fa fa-photo"></i><span>长协交易管理</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-
-                                <li><a href="#">长协交易查询</a></li>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>bondCtractManager/loadAddBondCtractPage">长协交易创建</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="sidebar-dropdown">
-                        <a href="#"><i class="fa fa-photo"></i><span>采购申请管理</span></a>
-                        <div class="sidebar-submenu">
-                            <ul>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadTFultbtemplate">采购申请查询</a></li>
-                                <li><a href="javascript:void(0)" onclick="checkUrl(this)" url="<%=basePath%>tFultbtemplateManager/loadCreateTFultbtemplate">采购申请创建</a></li>
-                            </ul>
-                        </div>
-                    </li>
+                            </li>
+                      </c:forEach>
 
 
                 </ul>
@@ -136,7 +101,6 @@
         </div>
 
 
-
         <!--内容部分-->
         <iframe id="mainFrame" src="<%=basePath%>demo/content.jsp" frameborder="0" style="width:100%;height:100%" style="margin:0px;"></iframe>
         <div style="text-align:center;font-size:12px;">
@@ -146,6 +110,9 @@
 </div><!-- page-wrapper -->
 
 </div>
+<script type="text/javascript">
 
+
+</script>
 </body>
 </html>

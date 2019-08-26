@@ -8,7 +8,20 @@
      ORGAN_TYPE ORGANTYPE, IN_USE INUSE, PARENT_UUID PARENTUUID, STATUS, MODIFIERID,
     MODTIME, DESCRIPTION, account_code accountcode
   </sql>
+  <resultMap id="resMap" type="java.util.HashMap">
+    <result property="eorganUuid" column="eorgan_uuid" javaType="java.lang.String"></result>
+    <result property="eorganCode" column="eorgan_code" javaType="java.lang.String"></result>
+    <result property="eorganName" column="eorgan_name" javaType="java.lang.String"></result>
+    <result property="eorganType" column="eorgan_type" javaType="java.lang.String"></result>
+    <result property="einUse" column="ein_use" javaType="java.lang.String"></result>
+    <result property="dorganUuid" column="dORGAN_UUID" javaType="java.lang.String"></result>
+    <result property="dorganCode" column="dORGAN_CODE" javaType="java.lang.String"></result>
+    <result property="dorganName" column="dORGAN_NAME" javaType="java.lang.String"></result>
+    <result property="dorganType" column="dORGAN_TYPE" javaType="java.lang.String"></result>
+    <result property="dinUse" column="din_use" javaType="java.lang.String"></result>
+    <result property="dorganType" column="dorgan_type" javaType="java.lang.String"></result>
 
+  </resultMap>
 
 
 
@@ -134,16 +147,16 @@
   </select>
   <select id="selectALL"  parameterType="String"  resultType="com.isoftstone.gdcoal.entity.PtOrganEntity">
 
-    select <include refid="Base_Column_List" /> from pt_organ where 1=1
-    <if test="whereSql!=null">
-      ${whereSql}
+    select <include refid="Base_Column_List" /> from pt_organ where 1=1   and status='1'
+    <if test="_parameter!=null">
+      ${_parameter}
     </if>
 
   </select>
 
 
   <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" resultType="int">
-    select count(*) from pt_organ where 1=1
+    select count(*) from pt_organ e  where 1=1 and e.status='1'
     <if test="whereSql!=null" >
       ${whereSql }
     </if>
@@ -152,13 +165,36 @@
     select ORGAN_UUID ORGANUUID, ORGAN_CODE ORGANCODE, ORGAN_NAME ORGANNAME,
     ORGAN_TYPE ORGANTYPE, case when IN_USE is null then null when IN_USE='N' then '禁用'
     when IN_USE='Y' then '启用' end INUSE, PARENT_UUID PARENTUUID, STATUS, MODIFIERID,
-    MODTIME, DESCRIPTION, account_code accountcode  from pt_organ where 1=1
+    MODTIME, DESCRIPTION, account_code accountcode  from pt_organ where 1=1 and pt_organ.status='1'
     <if test="whereSql!=null">
       ${whereSql }
     </if>
 
-      limit #{offset} ,#{pageSize}
+    limit #{offset} ,#{pageSize}
 
+
+  </select>
+  <!--含上级组织机构信息-->
+  <select id="selectOrgansPage" parameterType="com.isoftstone.gdcoal.entity.PtOrganEntity" resultMap="resMap">
+    select e.organ_uuid  eorgan_uuid,e.organ_code eorgan_code,e.organ_name eorgan_name,e.organ_type eorgan_type,
+    case when e.IN_USE is null then null when e.IN_USE='N' then '禁用'
+    when e.IN_USE='Y' then '启用' end   ein_use,
+    d.ORGAN_UUID dORGAN_UUID,d.ORGAN_CODE dORGAN_CODE,d.ORGAN_NAME dORGAN_NAME,d.ORGAN_TYPE dORGAN_TYPE,case when d.IN_USE is null then null when d.IN_USE='N' then '禁用'
+    when d.IN_USE='Y' then '启用' end    din_use,
+    d.organ_type dorgan_type
+    from pt_organ e left join  pt_organ d on e.PARENT_UUID=d.ORGAN_UUID
+    where 1=1 and e.status='1'
+
+    <if test="whereSql!=null">
+      ${whereSql }
+    </if>
+
+    limit #{offset} ,#{pageSize}
+  </select>
+  <select id="selectParentOrgan" parameterType="string" resultType="com.isoftstone.gdcoal.entity.PtOrganEntity">
+    select <include refid="Base_Column_List"></include>
+    from pt_organ where ORGAN_UUID in
+    (select pt_organ.PARENT_UUID from pt_organ where organ_uuid=#{id})
 
   </select>
 </mapper>
