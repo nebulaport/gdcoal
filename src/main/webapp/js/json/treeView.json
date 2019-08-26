@@ -1,0 +1,110 @@
+[
+  {
+    "href": "javascript:void(0)",
+    "icon": "",
+    "nodeId": "1",
+    "nodes": [],
+    "pid": "0",
+    "text": "系统信息管理"
+  },
+  {
+    "href": "javascript:void(0)",
+    "icon": "",
+    "nodeId": "2",
+    "nodes": [
+      {
+        "href": "check\/toDo?pageNow=1",
+        "icon": "",
+        "nodeId": "12",
+        "nodes": "",
+        "pid": "2",
+        "text": "待办中心管理"
+      },
+      {
+        "href": "check\/selectPurchapplyPage?pageNow=1",
+        "icon": "",
+        "nodeId": "13",
+        "nodes": "",
+        "pid": "2",
+        "text": "采购审批管理"
+      },
+      {
+        "href": "execute\/selectApplydetailPage?pageNow=1",
+        "icon": "",
+        "nodeId": "14",
+        "nodes": "",
+        "pid": "2",
+        "text": "采购执行管理"
+      }
+    ],
+    "pid": "0",
+    "text": "会员中心"
+  },
+  {
+    "href": "javascript:void(0)",
+    "icon": "",
+    "nodeId": "3",
+    "nodes": [
+      {
+        "href": "#",
+        "icon": "",
+        "nodeId": "15",
+        "nodes": "",
+        "pid": "3",
+        "text": "保证金明细"
+      }
+    ],
+    "pid": "0",
+    "text": "保证金管理"
+  },
+  {
+    "href": "javascript:void(0)",
+    "icon": "",
+    "nodeId": "4",
+    "nodes": [
+      {
+        "href": "bondCtractManager\/selectBondCtractMessage?pageNow=1",
+        "icon": "",
+        "nodeId": "16",
+        "nodes": "",
+        "pid": "4",
+        "text": "长协交易查询"
+      },
+      {
+        "href": "bondCtractManager\/loadAddBondCtractPage",
+        "icon": "",
+        "nodeId": "17",
+        "nodes": "",
+        "pid": "4",
+        "text": "长协交易创建"
+      }
+    ],
+    "pid": "0",
+    "text": "长协交易管理"
+  },
+  {
+    "href": "javascript:void(0)",
+    "icon": "",
+    "nodeId": "18",
+    "nodes": [
+      {
+        "href": "#",
+        "icon": "",
+        "nodeId": "19",
+        "nodes": "",
+        "pid": "18",
+        "text": "采购需求创建"
+      },
+      {
+        "href": "#",
+        "icon": "",
+        "nodeId": "20",
+        "nodes": "",
+        "pid": "18",
+        "text": "采购申请信息"
+      }
+    ],
+    "pid": "0",
+    "text": "采购申请管理"
+  }
+]
