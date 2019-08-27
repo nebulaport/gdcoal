@@ -443,9 +443,9 @@ INSERT INTO `pt_res` VALUES ('15', '15', '15', '长协交易管理', 'javascript
 INSERT INTO `pt_res` VALUES ('16', '16', '16', '长协交易查询', 'bondCtractManager/selectBondCtractMessage?pageNow=1', null, null, null);
 INSERT INTO `pt_res` VALUES ('17', '17', '17', '长协交易创建', 'bondCtractManager/loadAddBondCtractPage', null, null, null);
 INSERT INTO `pt_res` VALUES ('18', '18', '18', '采购申请管理', 'javascript:void(0)', null, null, null);
-INSERT INTO `pt_res` VALUES ('19', '19', '19', '采购需求创建', '#', null, null, null);
+INSERT INTO `pt_res` VALUES ('19', '19', '19', '采购需求创建', 'tFultbtemplateManager/loadCreateTFultbtemplate', null, null, null);
 INSERT INTO `pt_res` VALUES ('2', '2', '2', '部门信息管理', 'sys/selectDepartmentPage?pageNow=1', null, null, null);
-INSERT INTO `pt_res` VALUES ('20', '20', '20', '采购审请信息', '#', null, null, null);
+INSERT INTO `pt_res` VALUES ('20', '20', '20', '采购审请信息', 'tFultbtemplateManager/loadTFultbtemplate', null, null, null);
 INSERT INTO `pt_res` VALUES ('3', '3', '3', '组织机构信息管理', 'sys/selectOrganPage?pageNow=1', null, null, null);
 INSERT INTO `pt_res` VALUES ('4', '4', '4', '岗位信息管理', 'sys/selectPtRRoleOrganPage?pageNow=1', null, null, null);
 INSERT INTO `pt_res` VALUES ('5', '5', '5', '用户信息管理', '#', null, null, null);
