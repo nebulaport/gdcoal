@@ -49,6 +49,7 @@
          }
          function searchByStatus(status){
              $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?STATUS="+status).submit();
+//             $(":radio").attr("checked", "true");
          }
     </script>
 </head>
@@ -71,15 +72,15 @@
                             <label style = "color:#0166CD;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
                         </div>
                         <div class="form-group">
-                            <lable class="input"><a href="javascript:void(0)" onclick="firstPage()"><input type="radio" name="status" id = "all" value = '' ></a>全部</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="firstPage();checked = 'checked'"><input type="radio" name="status" id = "all" value = '' ></a>全部</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('0')"><input type="radio" name="status" id = "0"  value = '0' ></a>草稿</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('0');checked = 'checked'"><input type="radio" name="status" id = "0"  value = '0' ></a>草稿</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('1')"><input type="radio" name="status" id = "1"  value = '1' ></a>审核中</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('1');checked = 'checked'"><input type="radio" name="status" id = "1"  value = '1' ></a>审核中</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('2')"><input type="radio" name="status" id = "2"  value = '2' ></a>已发布</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('2');checked = 'checked'"><input type="radio" name="status" id = "2"  value = '2' ></a>已发布</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('3')"><input type="radio" name="status" id = "3"  value = '3' ></a>已驳回</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('3');checked = 'checked'"><input type="radio" name="status" id = "3"  value = '3' ></a>已驳回</lable>
                         </div>
                     </div>
                     <div class="formRow" style = "padding-top: 20px;padding-left: 20px; border-bottom: 1px dashed #C9C9C9;">
