@@ -1,8 +1,10 @@
 package com.isoftstone.gdcoal.controller;
 
+import com.isoftstone.gdcoal.entity.PtUserEntity;
 import com.isoftstone.gdcoal.entity.TFultbpurchasingapplyEntity;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplyService;
 import com.isoftstone.gdcoal.utils.DateUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -76,7 +78,7 @@ public class TFultbpurchasingapplyController {
      * 审核通过/不通过
      */
     @RequestMapping("/checkApply")
-    public String applyPass(String purchapplyid, Integer check) {
+    public String applyPass(String purchapplyid, Integer check,HttpServletRequest request) {
         TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPurchapplyid(purchapplyid);
         if (check==1){
@@ -84,7 +86,9 @@ public class TFultbpurchasingapplyController {
         }else if (check==0){
             entity.setApplystate("已驳回");
         }
-        entity.setOperuser("001");//暂时写死
+        //获取当前登录用户
+        PtUserEntity user=(PtUserEntity) SecurityUtils.getSubject().getPrincipal();
+        entity.setOperuser(user.getUserUuid());
         entity.setOperdate(DateUtils.getCurrentTime());
 
         int i = tFultbpurchasingapplyService.updatePurchapply(entity);
@@ -110,13 +114,11 @@ public class TFultbpurchasingapplyController {
            whereSql.append(" and t_fultbpurchasingapply.applystate not in('已下达','已驳回') ");
        }else if("toFill".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已下达'");
-//           whereSql.append(" and t_fultbpurchasingapply.purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
+
        }else if ("rejected".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已驳回'");
        }
-//       else{
-//           whereSql.append("and purchapplyid not in(select purchapplyid from t_fultbpurchasingapplydetail where purchapplyid is not null)");
-//       }
+
 
         TFultbpurchasingapplyEntity purchapply = new TFultbpurchasingapplyEntity();
         purchapply.setPageNow(pageNow);

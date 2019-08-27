@@ -1,11 +1,13 @@
 package com.isoftstone.gdcoal.controller;
 
+import com.isoftstone.gdcoal.entity.PtUserEntity;
 import com.isoftstone.gdcoal.entity.TFultbpurchasingapplyEntity;
 import com.isoftstone.gdcoal.entity.TFultbpurchasingapplydetailEntity;
 import com.isoftstone.gdcoal.entity.TFultbsupplierEntity;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplyService;
 import com.isoftstone.gdcoal.service.TFultbpurchasingapplydetailService;
 import com.isoftstone.gdcoal.utils.DateUtils;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,6 +103,9 @@ public class TFultbpurchasingapplydetailController {
         applydetail.setZbprice(zbprice);
         applydetail.setQty(qty);
         applydetail.setCreatedate(DateUtils.getCurrentDate());
+        //获取当前登录用户
+        PtUserEntity user=(PtUserEntity) SecurityUtils.getSubject().getPrincipal();
+        applydetail.setCreateuser(user.getUserUuid());
 
 
         int i= tFultbpurchasingapplydetailService.saveApplydetail(applydetail);
