@@ -188,13 +188,11 @@ public class TFultbtemplateController {
         StringBuffer whereSql = new StringBuffer("");
         TFultbtemplateEntity entity = new TFultbtemplateEntity();
         entity.setPageNow(pageNow);
-        entity.setBillnumber(billnumber);
-        entity.setStatus(status);
         if(billnumber != null && !billnumber.trim().equals("")){
             whereSql.append(" and BILLNUMBER = '" + billnumber + "'");
         }
         if(status != null && !status.trim().equals("")){
-            whereSql.append(" and STATUS = '" + status + "'");
+            whereSql.append(" and STATUS = '" + status.charAt(1) + "'");
         }
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbtemplateService.selectTotalTFultbtemplate(entity));

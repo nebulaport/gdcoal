@@ -45,12 +45,11 @@
              $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow="+totalPage).submit();
          }
          function searchByBillnumber(billnumber){
-             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1&BILLNUMBER="+billnumber).submit();
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?BILLNUMBER="+billnumber).submit();
          }
          function searchByStatus(status){
-             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?pageNow=1&STATUS="+status).submit();
+             $("#searchTFultbtemplate").attr("action","<%=basePath%>tFultbtemplateManager/selectPageTFultbtemplate?STATUS="+status).submit();
          }
-
     </script>
 </head>
 <body>
@@ -69,18 +68,18 @@
                 <div class="panel panel-default">
                     <div class="formRow" style = "border-bottom:1px solid #8c8c8c;">
                         <div class="form-group" style = "border:1px solid #8c8c8c;background-color:#c4e3f3;text-align: center;width:100px;height:35px;">
-                            <label style = "color:#9acfea;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
+                            <label style = "color:#0166CD;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
                         </div>
                         <div class="form-group">
-                            <lable class="input"><input type="radio" name="status" id = "all" value = '' onclick="firstPage()">全部</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="firstPage()"><input type="radio" name="status" id = "all" value = '' ></a>全部</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" id = "0"  value = '0' onclick="searchByStatus('0')">草稿</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('0')"><input type="radio" name="status" id = "0"  value = '0' ></a>草稿</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" id = "1"  value = '1' onclick="searchByStatus('1')">审核中</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('1')"><input type="radio" name="status" id = "1"  value = '1' ></a>审核中</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" id = "2"  value = '2' onclick="searchByStatus('2')">已发布</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('2')"><input type="radio" name="status" id = "2"  value = '2' ></a>已发布</lable>
                                 &nbsp; &nbsp; &nbsp; &nbsp;
-                            <lable class="input"><input type="radio" name="status" id = "3"  value = '3' onclick="searchByStatus('3')">已驳回</lable>
+                            <lable class="input"><a href="javascript:void(0)" onclick="searchByStatus('3')"><input type="radio" name="status" id = "3"  value = '3' ></a>已驳回</lable>
                         </div>
                     </div>
                     <div class="formRow" style = "padding-top: 20px;padding-left: 20px; border-bottom: 1px dashed #C9C9C9;">
@@ -99,7 +98,7 @@
         <table class="table table-hover font-table">
             <thead>
 
-            <tr style = "color:#9acfea;font-size: 12px;font-weight: bold;font-family: '宋体';">
+            <tr style = "color:#0166CD;font-size: 12px;font-weight: bold;font-family: '宋体';">
                 <th>序号</th>
                 <th>
                     单据编号
