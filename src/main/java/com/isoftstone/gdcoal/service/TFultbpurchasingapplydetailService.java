@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @ClassName TFultbpurchasingapplydetailService
- * @Description TODO
+ * @Description
  * @Author NebulaPort
  * @Date 2019/8/14 14:59
  */

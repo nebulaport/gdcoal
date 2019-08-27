@@ -24,7 +24,7 @@ import java.util.UUID;
 
 /**
  * @ClassName TFultbpurchasingapplydetailController
- * @Description TODO
+ * @Description
  * @Author NebulaPort
  * @Date 2019/8/14 14:59
  */
