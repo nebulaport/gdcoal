@@ -153,6 +153,7 @@
                     // $("#addApplydetailForm")[0].submit();//必须注意；一定写下标，然后submit
                    //判重
                     var supplierid=$("#supplierid").val();
+
                     $.ajax({
                         url:"<%=basePath%>execute/saveApplydetailValidate",
                         data:{supplierid:supplierid},
@@ -174,6 +175,8 @@
         });
 
 
+
+
     </script>
 </head>
 <body>
@@ -190,7 +193,7 @@
             </h2>
         </div>
         <form class="form-inline"  id="addApplydetailForm"
-              action="<%=basePath%>execute/addApplydetailInfo" method="post">
+              action="<%=basePath%>execute/addApplydetailInfo" >
             <input type="hidden" id="status" name="status">
             <div class="panel-body">
                 <div class="panel panel-default">
@@ -246,8 +249,9 @@
                         </div>
                         <div class="formRow">
                             <div class="form-group">
-                                <label for="supplier">供应商名称（乙方）</label>
-                                <select required name="supplier" id="supplier" class="form-control">
+                                <label for="supplierid">供应商名称（乙方）</label>
+
+                                <select required name="supplierid" id="supplierid" class="form-control" >
                                     <option value="">--请选择--</option>
                                     <c:forEach items="${supplier}" var="e">
                                         <option value="${e.supplierid}">${e.shortname}-${e.name}</option>

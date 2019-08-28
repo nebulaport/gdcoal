@@ -49,7 +49,10 @@ public class TFultbpurchasingapplydetailService {
     public List<TFultbsupplierEntity> selectFultbsuppliers(){
         return tFultbsupplierDao.selectALL(null);
     }
+    public TFultbsupplierEntity selectOrganizationcode(String id){
+       return tFultbsupplierDao.selectById(id);
+    }
 
-    public List<TFultbpurchasingapplydetailEntity> selectApplydetail(TFultbpurchasingapplydetailEntity entity){return tFultbpurchasingapplydetailDao.selectALL(null);}
+    public List<TFultbpurchasingapplydetailEntity> selectApplydetail(StringBuffer whereSql){return tFultbpurchasingapplydetailDao.selectALL(whereSql);}
 
 }

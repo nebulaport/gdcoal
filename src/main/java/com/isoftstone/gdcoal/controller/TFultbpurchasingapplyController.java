@@ -42,14 +42,14 @@ public class TFultbpurchasingapplyController {
      */
     @RequestMapping("/selectPurchapplyPage")
     public String selectPurchapplyPage(String purchapplyid, Integer pageNow, HttpServletRequest request, Model model) {
-        if (!(pageNow != null && !pageNow.toString().equals(""))) {
+        if (!(pageNow != null && !"".equals(pageNow.toString()))) {
             pageNow = 1;
         }
         StringBuffer whereSql = new StringBuffer("");
         TFultbpurchasingapplyEntity entity = new TFultbpurchasingapplyEntity();
         entity.setPageNow(pageNow);
-        if (purchapplyid != null && !purchapplyid.trim().equals("")) {
-            whereSql.append(" and t_fultbpurchasingapply.PURCHAPPLYID like '%" + purchapplyid + "%' ");
+        if (purchapplyid != null && !"".equals(purchapplyid.trim())) {
+            whereSql.append(" and t_fultbpurchasingapply.PURCHAPPLYID like '%").append(purchapplyid).append("%' ");
         }
         whereSql.append("and applystate not in('已下达','已驳回')");
         entity.setWhereSql(whereSql);
@@ -111,7 +111,7 @@ public class TFultbpurchasingapplyController {
          StringBuffer whereSql = new StringBuffer("");
 
        if ("toCheck".equals(state)) {
-           whereSql.append(" and t_fultbpurchasingapply.applystate not in('已下达','已驳回') ");
+           whereSql.append(" and( t_fultbpurchasingapply.applystate not in('已下达','已驳回') or t_fultbpurchasingapply.applystate is null )");
        }else if("toFill".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已下达'");
 

@@ -500,7 +500,7 @@
   </select>
   <select id="selectById" parameterType="String" resultType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity">
     select    <include refid="Base_Column_List" /> from t_fultbsupplier
-    where   SUPPLIERID = #{supplierid,jdbcType=VARCHAR
+    where   SUPPLIERID = #{supplierid,jdbcType=VARCHAR}
   </select>
   <select id="selectTotal" parameterType="com.isoftstone.gdcoal.entity.TFultbsupplierEntity" resultType="int">
     select count(*) from t_fultbsupplier where 1=1
