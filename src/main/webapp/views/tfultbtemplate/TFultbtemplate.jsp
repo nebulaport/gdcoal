@@ -69,7 +69,6 @@
         <div class="table-responsive">
             <h3 class="panel-title panelTitle" style = "background-color: #0166CD;padding-top: 5px;padding-bottom:5px;font-family: '黑体';">采购申请列表</h3>
             <form class="form-inline" method="post"  id="searchTFultbtemplate" action = "">
-                <input type="hidden" id="status" name="status">
                 <div class="panel panel-default">
                     <div class="formRow" style = "border-bottom:1px solid #8c8c8c;">
                         <div class="form-group" style = "border:1px solid #8c8c8c;background-color:#c4e3f3;text-align: center;width:100px;height:35px;">
