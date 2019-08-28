@@ -123,6 +123,12 @@
                     <c:if test="${r.applystate=='已下达'}">
                         <a href="<%=basePath%>execute/selectById?purchapplyid=${r.purchapplyid}" class="btn btn-primary">填报</a>
                     </c:if>
+
+                    <c:if test="${r.applystate=='已驳回'}">
+                        <a href="<%=basePath%>check/selectById?purchapplyid=${r.purchapplyid}"
+                           class="btn btn-primary">查看</a>
+                    </c:if>
+
                     </td>
 
                 </tr>

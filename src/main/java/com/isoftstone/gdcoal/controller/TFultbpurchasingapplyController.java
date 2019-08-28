@@ -51,7 +51,8 @@ public class TFultbpurchasingapplyController {
         if (purchapplyid != null && !"".equals(purchapplyid.trim())) {
             whereSql.append(" and t_fultbpurchasingapply.PURCHAPPLYID like '%").append(purchapplyid).append("%' ");
         }
-        whereSql.append("and applystate not in('已下达','已驳回')");
+        whereSql.append(" and( t_fultbpurchasingapply.applystate not in('已下达','已驳回') or t_fultbpurchasingapply.applystate is null )");
+
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbpurchasingapplyService.selectTotal(entity));
         List<TFultbpurchasingapplyEntity> list = tFultbpurchasingapplyService.selectPurchapplyPage(entity);
@@ -117,6 +118,8 @@ public class TFultbpurchasingapplyController {
 
        }else if ("rejected".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已驳回'");
+       }else{
+           whereSql.append(" and t_fultbpurchasingapply.applystate !='已驳回'");
        }
 
 
