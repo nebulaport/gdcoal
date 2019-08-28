@@ -617,7 +617,7 @@
       QTY,
       case JIESUAN_MODE when '1' then '一票结算' when '2' then '两票结算' when '3' then '铁路大票结算' when '4' then '煤款税票' when '5' then '其他' else null end JIESUANMODE,
       CREATEUSER,
-      case   STATUS  when '0' then '草稿'
+      case STATUS  when '0' then '草稿'
       when '1' then '审核中' when '2' then  '已发布' when '3' then  '已驳回' else NULL end STATUS from t_fultbtemplate where 1=1
      <if test="whereSql!=null">
       ${whereSql}
