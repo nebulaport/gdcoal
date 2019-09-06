@@ -71,7 +71,7 @@
             <form class="form-inline" method="post"  id="searchTFultbtemplate" action = "">
                 <div class="panel panel-default">
                     <div class="formRow" style = "border-bottom:1px solid #8c8c8c;">
-                        <div class="form-group" style = "border:1px solid #8c8c8c;background-color:#c4e3f3;text-align: center;width:100px;height:35px;">
+                        <div class="form-group" style = "border:1px solid #8c8c8c;background-color:#c4e3f3;text-align: center;width:130px;height:35px;">
                             <label style = "color:#0166CD;font-family: '宋体';padding-top: 10px;" >采购单状态：</label>
                         </div>
                         <div class="form-group">

@@ -344,12 +344,12 @@
                             <div class="formRow">
                                 <div class="form-group">
                                     <label>报价保证金缴纳：</label>
-
                                     <c:if test="${entity.isquotebond==0}">
                                         不要求<input type="radio" name="isquotebond" checked value="0">
                                         &nbsp; &nbsp; &nbsp; &nbsp;
                                         要求<input type="radio" name="isquotebond" value="1">
                                     </c:if>
+
                                     <c:if test="${entity.isquotebond==1}">
                                         不要求<input type="radio" name="isquotebond"  value="0">
                                         &nbsp; &nbsp; &nbsp; &nbsp;
