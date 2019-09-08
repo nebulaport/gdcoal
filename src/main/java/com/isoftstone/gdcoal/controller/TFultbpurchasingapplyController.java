@@ -112,14 +112,14 @@ public class TFultbpurchasingapplyController {
          StringBuffer whereSql = new StringBuffer("");
 
        if ("toCheck".equals(state)) {
-           whereSql.append(" and( t_fultbpurchasingapply.applystate not in('已下达','已驳回') or t_fultbpurchasingapply.applystate is null )");
+           whereSql.append(" and (t_fultbpurchasingapply.applystate not in('已下达','已驳回') or t_fultbpurchasingapply.applystate is null )");
        }else if("toFill".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已下达'");
 
        }else if ("rejected".equals(state)){
            whereSql.append(" and t_fultbpurchasingapply.applystate ='已驳回'");
        }else{
-           whereSql.append(" and t_fultbpurchasingapply.applystate !='已驳回'");
+           whereSql.append(" and (t_fultbpurchasingapply.applystate !='已驳回' or t_fultbpurchasingapply.applystate is null )");
        }
 
 

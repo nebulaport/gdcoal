@@ -10,7 +10,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>采购审批管理</title>
+    <title>待办中心管理</title>
     <%@include file="/include.jsp"%>
 
     <style type="text/css">
@@ -59,7 +59,7 @@
 <div class="panel panel-default">
     <div class="panel-heading" style="background-color:#05298F">
         <h2 class="panel-title" style="font-weight:bold; color:#fff;">
-            会员中心-<span style="font-size:14px;">采购审批管理</span>
+            会员中心-<span style="font-size:14px;">待办中心管理</span>
         </h2>
     </div>
     <div class="panel-body">
