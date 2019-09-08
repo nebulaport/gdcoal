@@ -182,7 +182,6 @@ public class TFultbtemplateController {
     //分页查询
     @RequestMapping("/tFultbtemplateManager/selectPageTFultbtemplate")
     public String selectPageTFultbtemplate(String status,String billnumber,Integer pageNow,Model model){
-        System.out.println(status);
         if(!(pageNow!=null&&!pageNow.toString().equals(""))){
             pageNow=1;
         }
@@ -192,11 +191,11 @@ public class TFultbtemplateController {
         if(billnumber != null && !billnumber.trim().equals("")){
             whereSql.append(" and BILLNUMBER = '" + billnumber + "'");
         }
-        if(status != null && status.equals(",all")){
+        if(status != null && status.equals("all")){
             status = null;
         }
         if(status != null && !status.trim().equals("")){
-            whereSql.append(" and STATUS = '" + status.substring(1) + "'");
+            whereSql.append(" and STATUS = '" + status + "'");
         }
         entity.setWhereSql(whereSql);
         entity.setTotal(tFultbtemplateService.selectTotalTFultbtemplate(entity));
